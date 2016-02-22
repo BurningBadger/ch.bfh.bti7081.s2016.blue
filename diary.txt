@@ -3,3 +3,4 @@
 Sergii Bilousov
 Denis Shevchenko
 Karol Ugorcak
+Michel Hosmann 	michel.hosmann@students.bfh.ch
