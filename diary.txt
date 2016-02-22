@@ -2,3 +2,4 @@
 ## Members
 Sergii Bilousov
 Denis Shevchenko
+Karol Ugorcak
