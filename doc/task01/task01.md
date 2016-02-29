@@ -26,7 +26,7 @@ Patients --> check own appointments, see prescriptions, manage own address
 ## 3. Critical success factors
 
 * data protection, patient-protection (following Data Protection Act and Mental Health Act)
-* Usability and user experience
+* Usability and user experience (user acceptance)
 * requirements implemented
 * stable and secure system
 * well project management, detailed planning
