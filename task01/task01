@@ -21,7 +21,7 @@ What were the main reasons the project failed?
 - GPA und GPL zu schwach in der Führung des Projekts
 
 Why is software complex?
-Heuzutage muss ein gutes Softwareprodukt die mehreren Anforderungen erfüllen, sowie:
+Heutzutage muss ein gutes Softwareprodukt viele Anforderungen erfüllen, z.B.:
 
 •	Robustheit,
 •	Reaktionsschnelligkeit,
@@ -31,8 +31,17 @@ Heuzutage muss ein gutes Softwareprodukt die mehreren Anforderungen erfüllen, s
 •	Sicherheit,
 •	Kontrollierbarkeit
 
-Um dies zu erreichen, werden meist unterschiedliche externe Libraries und Bibliotäken verwendet. Von dem her, kann das Software ziemlich complex aussehen.
+Um dies zu erreichen, werden meist unterschiedliche externe Libraries und Bibliotheken verwendet. Von dem her, kann das Software ziemlich komplex aussehen.
 
 Why is software engineering challenging?
+- Klare Spezifikationen sind schwierig zu formulieren
+- Kommunikation und Koordination in grossen Projekten schwierig
+- 
 
 What are the implications for software engineering?
+- starker GPL ist sehr wichtig, dieser sollte immer den Überblick haben und straff führen
+- Struktur und Planung sollte klar definiert sein und entsprechend umgesetzt werden
+- regelmässig Projektstand mit Zielen und Vorgaben vergleichen
+- der Umfang des Personals sollte nicht leichtfertig geändert werden
+- Abweichungen von der Planung sollten umgehend angegangen werden
+- das Reporting muss Fehler aufzeigen
