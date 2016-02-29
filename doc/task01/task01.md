@@ -25,5 +25,5 @@ Patients --> check own appointments, see prescriptions, manage own address
 
 ## 3. Critical success factors
 
-
+* data protection, patient-protection 
 
