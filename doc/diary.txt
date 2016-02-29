@@ -4,7 +4,7 @@ Sergii Bilousov
 Denis Shevchenko
 Karol Ugorcak  karol.ugorcak@students.bfh.ch
 Michel Hosmann 	michel.hosmann@students.bfh.ch
-Nicolas Schmid 
+Nicolas Schmid nicolasmanuel.schmid@students.bfh.ch
 Christoph Sutter aka Suddi suttc1@students.bfh.ch / christoph-erich.sutter@students.bfh.ch
 
 29.02.2016
