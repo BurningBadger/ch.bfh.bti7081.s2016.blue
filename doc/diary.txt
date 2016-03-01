@@ -10,3 +10,7 @@ Christoph Sutter aka Suddi suttc1@students.bfh.ch / christoph-erich.sutter@stude
 29.02.2016
 Anwesend: Denis Shevchenko, Nicolas Schmid, Christoph Sutter, Karol Ugorcak, Michel Hosmann
 -> Anwesende haben alle zur Lösung von Task 1 beigetragen
+
+01.03.2016
+Anwesend: Denis Shevchenko, Karol Ugorcak, Nicolas Schmid, Michel Hosmann
+-> nwesende haben alle zur Lösung von Task 2 beigetragen
