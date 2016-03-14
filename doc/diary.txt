@@ -1,0 +1,22 @@
+# Blue Group Diary
+## Members
+Sergii Bilousov
+Denis Shevchenko
+Karol Ugorcak  karol.ugorcak@students.bfh.ch
+Michel Hosmann 	michel.hosmann@students.bfh.ch
+Nicolas Schmid nicolasmanuel.schmid@students.bfh.ch
+Christoph Sutter aka Suddi suttc1@students.bfh.ch / christoph-erich.sutter@students.bfh.ch
+
+29.02.2016
+Anwesend: Denis Shevchenko, Nicolas Schmid, Christoph Sutter, Karol Ugorcak, Michel Hosmann
+-> Anwesende haben alle zur Lösung von Task 1 beigetragen
+
+01.03.2016
+Anwesend: Denis Shevchenko, Karol Ugorcak, Nicolas Schmid, Michel Hosmann
+-> Anwesende haben alle zur Lösung von Task 2 beigetragen
+
+07.03.2016
+Anwesend: Denis Shevchenko, Christoph Sutter, Nicolas Schmid, Michel Hosmann
+
+08.03.2016
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid

@@ -1,0 +1,47 @@
+Task 00
+
+What were the main reasons the project failed?
+- schlechte Zeitplanung
+- zu grosser Umfang
+- mehrere Methodik- und Softwarewechsel
+- keine einheitliche Entwicklung (Module)
+- viele unabhängige Einzelprodukte und Schnittstellen
+- Schlechte Führung / Projektleitung, unklare Verantwortlichkeiten
+- Zu grosses Projektteam, zu viele (schlecht qualifizierte) Externe
+- Schlechtes Reporting
+- fehlende Gesamtplanung
+- keine öffentliche Ausschreibungen
+- formelle Fehler (Kompetenzen GPL nicht klar definiert)
+- schlechte Prozessanalyse und –planung
+- Vermischung von internen & strukturellen Änderungen mit dem Projekt
+- kein klares Test-Konzept
+- Machtkämpfe und Schuldzuweisungen zwischen Abteilungen
+- Verbesserungsvorschläge der Prüfkommissionen wurden nicht umgesetzt
+- keine klaren Kostenvorgabe und –kontrolle
+- GPA und GPL zu schwach in der Führung des Projekts
+
+Why is software complex?
+Heutzutage muss ein gutes Softwareprodukt viele Anforderungen erfüllen, z.B.:
+
+•	Robustheit,
+•	Reaktionsschnelligkeit,
+•	Wartbarkeit,
+•	Testbarkeit,
+•	Skalierbarkeit,
+•	Sicherheit,
+•	Kontrollierbarkeit
+
+Um dies zu erreichen, werden meist unterschiedliche externe Libraries und Bibliotheken verwendet. Von dem her, kann das Software ziemlich komplex aussehen.
+
+Why is software engineering challenging?
+- Klare Spezifikationen sind schwierig zu formulieren
+- Kommunikation und Koordination in grossen Projekten schwierig
+- 
+
+What are the implications for software engineering?
+- starker GPL ist sehr wichtig, dieser sollte immer den Überblick haben und straff führen
+- Struktur und Planung sollte klar definiert sein und entsprechend umgesetzt werden
+- regelmässig Projektstand mit Zielen und Vorgaben vergleichen
+- der Umfang des Personals sollte nicht leichtfertig geändert werden
+- Abweichungen von der Planung sollten umgehend angegangen werden
+- das Reporting muss Fehler aufzeigen
