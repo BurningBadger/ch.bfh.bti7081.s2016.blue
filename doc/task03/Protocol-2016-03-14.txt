@@ -1,0 +1,76 @@
+PROTOCOL (14.03.2016):
+Webbased Mobile Application for Healt Visitors.
+
+TODO:
+- Scoping (Project scope)
+- Research (Fieldstudy / Interview) Interview -> Denis, Nicolas / Research -> Karol, Suddi
+- Synthesize
+- Design
+- Prototype
+- Validate
+
+GOALS OF THE APP?
+work more efficently => have more time for patients
+
+SCOPE:
+Problems to solve?
+- When do I have to be where?
+- Who is my patient?
+- Which (how many) Drugs do I have to give to the patient (tretment in general)?
+- How can I improve the support of my patients (taking notes / writing a log)?
+
+MEASURE THE EFFICENCY?
+- checking time needed per patinet?
+- patient satisfaction?
+
+OUT OF SCOPE:
+- Emergency handling
+- 
+
+PROJECT RESTRICTIONS:
+- No budget
+- Tight timeline
+- 
+
+ROLE:
+| Actor | TASKS |
+|-------|-------|
+| Karol | Development, Database, Design, Testing |
+| Dennis | Development, Database, Design |
+| Michel | Development, Projectmgmt, Testing, Presentation |
+| Nicolas | Development, Database, Design, Presentation |
+| Sergii | Development |
+| Suddi | Development, Database, Testing, Presentation |
+	
+
+ROADMAP:
+
+14.03.2016
+Prototype begin
+
+
+21.03.2016 16:00 Meeting -> Tasks:
+
+Karol:
+	- Research Spitex
+	- Storyboard
+
+Dennis:
+	- Interview mit Tante
+	- Storyboard
+
+Michel:
+	- Storyboard
+
+Nicolas:
+	- Interview mit Mutter
+	- Storyboard
+
+Sergii:
+	- Prototype
+	- Storyboard
+
+Suddi:
+	- Research Spitex
+	- Storyboard
+
