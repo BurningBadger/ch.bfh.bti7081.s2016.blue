@@ -15,9 +15,10 @@ work more efficently => have more time for patients
 SCOPE:
 Problems to solve?
 - When do I have to be where?
-- Who is my patient?
+- Who is my patient? (health conditions, allergies...)
 - Which (how many) Drugs do I have to give to the patient (tretment in general)?
 - How can I improve the support of my patients (taking notes / writing a log)?
+- Where do I get information on health topics?
 
 MEASURE THE EFFICENCY?
 - checking time needed per patinet?
