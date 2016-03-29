@@ -25,4 +25,17 @@ Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
 
 15.03.2016
+Iteration 1 Task03:
+- Scoping
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann
+
+23.03.2016
+Iteration 2 Task03:
+- Diskussion der Resulate aus Interviews und Research. Korrektur und Verfeinerung der Stories und Prototypes. 
+Definierung der Main-Features.
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+28.03.2016
+Iteration 3 Task03:
+- Feedback, Korrektur und Verbesserung Prototypen, diverse Tätigkeiten, Vorbereitung Präsentation.
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
