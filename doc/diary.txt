@@ -1,6 +1,6 @@
 # Blue Group Diary
 ## Members
-Sergii Bilousov
+Sergii Bilousov sergii.bilousov@students.bfh.ch
 Denis Shevchenko
 Karol Ugorcak  karol.ugorcak@students.bfh.ch
 Michel Hosmann 	michel.hosmann@students.bfh.ch
