@@ -1,5 +1,5 @@
 PROTOCOL (14.03.2016):
-Webbased Mobile Application for Healt Visitors.
+Webbased Mobile Application for Health Visitors.
 
 TODO:
 - Scoping (Project scope)
@@ -16,12 +16,12 @@ SCOPE:
 Problems to solve?
 - When do I have to be where?
 - Who is my patient? (health conditions, allergies...)
-- Which (how many) Drugs do I have to give to the patient (tretment in general)?
+- Which (how many) Drugs do I have to give to the patient (treatment in general)?
 - How can I improve the support of my patients (taking notes / writing a log)?
 - Where do I get information on health topics?
 
-MEASURE THE EFFICENCY?
-- checking time needed per patinet?
+MEASURE THE EFFICIENCY?
+- checking time needed per patient?
 - patient satisfaction?
 
 OUT OF SCOPE:
