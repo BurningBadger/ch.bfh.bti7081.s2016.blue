@@ -26,7 +26,7 @@ Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Mic
 
 15.03.2016
 Iteration 1 Task03:
-- Scoping
+- Scoping, erste Stories, erste Prototypes
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann
 
 23.03.2016
