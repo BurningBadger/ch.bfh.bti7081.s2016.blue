@@ -1,0 +1,33 @@
+
+DEFINED USE-CASES:
+
+- Calendar / my Appointments
+- Rapporting
+- Patient details (info, notes, history about visits, contact data)
+- Medication
+- Registering new clients
+
+
+
+CONTENTS:
+
+- Preface (at the end)
+- Introduction (at the end)
+- Glossary (everyone)
+
+- User requirements definition
+
+	- Calendar / my Appointments (Sergii)
+	- Rapporting (Nicolas)
+	- Patient details (info, notes, history about visits, contact data) (Dennis, Karol)
+	- Medication (Michael)
+	- Registering new clients / Login & Logout (Suddi)
+
+- System architecture (Nicolas)
+- System requirements specification (Michael)
+- System models (Suddi)
+- System evolution (Suddi)
+- Testing (Karol)
+
+- Appendices (everyone)
+- Index (at the end)
