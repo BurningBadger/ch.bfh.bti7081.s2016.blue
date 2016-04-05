@@ -19,9 +19,7 @@ Page | Criteria | Comments
 16 | Comprehensibility | Die Definition der Schnittstellen beschreibt nicht die Schnittstellen selbst, sondern die provisorischen Datenmodelle und ihre Abhängigkeiten.
 19 | Comprehensibility | The testing goal is clearly described.
 20 | Validity | The “Black-Box-Test” provides the feedback from the user himself on the functionality of the SW.
-19-20 | Consistency | Requirement conflict possible:
-The “White-Box-Test” could provide some functional errors.
-The “Black-Box-Test” could show the discrepancy between the user wishes and the delivered SW.
+19-20 | Consistency | Requirement conflict possible: The “White-Box-Test” could provide some functional errors.The “Black-Box-Test” could show the discrepancy between the user wishes and the delivered SW.
 19-20 | Completeness | Both the “White-Box-Test” and the “Black-Box-Test” show the completeness of the SW.
 19-20 | Realism | Both the tests (W & B) are possible in matters of the budget limitation and also realizable referring to the technology requirement.
 19-21 | Verifiability | The testing phase itself checks the requirements verifiability.
