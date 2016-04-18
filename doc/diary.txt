@@ -51,3 +51,9 @@ Iteration Task06:
 - elaborate a context model
 - elaborate a high level activity diagram
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+12.04.2016
+Iteration Task07:
+- created UML domain model (i.e. class diagrams)
+- created two UML sequence diagrams ("order drugs", "add report")
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
