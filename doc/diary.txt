@@ -59,9 +59,13 @@ Iteration Task07:
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
 
 03.05.2016
-Iteration Task09:
+Iteration 1 Task09:
 - decided to implement MVC model in the project
 - defined a list of classes and functions for implementation
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+08.05.2016
+Iteration 2 Task09:
 - drew a UML package diagram
 - studied Vaadin basics
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
