@@ -1,0 +1,7 @@
+{
+  "db-server": "hv-db-01.database.windows.net",
+  "login": "bigboy01",
+  "psw": "Qwerty1234",
+  "db-name": "hv-db-01",
+  "connection-string": "jdbc:sqlserver://hv-db-01.database.windows.net:1433;database=hv-db-01;user=bigboy01@hv-db-01;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
+}
