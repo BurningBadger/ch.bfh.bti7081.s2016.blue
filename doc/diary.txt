@@ -57,3 +57,15 @@ Iteration Task07:
 - created UML domain model (i.e. class diagrams)
 - created two UML sequence diagrams ("order drugs", "add report")
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+03.05.2016
+Iteration 1 Task09:
+- decided to implement MVC model in the project
+- defined a list of classes and functions for implementation
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+08.05.2016
+Iteration 2 Task09:
+- drew a UML package diagram
+- studied Vaadin basics
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
