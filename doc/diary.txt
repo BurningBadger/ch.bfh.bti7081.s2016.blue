@@ -69,3 +69,7 @@ Iteration 2 Task09:
 - drew a UML package diagram
 - studied Vaadin basics
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+
+10.5.2016
+Anwesend: Denis Shevchenko,  Nicolas Schmid, Michel Hosmann
