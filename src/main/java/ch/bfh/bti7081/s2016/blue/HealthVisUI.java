@@ -9,17 +9,23 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextField;
+import com.vaadin.server.VaadinSession;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 
 import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
+import ch.bfh.bti7081.s2016.blue.hv.view.DrugsView;
+import ch.bfh.bti7081.s2016.blue.hv.view.LandingView;
+import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
+import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
 
 /**
  * {@link HealthVisUI}. This represents the applications main entry point.
@@ -33,6 +39,9 @@ public class HealthVisUI extends UI {
 	private final static Logger LOGGER = Logger.getLogger(HealthVisUI.class.getName());
 
 	private JPAContainer<HealthVisitor> healthVisitors;
+	
+	private static Menu menu = null;
+	private static final boolean isDebug = false;
 
 	public HealthVisUI() {
 		LOGGER.info("HealthVisitor webapp started");
@@ -42,11 +51,63 @@ public class HealthVisUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
+		
+		//Set Session timeout to 3000s
+		VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
+		//Change Page title
+		this.getPage().setTitle("Health Visitor");
+		//Prepare the template page
+		
+		checkLogin();
+	}
+	
+	private void checkLogin() {
+		String currentUser = (String) getSession().getAttribute("user");
+        if(currentUser != null || isDebug) {
+        	createMainView();
+        } else {
+        	this.setContent(new LoginView(new LoginView.LoginListener() {
+				private static final long serialVersionUID = -6472665895715933073L;
+				
+				@Override
+				public void loginSuccessful() {
+					Page.getCurrent().reload();
+				}
+			}));
+        }
+	}
 
-		// TODO implement Vaadin Navigator
-		// TODO Implement Webapp Login/Logout
+	private void createMainView() {
+		//Create Main Container for Views
+		HorizontalLayout mainVl = new HorizontalLayout();
+		mainVl.setSizeFull();
+		this.setContent(mainVl);
+		
+		// implement Vaadin Navigator
+		CssLayout viewContainer = new CssLayout();
+        viewContainer.addStyleName("valo-content");
+        viewContainer.setSizeFull();
+		
+		final Navigator navigator = new Navigator(this, viewContainer);
+		
+		//Views
+		LandingView lv = new LandingView();
+		
+		//Menu
+		menu = new Menu(navigator);
+		menu.addView(lv, "", LandingView.getName(), FontAwesome.DASHBOARD);
+		menu.addView(new DrugsView(), "", DrugsView.getName(), FontAwesome.AMBULANCE);
+		
+		navigator.addViewChangeListener(viewChangeListener);
+		
+		//Adding to the main Pane
+		mainVl.addComponent(menu);
+		mainVl.addComponent(viewContainer);
+		mainVl.setExpandRatio(viewContainer, 1);
+		
+		// Implement Webapp Login/Logout
 
-		final VerticalLayout layout = new VerticalLayout();
+		/*final VerticalLayout layout = new VerticalLayout();
 
 		final TextField name = new TextField();
 		name.setCaption("Login:");
@@ -61,8 +122,23 @@ public class HealthVisUI extends UI {
 		layout.setMargin(true);
 		layout.setSpacing(true);
 
-		setContent(layout);
+		setContent(layout);*/
 	}
+
+	ViewChangeListener viewChangeListener = new ViewChangeListener() {
+		private static final long serialVersionUID = -1303877173524139079L;
+
+		@Override
+        public boolean beforeViewChange(ViewChangeEvent event) {
+            return true;
+        }
+
+        @Override
+        public void afterViewChange(ViewChangeEvent event) {
+            menu.setActiveView(event.getViewName());
+        }
+
+    };
 
 	/**
 	 * Servlet definitions.

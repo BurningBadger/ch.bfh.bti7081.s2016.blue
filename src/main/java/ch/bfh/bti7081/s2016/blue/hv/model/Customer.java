@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity(name = "customers")
 public class Customer extends BaseEntity {
@@ -31,6 +32,17 @@ public class Customer extends BaseEntity {
 
 	@OneToMany(mappedBy = "customer")
 	private Set<Drug> drugs;
+	
+	@OneToOne
+	private Visit visit;
+	
+	public Visit getVisit() {
+		return visit;
+	}
+
+	public void setEvents(Visit visit) {
+		this.visit = visit;
+	}
 
 	public String getFirstName() {
 		return firstName;
