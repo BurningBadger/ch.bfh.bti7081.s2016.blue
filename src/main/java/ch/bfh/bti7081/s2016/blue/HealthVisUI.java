@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
+import ch.bfh.bti7081.s2016.blue.hv.model.ContactService;
+import ch.bfh.bti7081.s2016.blue.hv.view.*;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.annotations.Theme;
@@ -22,10 +24,6 @@ import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
-import ch.bfh.bti7081.s2016.blue.hv.view.DrugsView;
-import ch.bfh.bti7081.s2016.blue.hv.view.LandingView;
-import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
-import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
 
 /**
  * {@link HealthVisUI}. This represents the applications main entry point.
@@ -39,6 +37,9 @@ public class HealthVisUI extends UI {
 	private final static Logger LOGGER = Logger.getLogger(HealthVisUI.class.getName());
 
 	private JPAContainer<HealthVisitor> healthVisitors;
+
+	public  PatientListView patientList = new PatientListView();
+	public ContactService contactService = ContactService.createDemoService();
 	
 	private static Menu menu = null;
 	private static final boolean isDebug = false;
