@@ -5,6 +5,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.Contact;
 import ch.bfh.bti7081.s2016.blue.hv.model.ContactService;
+import ch.bfh.bti7081.s2016.blue.hv.controller.PatientController;
 
 /**
  * Created by uck1 on 15.05.2016.
@@ -12,7 +13,7 @@ import ch.bfh.bti7081.s2016.blue.hv.model.ContactService;
 public class PatientListView extends CustomComponent{
 
     TextField filter = new TextField();
-    Patient patient = new Patient();
+    PatientController patient = new PatientController();
     Grid contactList = new Grid();
     Button newContact = new Button("New Contact");
 
