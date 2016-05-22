@@ -1,95 +1,43 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
-@Entity(name = "patients")
-public class Patient extends BaseEntity {
+@Entity(name = "Patients")
+public class Patient extends Person {
 
-    private static final long serialVersionUID = -4737237051107455291L;
+    @ManyToMany(mappedBy = "patients")
+    private Set<HealthVisitor> visitors;
 
-    @Column(name = "first_name", length = 255, nullable = false)
-    private String firstName;
+    @OneToMany(mappedBy = "patient")
+    private Set<Visit> visits;
 
-    @Column(name = "last_name", length = 255, nullable = false)
-    private String lastName;
+    @OneToMany(mappedBy = "patient")
+    private Set<Drug> drugs;
 
-    @Column(name = "phone", length = 15, nullable = false)
-    private int phone;
-
-    @Column(name = "email", length = 30, nullable = false)
-    private String email;
-
-    @Column(name = "address", length = 255, nullable = false)
-    private String street;
-
-    @Column(name = "city", length = 20, nullable = false)
-    private String city;
-
-//    //TODO
-//    @Column(name = "birthday", length = 10, nullable = false)
-//    Component birthday = new PopupDateField("Birthday");
-
-    public Patient() {
+    public Set<Drug> getDrugs() {
+        return drugs;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setDrugs(Set<Drug> drugs) {
+        this.drugs = drugs;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Set<HealthVisitor> getVisitors() {
+        return visitors;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setVisitors(Set<HealthVisitor> visitors) {
+        this.visitors = visitors;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Set<Visit> getVisits() {
+        return visits;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setVisits(Set<Visit> visits) {
+        this.visits = visits;
     }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-//    public Component getBirthday() {
-//        return birthday;
-//    }
-//
-//    public void setBirthday(Component birthday) {
-//        this.birthday = birthday;
-//    }
 }

@@ -1,36 +1,42 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
+import javax.persistence.*;
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import java.util.Set;
 
 @Entity(name = "health_visitors")
-public class HealthVisitor extends BaseEntity {
+public class HealthVisitor extends Person {
 
 	private static final long serialVersionUID = -4737237051107455291L;
-
-	@Column(name = "first_name", length = 255, nullable = false)
-	private String firstName;
-
-	@Column(name = "last_name", length = 255, nullable = false)
-	private String lastName;
 
 	@Column(name = "user_name", length = 255, nullable = false)
 	private String userName;
 
-	public String getFirstName() {
-		return firstName;
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="Visitors_Patients",
+			joinColumns =
+			@JoinColumn(name="health_visitor_id"),
+			inverseJoinColumns =
+			@JoinColumn(name = "patient_id"))
+	private Set<Patient> patients;
+
+	@OneToMany(mappedBy = "visitor")
+	private Set<Visit> visits;
+
+	public Set<Patient> getPatients() {
+		return patients;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setPatients(Set<Patient> patients) {
+		this.patients = patients;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public Set<Visit> getVisits() {
+		return visits;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setVisits(Set<Visit> visits) {
+		this.visits = visits;
 	}
 
 	public String getUserName() {

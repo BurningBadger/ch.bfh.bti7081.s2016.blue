@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2016.blue.hv.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -10,19 +11,38 @@ import javax.persistence.OneToOne;
 public class Visit extends BaseEntity {
 
 	private static final long serialVersionUID = -2691308440282309881L;
-	
-	@OneToOne(mappedBy = "visit")
-	private Customer cust;
-	
+
+	@ManyToOne
+	private HealthVisitor visitor;
+
+	@ManyToOne
+	private Patient patient;
+
 	@OneToMany(mappedBy = "visit")
-	private Set<VisitEvent> events;
-	
-	public Set<VisitEvent> getEvents() {
-		return events;
+	private Set<VisitEvent> visitEvents;
+
+	public HealthVisitor getVisitor() {
+		return visitor;
 	}
 
-	public void setEvents(Set<VisitEvent> events) {
-		this.events = events;
+	public void setVisitor(HealthVisitor visitor) {
+		this.visitor = visitor;
+	}
+
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public Set<VisitEvent> getVisitEvents() {
+		return visitEvents;
+	}
+
+	public void setVisitEvents(Set<VisitEvent> visitEvents) {
+		this.visitEvents = visitEvents;
 	}
 
 }

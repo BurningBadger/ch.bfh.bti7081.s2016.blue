@@ -13,7 +13,7 @@ public class Drug extends BaseEntity {
 	private String name;
 
 	@ManyToOne
-	private Customer customer;
+	private Patient patient;
 
 	public String getName() {
 		return name;
@@ -23,12 +23,12 @@ public class Drug extends BaseEntity {
 		this.name = name;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 }
