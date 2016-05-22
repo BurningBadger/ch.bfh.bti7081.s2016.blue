@@ -1,9 +1,15 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 @MappedSuperclass
 public class Person extends BaseEntity {
@@ -21,41 +27,39 @@ public class Person extends BaseEntity {
     @NotNull
     private Date birthday;
 
-    @OneToOne(optional=false)
-    @JoinColumn(
-            name="Contact_Id", unique=true, nullable=false, updatable=false)
+    @OneToOne(optional = false)
+    @JoinColumn(name = "Contact_Id", unique = true, nullable = false, updatable = false)
     private Contact contact;
 
     public Date getBirthday() {
-        return birthday;
+	return birthday;
     }
 
     public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+	this.birthday = birthday;
     }
 
     public Contact getContact() {
-        return contact;
+	return contact;
     }
 
     public void setContact(Contact contact) {
-        this.contact = contact;
+	this.contact = contact;
     }
 
     public String getFirstname() {
-        return firstname;
+	return firstname;
     }
 
     public void setFirstname(String firstname) {
-        this.firstname = firstname;
+	this.firstname = firstname;
     }
 
     public String getLastname() {
-        return lastname;
+	return lastname;
     }
 
     public void setLastname(String lastname) {
-        this.lastname = lastname;
+	this.lastname = lastname;
     }
 }
-

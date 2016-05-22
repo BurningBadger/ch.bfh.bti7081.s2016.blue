@@ -1,96 +1,107 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.Calendar;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.*;
-import ch.bfh.bti7081.s2016.blue.hv.model.*;
-import ch.bfh.bti7081.s2016.blue.hv.test.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.Table;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+
+import ch.bfh.bti7081.s2016.blue.hv.model.Calendar;
+import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.model.Patient;
+import ch.bfh.bti7081.s2016.blue.hv.model.Visit;
+import ch.bfh.bti7081.s2016.blue.hv.model.VisitEvent;
+import ch.bfh.bti7081.s2016.blue.hv.test.EntityService;
 
 public class LandingView extends Panel implements View {
-	
-	private static final long serialVersionUID = 8807692569903926065L;
-	private static final String NAME = "Home";
 
-	public LandingView(){
-		setSizeFull();
-		buildUI();
-	}
+    private static final long serialVersionUID = 8807692569903926065L;
+    private static final String NAME = "Home";
 
-	private void buildUI(){
-		EntityService es = new EntityService();
-		es.create();
+    public LandingView() {
+	setSizeFull();
+	buildUI();
+    }
 
-		JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, "healthVisApp");
-		JPAContainer<HealthVisitor> visitors = JPAContainerFactory.make(HealthVisitor.class, "healthVisApp");
-		JPAContainer<Visit> visits = JPAContainerFactory.make(Visit.class, "healthVisApp");
-		JPAContainer<VisitEvent> visitEvents = JPAContainerFactory.make(VisitEvent.class, "healthVisApp");
-		JPAContainer<Calendar> calendars = JPAContainerFactory.make(Calendar.class, "healthVisApp");
+    private void buildUI() {
+	EntityService es = new EntityService();
+	es.create();
 
-		Table personTable = new Table();
-		personTable.setContainerDataSource(patients);
-		personTable.setSelectable(true);
-		personTable.setImmediate(true);
+	JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, "healthVisApp");
+	JPAContainer<HealthVisitor> visitors = JPAContainerFactory.make(HealthVisitor.class, "healthVisApp");
+	JPAContainer<Visit> visits = JPAContainerFactory.make(Visit.class, "healthVisApp");
+	JPAContainer<VisitEvent> visitEvents = JPAContainerFactory.make(VisitEvent.class, "healthVisApp");
+	JPAContainer<Calendar> calendars = JPAContainerFactory.make(Calendar.class, "healthVisApp");
 
-		Table vTable = new Table();
-		vTable.setContainerDataSource(visitors);
-		vTable.setSelectable(true);
-		vTable.setImmediate(true);
+	Table personTable = new Table();
+	personTable.setContainerDataSource(patients);
+	personTable.setSelectable(true);
+	personTable.setImmediate(true);
 
-		Table visitTable = new Table();
-		visitTable.setContainerDataSource(visits);
-		visitTable.setSelectable(true);
-		visitTable.setImmediate(true);
+	Table vTable = new Table();
+	vTable.setContainerDataSource(visitors);
+	vTable.setSelectable(true);
+	vTable.setImmediate(true);
 
-		Table visitEventTable = new Table();
-		visitEventTable.setContainerDataSource(visitEvents);
-		visitEventTable.setSelectable(true);
-		visitEventTable.setImmediate(true);
+	Table visitTable = new Table();
+	visitTable.setContainerDataSource(visits);
+	visitTable.setSelectable(true);
+	visitTable.setImmediate(true);
 
-		Table calendarTable = new Table();
-		calendarTable.setContainerDataSource(calendars);
-		calendarTable.setSelectable(true);
-		calendarTable.setImmediate(true);
+	Table visitEventTable = new Table();
+	visitEventTable.setContainerDataSource(visitEvents);
+	visitEventTable.setSelectable(true);
+	visitEventTable.setImmediate(true);
 
-		final VerticalLayout layout = new VerticalLayout();
+	Table calendarTable = new Table();
+	calendarTable.setContainerDataSource(calendars);
+	calendarTable.setSelectable(true);
+	calendarTable.setImmediate(true);
 
-		final TextField name = new TextField();
-		name.setCaption("Type your name here:");
+	final VerticalLayout layout = new VerticalLayout();
 
-		Button button = new Button("Click Me");
-		button.addClickListener( e -> {
-//            Container.Filter filter = new Compare.Equal("firstname", name.getValue());
-//            visitors.addContainerFilter(filter);
-//            layout.addComponent(new Table("The Persistent Visitors", visitors));
-//
-//            visitors.addNestedContainerProperty("patients.*");
-//            layout.addComponent(new Table("The Persistent Patients", patients));
+	final TextField name = new TextField();
+	name.setCaption("Type your name here:");
 
-			Container.Filter filter = new Compare.Equal("firstname", name.getValue());
-			patients.addContainerFilter(filter);
-			patients.addNestedContainerProperty("drugs.*");
-			layout.addComponent(new Table("The patients drugs", patients));
-		});
+	Button button = new Button("Click Me");
+	button.addClickListener(e -> {
+	    // Container.Filter filter = new Compare.Equal("firstname",
+	    // name.getValue());
+	    // visitors.addContainerFilter(filter);
+	    // layout.addComponent(new Table("The Persistent Visitors",
+	    // visitors));
+	    //
+	    // visitors.addNestedContainerProperty("patients.*");
+	    // layout.addComponent(new Table("The Persistent Patients",
+	    // patients));
 
-		layout.addComponents(name, button, personTable);
-		layout.setMargin(true);
-		layout.setSpacing(true);
+	    Container.Filter filter = new Compare.Equal("firstname", name.getValue());
+	    patients.addContainerFilter(filter);
+	    patients.addNestedContainerProperty("drugs.*");
+	    layout.addComponent(new Table("The patients drugs", patients));
+	});
 
-		setContent(layout);
-	}
+	layout.addComponents(name, button, personTable);
+	layout.setMargin(true);
+	layout.setSpacing(true);
 
-	@Override
-	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
+	setContent(layout);
+    }
 
-	}
-	
-	public static String getName() {
-		return NAME;
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+	// TODO Auto-generated method stub
+
+    }
+
+    public static String getName() {
+	return NAME;
+    }
 
 }

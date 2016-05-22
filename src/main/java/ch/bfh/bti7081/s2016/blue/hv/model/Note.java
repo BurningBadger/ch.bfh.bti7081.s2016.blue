@@ -16,18 +16,18 @@ public class Note extends BaseEntity {
     private VisitEvent visitEvent;
 
     public String getNoteText() {
-        return noteText;
+	return noteText;
     }
 
     public void setNoteText(String noteText) {
-        this.noteText = noteText;
+	this.noteText = noteText;
     }
 
     public VisitEvent getVisitEvent() {
-        return visitEvent;
+	return visitEvent;
     }
 
     public void setVisitEvent(VisitEvent visitEvent) {
-        this.visitEvent = visitEvent;
+	this.visitEvent = visitEvent;
     }
 }

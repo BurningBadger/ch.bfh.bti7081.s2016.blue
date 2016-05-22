@@ -1,49 +1,53 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
-import javax.persistence.*;
 import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity(name = "visit_events")
 public class VisitEvent extends BaseEntity {
-	
-	private static final long serialVersionUID = -3616824349353093546L;
 
-	@ManyToOne
-	private Visit visit;
+    private static final long serialVersionUID = -3616824349353093546L;
 
-	@OneToOne
-	@JoinColumn(
-			name="calendar", unique=true, nullable=false, updatable=false)
-	private Calendar calendar;
+    @ManyToOne
+    private Visit visit;
 
-	@OneToMany(mappedBy = "visitEvent")
-	private Set<Report> visitReports;
+    @OneToOne
+    @JoinColumn(name = "calendar", unique = true, nullable = false, updatable = false)
+    private Calendar calendar;
 
-	@OneToMany(mappedBy = "visitEvent")
-	private Set<Note> visitNodes;
+    @OneToMany(mappedBy = "visitEvent")
+    private Set<Report> visitReports;
 
-	public Calendar getCalendar() {
-		return calendar;
-	}
+    @OneToMany(mappedBy = "visitEvent")
+    private Set<Note> visitNodes;
 
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
-	}
+    public Calendar getCalendar() {
+	return calendar;
+    }
 
-	public Set<Report> getVisitReports() {
-		return visitReports;
-	}
+    public void setCalendar(Calendar calendar) {
+	this.calendar = calendar;
+    }
 
-	public void setVisitReports(Set<Report> visitReports) {
-		this.visitReports = visitReports;
-	}
+    public Set<Report> getVisitReports() {
+	return visitReports;
+    }
 
-	public Set<Note> getVisitNodes() {
-		return visitNodes;
-	}
+    public void setVisitReports(Set<Report> visitReports) {
+	this.visitReports = visitReports;
+    }
 
-	public void setVisitNodes(Set<Note> visitNodes) {
-		this.visitNodes = visitNodes;
-	}
+    public Set<Note> getVisitNodes() {
+	return visitNodes;
+    }
+
+    public void setVisitNodes(Set<Note> visitNodes) {
+	this.visitNodes = visitNodes;
+    }
 
 }

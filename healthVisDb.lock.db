@@ -1,6 +1,6 @@
 #FileLock
-#Mon May 16 17:31:53 CEST 2016
-hostName=Sergiis-Desktop-101
-id=154ba31d4cf591733b6c378e7b4f05e291c8e2b84e6
+#Sun May 22 21:46:38 CEST 2016
+hostName=noname2.bfh.ch
+id=154bfbb2059986e6f05bff65c763b91594168fb40f8
 method=file
-server=192.168.56.1\:52072
+server=147.87.46.116\:51253

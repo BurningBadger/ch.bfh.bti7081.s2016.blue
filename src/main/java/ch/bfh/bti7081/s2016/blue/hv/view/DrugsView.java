@@ -6,17 +6,17 @@ import com.vaadin.ui.VerticalLayout;
 
 public class DrugsView extends VerticalLayout implements View {
 
-	private static final long serialVersionUID = 5462829240356734337L;
-	private static final String NAME = "Drugs";
-	
-	@Override
-	public void enter(ViewChangeEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
+    private static final long serialVersionUID = 5462829240356734337L;
+    private static final String NAME = "Drugs";
 
-	public static String getName() {
-		return NAME;
-	}
+    @Override
+    public void enter(ViewChangeEvent event) {
+	// TODO Auto-generated method stub
+
+    }
+
+    public static String getName() {
+	return NAME;
+    }
 
 }

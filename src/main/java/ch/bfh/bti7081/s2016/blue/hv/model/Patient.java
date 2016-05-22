@@ -1,9 +1,10 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import java.util.Set;
 
 @Entity(name = "Patients")
 public class Patient extends Person {
@@ -18,26 +19,26 @@ public class Patient extends Person {
     private Set<Drug> drugs;
 
     public Set<Drug> getDrugs() {
-        return drugs;
+	return drugs;
     }
 
     public void setDrugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+	this.drugs = drugs;
     }
 
     public Set<HealthVisitor> getVisitors() {
-        return visitors;
+	return visitors;
     }
 
     public void setVisitors(Set<HealthVisitor> visitors) {
-        this.visitors = visitors;
+	this.visitors = visitors;
     }
 
     public Set<Visit> getVisits() {
-        return visits;
+	return visits;
     }
 
     public void setVisits(Set<Visit> visits) {
-        this.visits = visits;
+	this.visits = visits;
     }
 }

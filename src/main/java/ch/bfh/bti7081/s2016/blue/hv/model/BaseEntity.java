@@ -14,43 +14,43 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = -3624890888887228585L;
+    private static final long serialVersionUID = -3624890888887228585L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-	@Temporal(value = TemporalType.DATE)
-	@Column(name = "created_at")
-	private Date createdAt;
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "created_at")
+    private Date createdAt;
 
-	@Temporal(value = TemporalType.DATE)
-	@Column(name = "updated_at")
-	private Date updatedAt;
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+	return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+	this.id = id;
+    }
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public Date getCreatedAt() {
+	return createdAt;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setCreatedAt(Date createdAt) {
+	this.createdAt = createdAt;
+    }
 
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+    public Date getUpdatedAt() {
+	return updatedAt;
+    }
 
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public void setUpdatedAt(Date updatedAt) {
+	this.updatedAt = updatedAt;
+    }
 
 }

@@ -20,27 +20,26 @@ public class Report extends BaseEntity {
     private VisitEvent visitEvent;
 
     public String getTitle() {
-        return title;
+	return title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+	this.title = title;
     }
 
     public String getReportText() {
-        return reportText;
+	return reportText;
     }
 
     public void setReportText(String reportText) {
-        this.reportText = reportText;
+	this.reportText = reportText;
     }
 
     public VisitEvent getVisitEvent() {
-        return visitEvent;
+	return visitEvent;
     }
 
     public void setVisitEvent(VisitEvent visitEvent) {
-        this.visitEvent = visitEvent;
+	this.visitEvent = visitEvent;
     }
 }
-

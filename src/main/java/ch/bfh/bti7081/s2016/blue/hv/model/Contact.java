@@ -1,11 +1,10 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
-
-import org.apache.commons.beanutils.BeanUtils;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Size;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 @Entity(name = "Contacts")
 public class Contact extends BaseEntity {
@@ -27,49 +26,51 @@ public class Contact extends BaseEntity {
     private String phoneNumber;
 
     public String getCity() {
-        return city;
+	return city;
     }
 
     public void setCity(String city) {
-        this.city = city;
+	this.city = city;
     }
 
     public String getStreet() {
-        return street;
+	return street;
     }
 
     public void setStreet(String street) {
-        this.street = street;
+	this.street = street;
     }
 
     public String getZip() {
-        return zip;
+	return zip;
     }
 
     public void setZip(String zip) {
-        this.zip = zip;
+	this.zip = zip;
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+	return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    @Override
-    public Contact clone() throws CloneNotSupportedException {
-        try {
-            return (Contact) BeanUtils.cloneBean(this);
-        } catch (Exception ex) {
-            throw new CloneNotSupportedException();
-        }
+	this.phoneNumber = phoneNumber;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Contact{" + "id=" + id + ", firstName=" + firstName
-//                + ", lastName=" + lastName + ", phone=" + phone + ", email="
-//                + email + ", birthDate=" + birthDate + '}';
-//    }
+    @Override
+    public Contact clone() throws CloneNotSupportedException {
+	try {
+	    return (Contact) BeanUtils.cloneBean(this);
+	}
+	catch (Exception ex) {
+	    throw new CloneNotSupportedException();
+	}
+    }
+
+    // @Override
+    // public String toString() {
+    // return "Contact{" + "id=" + id + ", firstName=" + firstName
+    // + ", lastName=" + lastName + ", phone=" + phone + ", email="
+    // + email + ", birthDate=" + birthDate + '}';
+    // }
 }
