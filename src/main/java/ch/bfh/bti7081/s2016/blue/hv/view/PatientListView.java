@@ -1,46 +1,87 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import ch.bfh.bti7081.s2016.blue.hv.model.*;
+import ch.bfh.bti7081.s2016.blue.hv.test.EntityService;
+import com.vaadin.addon.jpacontainer.JPAContainer;
+import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.data.Container;
+import com.vaadin.data.util.filter.Compare;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Calendar;
 
 /**
  * Created by uck1 on 22.05.2016.
  */
-public class PatientListView extends CustomComponent implements View {
+public class PatientListView extends Panel implements View {
 
-    private static final String NAME = "Patients";
+    private static final String NAME = "Patients";  //variable for HealthVisUI
 
-    private Button menuBut = new Button();
-    private Button callBut = new Button();
-    private Button butOne = new Button("Gestern");
-    private Button butTwo = new Button("Heute");
-    private Button butThree = new Button("Morgen");
+    private Button butMenu = new Button("Menu");
+    private Button butCall = new Button("Call");
+    private Button butGestern = new Button("Gestern");
+    private Button butHeute = new Button("Heute");
+    private Button butMorgen = new Button("Morgen");
+    private Button butTermine = new Button("Termine");
+    private Button butRoute = new Button("Route");
+    private Button butKalender = new Button("Kalender");
 
     public PatientListView() {
-
-        configureComponents();
+        setSizeFull();
         buildLayout();
     }
 
-    private void configureComponents() {
-    }
-
     private void buildLayout() {
-        Panel panel = new Panel();
+        EntityService es = new EntityService();
+		es.create();
+
+        Panel panel = new Panel("Patients");
         panel.setSizeFull();
         VerticalLayout vertLay = new VerticalLayout();
 
         // 1st row
-        HorizontalLayout firstLay = new HorizontalLayout(menuBut, callBut);
+        HorizontalLayout firstLay = new HorizontalLayout(butMenu, butCall);
         vertLay.addComponent(firstLay);
 
-        HorizontalLayout horLay = new HorizontalLayout(butOne, butTwo, butThree);
-        vertLay.addComponent(horLay);
+        // 2nd row
+        HorizontalLayout horizontalTage = new HorizontalLayout(butGestern, butHeute, butMorgen);
+        vertLay.addComponent(horizontalTage);
+
+        // table row
+        JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, "healthVisApp");
+
+        Table personTable = new Table();
+        personTable.setContainerDataSource(patients);
+        personTable.setSelectable(true);
+        personTable.setImmediate(true);
+
+        final TextField name = new TextField();
+        name.setCaption("Type your name here:");
+
+        Button button = new Button("Click Me");
+        button.addClickListener( e -> {
+            Container.Filter filter = new Compare.Equal("firstname", name.getValue());
+            patients.addContainerFilter(filter);
+            patients.addNestedContainerProperty("drugs.*");
+            vertLay.addComponent(new Table("The patients drugs", patients));
+        });
+
+        vertLay.addComponents(name, button, personTable);
+        vertLay.setMargin(true);
+        vertLay.setSpacing(true);
+
+        // last row
+        HorizontalLayout horizontalPages = new HorizontalLayout(butTermine, butRoute, butKalender);
+        vertLay.addComponent(horizontalPages);
+
+        // binding to the panel
         panel.setContent(vertLay);
-        setCompositionRoot(panel);
+//        setCompositionRoot(panel);
+        setContent(panel);
     }
 
+    // method for the HealthVisUI
     public static String getName() {
         return NAME;
     }

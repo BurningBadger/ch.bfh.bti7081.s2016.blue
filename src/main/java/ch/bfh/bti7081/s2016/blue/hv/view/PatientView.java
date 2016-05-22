@@ -8,70 +8,90 @@ import com.vaadin.ui.*;
 /**
  * Created by uck1 on 14.05.2016.
  */
-public class PatientView extends CustomComponent implements View {
+public class PatientView extends Panel implements View {
+
+    private static final String NAME = "Patient";  //variable for HealthVisUI
+
+    private Button butMenu = new Button("Menu");
+    private Button butCall = new Button("Call");
 
     private Image picture = new Image(null, new ThemeResource("icons/Guy.png"));
-    private Label name = new Label("Name: ");
+    private Label firstName = new Label("First Name: ");
+    private Label lastName = new Label("Last Name: ");
     private Label age = new Label("Age: ");
-    //    TextField address = new TextField("Address: ");
-//    TextField city = new TextField("City: ");
-//    Component birthday = new PopupDateField("Birthday");
-    private CheckBox checkbox = new CheckBox("Free");
-    private Button butOne = new Button("Choice 1");
-    private Button butTwo = new Button("Choice 2");
+
+    private Button butBesuche = new Button("Besuche");
+    private Button butAnmerkungen = new Button("Anmerkungen");
     private Button butThree = new Button("Choice 3");
     private Button butFour = new Button("Choice 4");
-    private Button ok = new Button("OK");
-    private Button nok = new Button("NO");
 
     public PatientView() {
-
-        configureComponents();
+        setSizeFull();
         buildLayout();
-    }
-
-    private void configureComponents() {
-
     }
 
     private void buildLayout() {
 
         Panel panel = new Panel("Patient");
-        panel.setSizeFull();
+//        panel.setSizeFull();
+        VerticalLayout vertLay = new VerticalLayout();
+
+        // 1st row
+        HorizontalLayout firstLay = new HorizontalLayout();
+        firstLay.addComponent(butMenu);
+        firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
+        firstLay.addComponent(butCall);
+        firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
+        vertLay.addComponent(firstLay);
+
+        // 2nd row horizontal splitted
         HorizontalSplitPanel hsplit = new HorizontalSplitPanel();
-        hsplit.setHeight(24, Unit.CM);
-        hsplit.setSplitPosition(45, Unit.PERCENTAGE);
-
+        hsplit.setHeight(10, Unit.CM);
+        hsplit.setSplitPosition(40, Unit.PERCENTAGE);
+        // left side
         AbsoluteLayout left = new AbsoluteLayout();
-        left.addComponent(picture, "left: 30px; top: 50px;");
+        left.addComponent(picture, "left: 30px; top: 20px;");
 //        left.setMargin(true);
-
-        left.addComponent(name, "left: 80px; top: 390px;");
-        left.addComponent(age, "left: 80px; top: 440px;");
         hsplit.setFirstComponent(left);
-
+        // right side
         AbsoluteLayout right = new AbsoluteLayout();
-        right.addComponent(butOne, "left: 40px; top: 90px;");
-        butOne.addStyleName("large");
-        right.addComponent(butTwo, "left: 40px; top: 180px;");
-        butTwo.addStyleName("large");
-        right.addComponent(butThree, "left: 40px; top: 270px;");
-        butThree.addStyleName("large");
-        right.addComponent(butFour, "left: 40px; top: 360px;");
-        butFour.addStyleName("large");
-        right.addComponent(checkbox, "left: 40px; top: 450px;");
-
-        right.addComponent(new Image(null, new ThemeResource("icons/thumbs-up-circle-120x120.png")),
-                "left:100; top: 700px;");
-        ok.addClickListener(e -> {});
-        right.addComponent(new Image(null, new ThemeResource("icons/thumbs-down-circle-120x120.png")),
-                "right:100; top: 700px;");
-        nok.addClickListener((e -> {}));
-
+        right.addComponent(firstName, "left: 10px; top: 20px;");
+        right.addComponent(lastName, "left: 10px; top: 50px;");
+        right.addComponent(age, "left: 10px; top: 80px;");
         hsplit.setSecondComponent(right);
+        vertLay.addComponent(hsplit);   //add both to the row of the vertical layout
 
-        panel.setContent(hsplit);
-        setCompositionRoot(panel);
+        // panel with buttons
+        HorizontalSplitPanel buttonLay = new HorizontalSplitPanel();
+        buttonLay.setSplitPosition(50, Unit.PERCENTAGE);
+        // left side
+        AbsoluteLayout buttonLeftLay = new AbsoluteLayout();
+        buttonLeftLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-up-circle-120x120.png")),
+                "left:10; top: 50px;");
+        butBesuche.addClickListener(e -> {});
+        buttonLeftLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-down-circle-120x120.png")),
+                "right:10; top: 50px;");
+        butAnmerkungen.addClickListener(e -> {});
+        buttonLay.setFirstComponent(buttonLeftLay);
+        // right side
+        AbsoluteLayout buttonRightLay = new AbsoluteLayout();
+        buttonRightLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-up-circle-120x120.png")),
+                "left:10; top: 80px;");
+        butThree.addClickListener(e -> {});
+        buttonRightLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-down-circle-120x120.png")),
+                "right:10; top: 80px;");
+        butFour.addClickListener(e -> {});
+        buttonLay.setSecondComponent(buttonRightLay);
+        vertLay.addComponent(buttonLay);
+
+        // final add to the panel
+        panel.setContent(vertLay);
+        setContent(panel);
+    }
+
+    // method for the HealthVisUI
+    public static String getName() {
+        return NAME;
     }
 
     @Override
