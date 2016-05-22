@@ -13,7 +13,7 @@ public class PatientView extends CustomComponent implements View {
     private Image picture = new Image(null, new ThemeResource("icons/Guy.png"));
     private Label name = new Label("Name: ");
     private Label age = new Label("Age: ");
-    //    TextField address = new TextField("Address: ");
+//    TextField address = new TextField("Address: ");
 //    TextField city = new TextField("City: ");
 //    Component birthday = new PopupDateField("Birthday");
     private CheckBox checkbox = new CheckBox("Free");
@@ -45,9 +45,49 @@ public class PatientView extends CustomComponent implements View {
         AbsoluteLayout left = new AbsoluteLayout();
         left.addComponent(picture, "left: 30px; top: 50px;");
 //        left.setMargin(true);
-
+        
+//        GridLayout grid = new GridLayout(4, 4);
+//        grid.addComponent(nameLabel, 0, 0);
+//        grid.setComponentAlignment(nameLabel, Alignment.MIDDLE_LEFT);
+//        
+////        //DB output
+////        grid.addComponent(nameDB, 1, 0);
+////        grid.setComponentAlignment(nameDB, Alignment.MIDDLE_LEFT);
+//        
+//        grid.addComponent(surnameLabel, 2, 0);
+//        grid.setComponentAlignment(surnameLabel, Alignment.MIDDLE_LEFT);
+//        
+////      //DB output
+////      grid.addComponent(surnameDB, 3, 0);
+////      grid.setComponentAlignment(surnameDB, Alignment.MIDDLE_LEFT);
+//        
+//        grid.addComponent(addressLabel, 0, 1);
+//        grid.setComponentAlignment(addressLabel, Alignment.MIDDLE_LEFT);
+//        
+////        grid.addComponent(addressDB, 1, 1);
+////        grid.setComponentAlignment(addressDB, Alignment.MIDDLE_LEFT);
+//        
+//        grid.addComponent(areaLabel, 0, 2);
+//        grid.setComponentAlignment(areaLabel, Alignment.MIDDLE_LEFT);
+//        
+////        grid.addComponent(areaDB, 1, 2);
+////        grid.setComponentAlignment(areaDB, Alignment.MIDDLE_LEFT);
+//        
+//        grid.addComponent(cityLabel, 2, 2);
+//        grid.setComponentAlignment(cityLabel, Alignment.MIDDLE_LEFT);
+//        
+////        grid.addComponent(cityDB, 3, 2);
+////        grid.setComponentAlignment(cityDB, Alignment.MIDDLE_LEFT);
+//        
+//        grid.addComponent(phoneLabel, 0, 3);
+//        grid.setComponentAlignment(phoneLabel, Alignment.MIDDLE_LEFT);
+//        
+////        grid.addComponent(phoneDB, 0, 3);
+////        grid.setComponentAlignment(phoneDB, Alignment.MIDDLE_LEFT);
+        
         left.addComponent(name, "left: 80px; top: 390px;");
         left.addComponent(age, "left: 80px; top: 440px;");
+//        left.addComponent(grid);
         hsplit.setFirstComponent(left);
 
         AbsoluteLayout right = new AbsoluteLayout();
