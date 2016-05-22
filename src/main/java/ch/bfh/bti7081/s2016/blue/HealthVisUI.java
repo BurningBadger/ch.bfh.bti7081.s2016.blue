@@ -98,9 +98,11 @@ public class HealthVisUI extends UI {
 		menu = new Menu(navigator);
 		menu.addView(lv, "", LandingView.getName(), FontAwesome.DASHBOARD);
 		menu.addView(new DrugsView(), "", DrugsView.getName(), FontAwesome.AMBULANCE);
-		menu.addView(new PatientListView(), "", PatientListView.getName(), FontAwesome.AMBULANCE);
+		menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.AMBULANCE);
+		menu.addView(new PatientView(), "Patient", PatientView.getName(), FontAwesome.AMBULANCE);
 		navigator.addViewChangeListener(viewChangeListener);
 		navigator.addView("", lv);
+
 		//Adding to the main Pane
 		mainVl.addComponent(menu);
 		mainVl.addComponent(viewContainer);
