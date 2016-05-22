@@ -4,7 +4,6 @@ import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.ContactService;
 import ch.bfh.bti7081.s2016.blue.hv.view.*;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -38,8 +37,8 @@ public class HealthVisUI extends UI {
 
 	private JPAContainer<HealthVisitor> healthVisitors;
 
-	public  PatientListView patientList = new PatientListView();
-	public ContactService contactService = ContactService.createDemoService();
+//	public  PatientListView patientList = new PatientListView();
+//	public ContactService contactService = ContactService.createDemoService();
 	
 	private static Menu menu = null;
 	private static final boolean isDebug = false;
@@ -53,13 +52,14 @@ public class HealthVisUI extends UI {
 	@Override
 	protected void init(VaadinRequest request) {
 		
-		//Set Session timeout to 3000s
-		VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
-		//Change Page title
-		this.getPage().setTitle("Health Visitor");
-		//Prepare the template page
-		
-		checkLogin();
+//		//Set Session timeout to 3000s
+//		VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
+//		//Change Page title
+//		this.getPage().setTitle("Health Visitor");
+//		//Prepare the template page
+//
+//		checkLogin();
+		createMainView();
 	}
 	
 	private void checkLogin() {
@@ -98,7 +98,7 @@ public class HealthVisUI extends UI {
 		menu = new Menu(navigator);
 		menu.addView(lv, "", LandingView.getName(), FontAwesome.DASHBOARD);
 		menu.addView(new DrugsView(), "", DrugsView.getName(), FontAwesome.AMBULANCE);
-		
+		menu.addView(new PatientListView(), "", PatientListView.getName(), FontAwesome.AMBULANCE);
 		navigator.addViewChangeListener(viewChangeListener);
 		
 		//Adding to the main Pane

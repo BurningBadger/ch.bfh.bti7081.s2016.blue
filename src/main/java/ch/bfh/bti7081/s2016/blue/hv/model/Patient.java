@@ -1,5 +1,8 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 @Entity(name = "patients")
 public class Patient extends BaseEntity {
 
@@ -23,9 +26,9 @@ public class Patient extends BaseEntity {
     @Column(name = "city", length = 20, nullable = false)
     private String city;
 
-    //TODO
-    @Column(name = "birthday", length = 10, nullable = false)
-    Component birthday = new PopupDateField("Birthday");
+//    //TODO
+//    @Column(name = "birthday", length = 10, nullable = false)
+//    Component birthday = new PopupDateField("Birthday");
 
     public Patient() {
     }
@@ -82,11 +85,11 @@ public class Patient extends BaseEntity {
         this.city = city;
     }
 
-    public Component getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Component birthday) {
-        this.birthday = birthday;
-    }
+//    public Component getBirthday() {
+//        return birthday;
+//    }
+//
+//    public void setBirthday(Component birthday) {
+//        this.birthday = birthday;
+//    }
 }

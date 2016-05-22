@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
 
@@ -72,4 +74,8 @@ public class PatientView extends CustomComponent implements View {
         setCompositionRoot(panel);
     }
 
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+
+    }
 }
