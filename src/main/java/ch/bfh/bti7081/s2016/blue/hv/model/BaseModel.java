@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.controller;
+package ch.bfh.bti7081.s2016.blue.hv.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,22 +14,30 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
 
-public class BaseController<T, ID> implements Serializable {
+/**
+ * {@link BaseModel} offering some CRUD operations.
+ * 
+ * @param <T>
+ *            The entity type.
+ * @param <ID>
+ *            The Type of the primary-key field of {@link T}.
+ */
+public abstract class BaseModel<T, ID> implements Serializable {
 
     private static final long serialVersionUID = -7938358022103672493L;
 
-    private final static Logger LOGGER = Logger.getLogger(BaseController.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(BaseModel.class.getName());
 
-    private JPAContainer<T> entities;
+    private JPAContainer<T> jpaContainer;
 
     private EntityManager entityManager;
 
     private Class<T> entityClass;
 
-    public BaseController(Class<T> clazz) {
+    public BaseModel(Class<T> clazz) {
 	this.entityClass = clazz;
-	entities = JPAContainerFactory.make(this.entityClass, Constants.PERSISTENCE_UNIT);
-	entityManager = entities.getEntityProvider().getEntityManager();
+	jpaContainer = JPAContainerFactory.make(this.entityClass, Constants.PERSISTENCE_UNIT);
+	entityManager = jpaContainer.getEntityProvider().getEntityManager();
     }
 
     /**

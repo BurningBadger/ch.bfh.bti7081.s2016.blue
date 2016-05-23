@@ -12,11 +12,11 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.Calendar;
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
-import ch.bfh.bti7081.s2016.blue.hv.model.Patient;
-import ch.bfh.bti7081.s2016.blue.hv.model.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.model.VisitEvent;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Calendar;
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
+import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
 import ch.bfh.bti7081.s2016.blue.hv.test.EntityService;
 
 public class LandingView extends Panel implements View {
