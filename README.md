@@ -34,3 +34,7 @@ The configuration for the loggers is done in: ``src/main/resources/logging.prope
 
 
 ## Exception Handling
+
+
+## Backlog
+https://docs.google.com/spreadsheets/d/1y-1JTzggA7luPNeGTHgxt7oRreeSmeyHxiz8hK-Xy2U/edit#gid=1215547785
