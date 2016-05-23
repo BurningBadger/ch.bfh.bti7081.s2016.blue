@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
@@ -49,5 +49,4 @@ public class VisitEvent extends BaseEntity {
     public void setVisitNodes(Set<Note> visitNodes) {
 	this.visitNodes = visitNodes;
     }
-
 }

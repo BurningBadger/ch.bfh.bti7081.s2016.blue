@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -52,5 +52,4 @@ public class BaseEntity implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
 	this.updatedAt = updatedAt;
     }
-
 }

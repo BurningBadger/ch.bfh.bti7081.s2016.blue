@@ -20,7 +20,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
 import ch.bfh.bti7081.s2016.blue.hv.view.DrugsView;
 import ch.bfh.bti7081.s2016.blue.hv.view.LandingView;
@@ -28,6 +28,9 @@ import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
 import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
 import ch.bfh.bti7081.s2016.blue.hv.view.PatientListView;
 import ch.bfh.bti7081.s2016.blue.hv.view.PatientView;
+import ch.bfh.bti7081.s2016.blue.hv.view.SettingsView;
+import ch.bfh.bti7081.s2016.blue.hv.view.TodayMeetingsView;
+import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 
 /**
  * {@link HealthVisUI}. This represents the applications main entry point.
@@ -58,29 +61,29 @@ public class HealthVisUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
 
-		// //Set Session timeout to 3000s
-		VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
-		// //Change Page title
-		this.getPage().setTitle("Health Visitor");
-		// //Prepare the template page
-		//
-    	checkLogin();
-    	createMainView();
+	// //Set Session timeout to 3000s
+	VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
+	// //Change Page title
+	this.getPage().setTitle("Health Visitor");
+	// //Prepare the template page
+	//
+	checkLogin();
+	createMainView();
     }
 
     private void checkLogin() {
-		String currentUser = (String) getSession().getAttribute("user");
+    	String currentUser = (String) getSession().getAttribute("user");
 		if (currentUser != null || !isDebug) {
 		    createMainView();
 		}
 		else {
 		    this.setContent(new LoginView(new LoginView.LoginListener() {
-		    	private static final long serialVersionUID = -6472665895715933073L;
+			private static final long serialVersionUID = -6472665895715933073L;
 	
-				@Override
-				public void loginSuccessful() {
-				    Page.getCurrent().reload();
-				}
+			@Override
+			public void loginSuccessful() {
+			    Page.getCurrent().reload();
+			}
 		    }));
 		}
     }

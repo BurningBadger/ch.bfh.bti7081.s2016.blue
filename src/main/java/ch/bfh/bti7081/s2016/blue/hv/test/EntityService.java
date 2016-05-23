@@ -8,15 +8,15 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.Calendar;
-import ch.bfh.bti7081.s2016.blue.hv.model.Contact;
-import ch.bfh.bti7081.s2016.blue.hv.model.Drug;
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
-import ch.bfh.bti7081.s2016.blue.hv.model.Note;
-import ch.bfh.bti7081.s2016.blue.hv.model.Patient;
-import ch.bfh.bti7081.s2016.blue.hv.model.Report;
-import ch.bfh.bti7081.s2016.blue.hv.model.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.model.VisitEvent;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Calendar;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Contact;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Note;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Report;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
+import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
 
 /**
  * Created by Denis on 5/21/2016.
@@ -134,7 +134,7 @@ public class EntityService {
 
 	    pContact.setCity(cities[r.nextInt(14) + 1]);
 	    pContact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
-	    pContact.setStreet(streets[r.nextInt(40) + 1]);
+	    pContact.setStreet(streets[streets.length -1]);
 	    pContact.setZip(10000 + r.nextInt(20000) + "");
 
 	    patient.setFirstname(firstNames[r.nextInt(14) + 1]);
