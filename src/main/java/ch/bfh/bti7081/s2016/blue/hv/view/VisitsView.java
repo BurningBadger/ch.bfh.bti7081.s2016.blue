@@ -1,24 +1,23 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
-import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
+import com.vaadin.data.Container;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
+import ch.bfh.bti7081.s2016.blue.hv.controller.VisitsController;
 
 public class VisitsView extends Panel implements View {
 
-    private static final String NAME = "Visits";
+    private static final long serialVersionUID = 7626840964598390162L;
 
-    private JPAContainer<Visit> visits;
+    private static final String NAME = "Visits";
+    private Container visits;
 
     public VisitsView() {
-	visits = JPAContainerFactory.make(Visit.class, Constants.PERSISTENCE_UNIT);
+	new VisitsController(this);
 
 	setSizeFull();
 	buildLayout();
@@ -46,4 +45,13 @@ public class VisitsView extends Panel implements View {
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
     }
+
+    public void setVisits(Container visits) {
+	this.visits = visits;
+    }
+
+    public Container getVisits() {
+	return this.visits;
+    }
+
 }

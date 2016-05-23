@@ -7,6 +7,7 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 import ch.bfh.bti7081.s2016.blue.hv.model.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
+import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 
 public class VisitsController extends BaseController {
 
@@ -16,7 +17,8 @@ public class VisitsController extends BaseController {
 
     private JPAContainer<Visit> visits;
 
-    public VisitsController() {
+    public VisitsController(VisitsView view) {
 	visits = JPAContainerFactory.make(Visit.class, Constants.PERSISTENCE_UNIT);
+	view.setVisits(visits);
     }
 }

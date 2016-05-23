@@ -28,6 +28,7 @@ import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
 import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
 import ch.bfh.bti7081.s2016.blue.hv.view.PatientListView;
 import ch.bfh.bti7081.s2016.blue.hv.view.PatientView;
+import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 
 /**
  * {@link HealthVisUI}. This represents the applications main entry point.
@@ -58,79 +59,81 @@ public class HealthVisUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
 
-		// //Set Session timeout to 3000s
-		VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
-		// //Change Page title
-		this.getPage().setTitle("Health Visitor");
-		// //Prepare the template page
-		//
-    	checkLogin();
-    	createMainView();
+	// //Set Session timeout to 3000s
+	VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
+	// //Change Page title
+	this.getPage().setTitle("Health Visitor");
+	// //Prepare the template page
+	//
+	checkLogin();
+	createMainView();
     }
 
     private void checkLogin() {
-		String currentUser = (String) getSession().getAttribute("user");
-		if (currentUser != null || isDebug) {
-		    createMainView();
+	String currentUser = (String) getSession().getAttribute("user");
+	if (currentUser != null || isDebug) {
+	    createMainView();
+	}
+	else {
+	    this.setContent(new LoginView(new LoginView.LoginListener() {
+		private static final long serialVersionUID = -6472665895715933073L;
+
+		@Override
+		public void loginSuccessful() {
+		    Page.getCurrent().reload();
 		}
-		else {
-		    this.setContent(new LoginView(new LoginView.LoginListener() {
-		    	private static final long serialVersionUID = -6472665895715933073L;
-	
-				@Override
-				public void loginSuccessful() {
-				    Page.getCurrent().reload();
-				}
-		    }));
-		}
+	    }));
+	}
     }
 
     private void createMainView() {
-		// Create Main Container for Views
-		HorizontalLayout mainVl = new HorizontalLayout();
-		mainVl.setSizeFull();
-		this.setContent(mainVl);
-		
-		// implement Vaadin Navigator
-		CssLayout viewContainer = new CssLayout();
-		viewContainer.addStyleName("valo-content");
-		viewContainer.setSizeFull();
-		
-		final Navigator navigator = new Navigator(this, viewContainer);
-		
-		// Views
-		LandingView lv = new LandingView();
-		
-		// Menu
-		menu = new Menu(navigator);
-		menu.addView(lv, "", LandingView.getName(), FontAwesome.DASHBOARD);
-		//menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.AMBULANCE);
-		menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.AMBULANCE);
-		menu.addView(new PatientView(), "Patient", PatientView.getName(), FontAwesome.AMBULANCE);
-		navigator.addViewChangeListener(viewChangeListener);
-		//navigator.addView("", lv);
-		
-		// Adding to the main Pane
-		mainVl.addComponent(menu);
-		mainVl.addComponent(viewContainer);
-		mainVl.setExpandRatio(viewContainer, 1);
-		
-		// Implement Webapp Login/Logout
-		
-		/*
-		 * final VerticalLayout layout = new VerticalLayout();
-		 * 
-		 * final TextField name = new TextField(); name.setCaption("Login:");
-		 * 
-		 * Button button = new Button("ok"); button.addClickListener(e -> {
-		 * layout.addComponent(new Label("Thanks " + name.getValue() +
-		 * ", it works!")); Notification.show("Hi " + name.getValue()); });
-		 * 
-		 * layout.addComponents(name, button); layout.setMargin(true);
-		 * layout.setSpacing(true);
-		 * 
-		 * setContent(layout);
-		 */
+	// Create Main Container for Views
+	HorizontalLayout mainVl = new HorizontalLayout();
+	mainVl.setSizeFull();
+	this.setContent(mainVl);
+
+	// implement Vaadin Navigator
+	CssLayout viewContainer = new CssLayout();
+	viewContainer.addStyleName("valo-content");
+	viewContainer.setSizeFull();
+
+	final Navigator navigator = new Navigator(this, viewContainer);
+
+	// Views
+	LandingView lv = new LandingView();
+
+	// Menu
+	menu = new Menu(navigator);
+	menu.addView(lv, "", LandingView.getName(), FontAwesome.DASHBOARD);
+	// menu.addView(new DrugsView(), "Drugs", DrugsView.getName(),
+	// FontAwesome.AMBULANCE);
+	menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.AMBULANCE);
+	menu.addView(new PatientView(), "Patient", PatientView.getName(), FontAwesome.AMBULANCE);
+	menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.STICKY_NOTE);
+	navigator.addViewChangeListener(viewChangeListener);
+	// navigator.addView("", lv);
+
+	// Adding to the main Pane
+	mainVl.addComponent(menu);
+	mainVl.addComponent(viewContainer);
+	mainVl.setExpandRatio(viewContainer, 1);
+
+	// Implement Webapp Login/Logout
+
+	/*
+	 * final VerticalLayout layout = new VerticalLayout();
+	 * 
+	 * final TextField name = new TextField(); name.setCaption("Login:");
+	 * 
+	 * Button button = new Button("ok"); button.addClickListener(e -> {
+	 * layout.addComponent(new Label("Thanks " + name.getValue() +
+	 * ", it works!")); Notification.show("Hi " + name.getValue()); });
+	 * 
+	 * layout.addComponents(name, button); layout.setMargin(true);
+	 * layout.setSpacing(true);
+	 * 
+	 * setContent(layout);
+	 */
     }
 
     ViewChangeListener viewChangeListener = new ViewChangeListener() {
