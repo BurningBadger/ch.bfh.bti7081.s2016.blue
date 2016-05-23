@@ -73,4 +73,5 @@ public class Contact extends BaseEntity {
     // + ", lastName=" + lastName + ", phone=" + phone + ", email="
     // + email + ", birthDate=" + birthDate + '}';
     // }
+    
 }

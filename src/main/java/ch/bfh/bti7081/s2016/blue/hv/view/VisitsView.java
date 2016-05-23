@@ -20,7 +20,6 @@ public class VisitsView extends Panel implements View {
 
     public VisitsView() {
 	new VisitsModel(this);
-
 	setSizeFull();
 	buildLayout();
     }

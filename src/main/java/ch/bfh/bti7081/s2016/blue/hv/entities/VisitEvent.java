@@ -49,5 +49,4 @@ public class VisitEvent extends BaseEntity {
     public void setVisitNodes(Set<Note> visitNodes) {
 	this.visitNodes = visitNodes;
     }
-
 }

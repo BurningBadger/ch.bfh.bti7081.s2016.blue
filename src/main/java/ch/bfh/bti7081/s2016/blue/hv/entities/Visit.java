@@ -43,5 +43,4 @@ public class Visit extends BaseEntity {
     public void setVisitEvents(Set<VisitEvent> visitEvents) {
 	this.visitEvents = visitEvents;
     }
-
 }

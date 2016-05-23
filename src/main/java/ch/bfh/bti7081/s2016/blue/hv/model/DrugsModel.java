@@ -13,4 +13,5 @@ public class DrugsModel extends BaseModel<Drug, Long> {
     public DrugsModel() {
 	super(Drug.class);
     }
+    
 }

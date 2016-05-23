@@ -12,7 +12,6 @@ public class DrugsView extends VerticalLayout implements View {
     @Override
     public void enter(ViewChangeEvent event) {
 	// TODO Auto-generated method stub
-
     }
 
     public static String getName() {

@@ -30,4 +30,5 @@ public class Note extends BaseEntity {
     public void setVisitEvent(VisitEvent visitEvent) {
 	this.visitEvent = visitEvent;
     }
+    
 }

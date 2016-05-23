@@ -42,4 +42,5 @@ public class Patient extends Person {
     public void setVisits(Set<Visit> visits) {
 	this.visits = visits;
     }
+    
 }

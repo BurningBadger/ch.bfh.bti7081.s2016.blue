@@ -14,4 +14,5 @@ public class VisitsModel extends BaseModel<Visit, Long> {
     public VisitsModel(VisitsView view) {
 	super(Visit.class);
     }
+    
 }

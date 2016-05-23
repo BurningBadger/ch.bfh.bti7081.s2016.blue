@@ -51,5 +51,4 @@ public class HealthVisitor extends Person {
 
     // TODO add visits if needed in another iteration.
     // private Set<Visit> visits;
-
 }

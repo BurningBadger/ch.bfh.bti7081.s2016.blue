@@ -33,5 +33,4 @@ public class Calendar extends BaseEntity {
     public void setDateTo(Date dateTo) {
 	this.dateTo = dateTo;
     }
-
 }

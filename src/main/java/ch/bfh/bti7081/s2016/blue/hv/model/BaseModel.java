@@ -156,5 +156,4 @@ public abstract class BaseModel<T, ID> implements Serializable {
 	}
 	return true;
     }
-
 }

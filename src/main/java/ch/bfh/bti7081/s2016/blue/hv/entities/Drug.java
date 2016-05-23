@@ -30,5 +30,4 @@ public class Drug extends BaseEntity {
     public void setPatient(Patient patient) {
 	this.patient = patient;
     }
-
 }

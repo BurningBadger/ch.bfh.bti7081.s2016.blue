@@ -42,4 +42,5 @@ public class Report extends BaseEntity {
     public void setVisitEvent(VisitEvent visitEvent) {
 	this.visitEvent = visitEvent;
     }
+    
 }
