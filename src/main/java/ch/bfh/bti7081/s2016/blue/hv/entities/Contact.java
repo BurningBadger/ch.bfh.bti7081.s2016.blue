@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -73,4 +73,5 @@ public class Contact extends BaseEntity {
     // + ", lastName=" + lastName + ", phone=" + phone + ", email="
     // + email + ", birthDate=" + birthDate + '}';
     // }
+    
 }

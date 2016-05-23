@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Date;
 
@@ -62,4 +62,5 @@ public class Person extends BaseEntity {
     public void setLastname(String lastname) {
 	this.lastname = lastname;
     }
+    
 }

@@ -5,9 +5,10 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-import ch.bfh.bti7081.s2016.blue.hv.controller.VisitsController;
+import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 
 public class VisitsView extends Panel implements View {
 
@@ -15,10 +16,10 @@ public class VisitsView extends Panel implements View {
 
     private static final String NAME = "Visits";
     private Container visits;
+    private TextArea text;
 
     public VisitsView() {
-	new VisitsController(this);
-
+	new VisitsModel(this);
 	setSizeFull();
 	buildLayout();
     }
@@ -31,8 +32,9 @@ public class VisitsView extends Panel implements View {
 	visitTable.setSelectable(true);
 	visitTable.setImmediate(true);
 
+	text = new TextArea();
 	final VerticalLayout layout = new VerticalLayout();
-	layout.addComponents(panel, visitTable);
+	layout.addComponents(panel, visitTable, text);
 	setContent(layout);
     }
 

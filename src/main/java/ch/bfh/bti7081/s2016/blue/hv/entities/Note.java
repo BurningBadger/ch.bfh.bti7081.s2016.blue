@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,4 +30,5 @@ public class Note extends BaseEntity {
     public void setVisitEvent(VisitEvent visitEvent) {
 	this.visitEvent = visitEvent;
     }
+    
 }

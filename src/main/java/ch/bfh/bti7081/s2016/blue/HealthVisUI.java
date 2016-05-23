@@ -21,7 +21,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
 import ch.bfh.bti7081.s2016.blue.hv.view.DrugsView;
 import ch.bfh.bti7081.s2016.blue.hv.view.LandingView;

@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,5 +30,4 @@ public class Drug extends BaseEntity {
     public void setPatient(Patient patient) {
 	this.patient = patient;
     }
-
 }
