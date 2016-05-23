@@ -40,19 +40,20 @@ public class Menu extends CssLayout {
 	setPrimaryStyleName(ValoTheme.MENU_ROOT);
 	menuPart = new CssLayout();
 	menuPart.addStyleName(ValoTheme.MENU_PART);
+	menuPart.addStyleName(ValoTheme.MENU_PART_LARGE_ICONS);
 
 	// header of the menu
 	final HorizontalLayout top = new HorizontalLayout();
 	top.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
 	top.addStyleName(ValoTheme.MENU_TITLE);
 	top.setSpacing(true);
-	Label title = new Label("Health Visitor");
-	title.addStyleName(ValoTheme.LABEL_H3);
-	title.setSizeUndefined();
-	Image image = new Image(null, new ThemeResource("images/logo_75_60.jpg"));
+	//Label title = new Label("Health Visitor");
+	//title.addStyleName(ValoTheme.LABEL_H2);
+	//title.setSizeUndefined();
+	Image image = new Image(null, new ThemeResource("images/logo_75_60.png"));
 	image.setStyleName("logo");
 	top.addComponent(image);
-	top.addComponent(title);
+	//top.addComponent(title);
 	menuPart.addComponent(top);
 
 	// logout menu item
@@ -141,24 +142,24 @@ public class Menu extends CssLayout {
     }
 
     private void createViewButton(final String name, String caption, Resource icon) {
-	Button button = new Button(caption, new Button.ClickListener() {
-	    private static final long serialVersionUID = 3967216491537592707L;
-
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		if (!name.equals("")) {
-		    Page.getCurrent().setTitle(name + " | Doctor's Registry");
-		}
-		else {
-		    Page.getCurrent().setTitle("Doctor's Registry");
-		}
-		navigator.navigateTo(name);
-	    }
-	});
-	button.setPrimaryStyleName(ValoTheme.MENU_ITEM);
-	button.setIcon(icon);
-	menuItemsLayout.addComponent(button);
-	viewButtons.put(name, button);
+		Button button = new Button(caption, new Button.ClickListener() {
+		    private static final long serialVersionUID = 3967216491537592707L;
+	
+		    @Override
+		    public void buttonClick(ClickEvent event) {
+			if (!name.equals("")) {
+			    Page.getCurrent().setTitle(name + " | Health Visitor");
+			}
+			else {
+			    Page.getCurrent().setTitle("Health Visitor");
+			}
+			navigator.navigateTo(name);
+		    }
+		});
+		button.setPrimaryStyleName(ValoTheme.MENU_ITEM);
+		button.setIcon(icon);
+		menuItemsLayout.addComponent(button);
+		viewButtons.put(name, button);
     }
 
     /**

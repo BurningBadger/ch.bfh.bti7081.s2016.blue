@@ -28,91 +28,90 @@ public class LoginView extends CustomComponent implements View {
     private Button loginButton;
 
     public LoginView(LoginListener loginListener) {
-	this.loginListener = loginListener;
-
-	buildUi();
+		this.loginListener = loginListener;
+	
+		buildUi();
     }
 
     private void buildUi() {
-	setSizeFull();
-
-	// Create the user input field
-	user = new TextField("User:");
-	user.setWidth("300px");
-	user.setRequired(true);
-	user.setInputPrompt("Your username (eg. joe@email.com)");
-	user.addValidator(new EmailValidator("Username must be a valid email address"));
-	user.setInvalidAllowed(false);
-
-	// Create the password input field
-	password = new PasswordField("Password:");
-	password.setWidth("300px");
-	password.addValidator(new PasswordValidator());
-	password.setRequired(true);
-	password.setValue("");
-	password.setNullRepresentation("");
-
-	// Create login button
-	loginButton = new Button("Login", new Button.ClickListener() {
-
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		if (!user.isValid() || !password.isValid()) {
-		    return;
-		}
-
-		String username = user.getValue();
-		String password = LoginView.this.password.getValue();
-
-		//
-		// Validate username and password with database here. For
-		// examples sake
-		// I use a dummy username and password.
-		//
-		/*
-		 * boolean isValid = username.equals("test@test.com") &&
-		 * password.equals("passw0rd");
-		 */
-
-		boolean isValid = false;
-		try {
-		    // isValid = um.isLoginCorrect(username, password);
-		    isValid = true;
-		}
-		catch (Exception e) {
-
-		}
-
-		if (isValid) {
-		    getSession().setAttribute("user", username);
-		    LoginView.this.loginListener.loginSuccessful();
-		}
-		else {
-		    // Wrong password clear the password field and refocuses it
-		    showNotification(
-			    new Notification("Login failed", "Please check your username and password and try again.",
-				    Notification.Type.HUMANIZED_MESSAGE));
-
-		    LoginView.this.password.setValue(null);
-		    LoginView.this.password.focus();
-		}
-	    }
-	});
-
-	// Add both to a panel
-	VerticalLayout fields = new VerticalLayout(user, password, loginButton);
-	// fields.setCaption("Please login to access the application.
-	// (test@test.com/passw0rd)");
-	fields.setSpacing(true);
-	fields.setMargin(new MarginInfo(true, true, true, false));
-	fields.setSizeUndefined();
-
-	// The view root layout
-	VerticalLayout viewLayout = new VerticalLayout(fields);
-	viewLayout.setSizeFull();
-	viewLayout.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
-	viewLayout.setStyleName(Reindeer.LAYOUT_BLUE);
-	setCompositionRoot(viewLayout);
+		setSizeFull();
+	
+		// Create the user input field
+		user = new TextField("User:");
+		user.setWidth("300px");
+		user.setRequired(true);
+		user.setInputPrompt("Your username (eg. joe@email.com)");
+		user.addValidator(new EmailValidator("Username must be a valid email address"));
+		user.setInvalidAllowed(false);
+	
+		// Create the password input field
+		password = new PasswordField("Password:");
+		password.setWidth("300px");
+		password.addValidator(new PasswordValidator());
+		password.setRequired(true);
+		password.setValue("");
+		password.setNullRepresentation("");
+	
+		// Create login button
+		loginButton = new Button("Login", new Button.ClickListener() {
+	
+		    @Override
+		    public void buttonClick(ClickEvent event) {
+			if (!user.isValid() || !password.isValid()) {
+			    return;
+			}
+	
+			String username = user.getValue();
+			String password = LoginView.this.password.getValue();
+	
+			//
+			// Validate username and password with database here. For
+			// examples sake
+			// I use a dummy username and password.
+			//
+			
+			boolean isValid = username.equals("test@test.com") && password.equals("passw0rd");
+			 
+	
+			/*boolean isValid = false;
+			try {
+			    // isValid = um.isLoginCorrect(username, password);
+			    isValid = true;
+			}
+			catch (Exception e) {
+	
+			}*/
+	
+			if (isValid) {
+			    getSession().setAttribute("user", username);
+			    LoginView.this.loginListener.loginSuccessful();
+			}
+			else {
+			    // Wrong password clear the password field and refocuses it
+			    showNotification(
+				    new Notification("Login failed", "Please check your username and password and try again.",
+					    Notification.Type.HUMANIZED_MESSAGE));
+	
+			    LoginView.this.password.setValue(null);
+			    LoginView.this.password.focus();
+			}
+		    }
+		});
+	
+		// Add both to a panel
+		VerticalLayout fields = new VerticalLayout(user, password, loginButton);
+		// fields.setCaption("Please login to access the application.
+		// (test@test.com/passw0rd)");
+		fields.setSpacing(true);
+		fields.setMargin(new MarginInfo(true, true, true, false));
+		fields.setSizeUndefined();
+	
+		// The view root layout
+		VerticalLayout viewLayout = new VerticalLayout(fields);
+		viewLayout.setSizeFull();
+		viewLayout.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
+		viewLayout.setStyleName(Reindeer.LAYOUT_BLUE);
+		setCompositionRoot(viewLayout);
     }
 
     // Validator for validating the passwords
@@ -130,7 +129,7 @@ public class LoginView extends CustomComponent implements View {
 	    // one number
 	    //
 	    if (value != null && (value.length() < 6 || !value.matches(".*\\d.*"))) {
-		return false;
+	    	return false;
 	    }
 	    return true;
 	}
