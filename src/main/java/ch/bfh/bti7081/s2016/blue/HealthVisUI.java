@@ -45,10 +45,6 @@ public class HealthVisUI extends UI {
 
     private JPAContainer<HealthVisitor> healthVisitors;
 
-    // public PatientListView patientList = new PatientListView();
-    // public ContactService contactService =
-    // ContactService.createDemoService();
-
     private static Menu menu = null;
     private static final boolean isDebug = true;
 
