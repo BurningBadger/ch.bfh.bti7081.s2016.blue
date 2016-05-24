@@ -1583,3 +1583,1312 @@ INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Hap
 	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:610)
 	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:539)
 	at java.lang.Thread.run(Thread.java:745)
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:39)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:35:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:39)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:39:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:39:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:48:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:49:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:50:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CALENDARS" nicht gefunden
+Table "CALENDARS" not found; SQL statement:
+SELECT id FROM CALENDARS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "HEALTH_VISITORS" nicht gefunden
+Table "HEALTH_VISITORS" not found; SQL statement:
+SELECT id FROM HEALTH_VISITORS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "DRUGS" nicht gefunden
+Table "DRUGS" not found; SQL statement:
+SELECT id FROM DRUGS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "REPORTS" nicht gefunden
+Table "REPORTS" not found; SQL statement:
+SELECT id FROM REPORTS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISIT_EVENTS" nicht gefunden
+Table "VISIT_EVENTS" not found; SQL statement:
+SELECT id FROM VISIT_EVENTS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "CONTACTS" nicht gefunden
+Table "CONTACTS" not found; SQL statement:
+SELECT id FROM CONTACTS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "NOTES" nicht gefunden
+Table "NOTES" not found; SQL statement:
+SELECT id FROM NOTES WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITS" nicht gefunden
+Table "VISITS" not found; SQL statement:
+SELECT id FROM VISITS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "PATIENTS" nicht gefunden
+Table "PATIENTS" not found; SQL statement:
+SELECT id FROM PATIENTS WHERE id <> id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "VISITORS_PATIENTS" nicht gefunden
+Table "VISITORS_PATIENTS" not found; SQL statement:
+SELECT patient_id FROM Visitors_Patients WHERE patient_id <> patient_id [42102-191]
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Anzahl der Felder stimmt nicht überein
+Column count does not match; SQL statement:
+INSERT INTO HEALTH_VISITORS (ID, FIRST_NAME, LAST_NAME, USER_NAME, CREATED_AT, UPDATED_AT) VALUES(1, 'Test', 'User', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [21002-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.dml.Insert.prepare(Insert.java:265)
+	at org.h2.command.Parser.prepareCommand(Parser.java:257)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+2016-05-24 18:53:10 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "CUSTOMER_ID" nicht gefunden
+Column "CUSTOMER_ID" not found; SQL statement:
+INSERT INTO DRUGS (ID, NAME, CUSTOMER_ID, CREATED_AT, UPDATED_AT) VALUES(1, 'Happy-Drug', 1, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()); [42122-191]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.table.Table.getColumn(Table.java:680)
+	at org.h2.command.Parser.parseColumn(Parser.java:866)
+	at org.h2.command.Parser.parseColumnList(Parser.java:850)
+	at org.h2.command.Parser.parseInsert(Parser.java:1050)
+	at org.h2.command.Parser.parsePrepared(Parser.java:411)
+	at org.h2.command.Parser.parse(Parser.java:315)
+	at org.h2.command.Parser.parse(Parser.java:287)
+	at org.h2.command.Parser.prepareCommand(Parser.java:252)
+	at org.h2.engine.Session.prepareLocal(Session.java:560)
+	at org.h2.engine.Session.prepareCommand(Session.java:501)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1565)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.prepareStatement(DatabaseAccessor.java:1514)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseCall.prepareStatement(DatabaseCall.java:778)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:621)
+	at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:560)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:2055)
+	at org.eclipse.persistence.sessions.server.ServerSession.executeCall(ServerSession.java:570)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:242)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:228)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelectCall(DatasourceCallQueryMechanism.java:271)
+	at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeNoSelect(DatasourceCallQueryMechanism.java:251)
+	at org.eclipse.persistence.queries.DataModifyQuery.executeDatabaseQuery(DataModifyQuery.java:85)
+	at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:904)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.internalExecuteQuery(AbstractSession.java:3267)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1857)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1839)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1790)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingCall(AbstractSession.java:1559)
+	at org.eclipse.persistence.internal.sessions.AbstractSession.executeNonSelectingSQL(AbstractSession.java:1577)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeSourceScriptToDatabase(EntityManagerSetupImpl.java:4348)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.writeDDL(EntityManagerSetupImpl.java:4084)
+	at org.eclipse.persistence.internal.jpa.EntityManagerSetupImpl.deploy(EntityManagerSetupImpl.java:774)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getAbstractSession(EntityManagerFactoryDelegate.java:205)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryDelegate.getDatabaseSession(EntityManagerFactoryDelegate.java:183)
+	at org.eclipse.persistence.internal.jpa.EntityManagerFactoryImpl.getDatabaseSession(EntityManagerFactoryImpl.java:528)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactoryImpl(PersistenceProvider.java:146)
+	at org.eclipse.persistence.jpa.PersistenceProvider.createEntityManagerFactory(PersistenceProvider.java:183)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:55)
+	at javax.persistence.Persistence.createEntityManagerFactory(Persistence.java:39)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.createEntityManagerForPersistenceUnit(JPAContainerFactory.java:122)
+	at com.vaadin.addon.jpacontainer.JPAContainerFactory.make(JPAContainerFactory.java:105)
+	at ch.bfh.bti7081.s2016.blue.hv.model.BaseModel.<init>(BaseModel.java:40)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel.<init>(DrugsModel.java:14)
+	at ch.bfh.bti7081.s2016.blue.hv.model.DrugsModelTest.<init>(DrugsModelTest.java:10)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:422)
+	at org.junit.runners.BlockJUnit4ClassRunner.createTest(BlockJUnit4ClassRunner.java:217)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.runReflectiveCall(BlockJUnit4ClassRunner.java:266)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.BlockJUnit4ClassRunner.methodBlock(BlockJUnit4ClassRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:675)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)

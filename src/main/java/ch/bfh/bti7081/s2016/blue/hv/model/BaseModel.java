@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.RollbackException;
@@ -113,7 +114,12 @@ public abstract class BaseModel<T, ID> implements Serializable {
     @SuppressWarnings("unchecked")
     public List<T> findAll() throws EntityNotFoundException {
 	entityManager.getTransaction().begin();
-	List<T> list = entityManager.createQuery("SELECT t FROM " + entityClass.getSimpleName() + " t").getResultList();
+
+	// get the table name from the defined annotation.
+	Entity annotation = entityClass.getAnnotation(Entity.class);
+	String tableName = annotation.name();
+
+	List<T> list = entityManager.createQuery("SELECT t FROM " + tableName + " t").getResultList();
 	entityManager.getTransaction().commit();
 	return list;
     }
