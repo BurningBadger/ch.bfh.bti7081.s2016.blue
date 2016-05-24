@@ -10,13 +10,12 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
 /**
  * Created by uck1 on 14.05.2016.
  */
-public class PatientView extends Panel implements View {
+public class PatientView extends VerticalLayout implements View {
 
     private static final String NAME = "Patient"; // variable for HealthVisUI
 
@@ -40,21 +39,21 @@ public class PatientView extends Panel implements View {
 
     private void buildLayout() {
 
-	Panel panel = new Panel("Patient");
-	// panel.setSizeFull();
-	VerticalLayout vertLay = new VerticalLayout();
-
 	// 1st row
 	HorizontalLayout firstLay = new HorizontalLayout();
 	firstLay.addComponent(butMenu);
 	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
 	firstLay.addComponent(butCall);
 	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
-	vertLay.addComponent(firstLay);
+	firstLay.setMargin(true);
+	butMenu.addStyleName("btntestclass");
+	butCall.addStyleName("btntestclass");
+	firstLay.setWidth("100%");
+	this.addComponent(firstLay);
 
 	// 2nd row horizontal splitted
 	HorizontalSplitPanel hsplit = new HorizontalSplitPanel();
-	hsplit.setHeight(10, Unit.CM);
+//	hsplit.setHeight(5, Unit.CM);
 	hsplit.setSplitPosition(40, Unit.PERCENTAGE);
 	// left side
 	AbsoluteLayout left = new AbsoluteLayout();
@@ -67,39 +66,31 @@ public class PatientView extends Panel implements View {
 	right.addComponent(lastName, "left: 10px; top: 50px;");
 	right.addComponent(age, "left: 10px; top: 80px;");
 	hsplit.setSecondComponent(right);
-	vertLay.addComponent(hsplit); // add both to the row of the vertical
-				      // layout
+	this.addComponent(hsplit); // add both to the row of the vertical layout
 
 	// panel with buttons
 	HorizontalSplitPanel buttonLay = new HorizontalSplitPanel();
 	buttonLay.setSplitPosition(50, Unit.PERCENTAGE);
+
 	// left side
 	AbsoluteLayout buttonLeftLay = new AbsoluteLayout();
 	buttonLeftLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-up-circle-120x120.png")),
-		"left:10; top: 50px;");
-	butBesuche.addClickListener(e -> {
-	});
+		"left:60; top: 50px;");
+	butBesuche.addClickListener(e -> {});
 	buttonLeftLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-down-circle-120x120.png")),
-		"right:10; top: 50px;");
-	butAnmerkungen.addClickListener(e -> {
-	});
+		"left:60; top: 190px;");
+	butAnmerkungen.addClickListener(e -> {});
 	buttonLay.setFirstComponent(buttonLeftLay);
 	// right side
 	AbsoluteLayout buttonRightLay = new AbsoluteLayout();
 	buttonRightLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-up-circle-120x120.png")),
-		"left:10; top: 80px;");
-	butThree.addClickListener(e -> {
-	});
+		"right:60; top: 50px;");
+	butThree.addClickListener(e -> {});
 	buttonRightLay.addComponent(new Image(null, new ThemeResource("icons/thumbs-down-circle-120x120.png")),
-		"right:10; top: 80px;");
-	butFour.addClickListener(e -> {
-	});
+		"right:60; top: 190px;");
+	butFour.addClickListener(e -> {});
 	buttonLay.setSecondComponent(buttonRightLay);
-	vertLay.addComponent(buttonLay);
-
-	// final add to the panel
-	panel.setContent(vertLay);
-	setContent(panel);
+	this.addComponent(buttonLay);
     }
 
     // method for the HealthVisUI
