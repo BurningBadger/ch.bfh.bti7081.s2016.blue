@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityTransaction;
 import javax.persistence.RollbackException;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
@@ -162,4 +163,12 @@ public abstract class BaseModel<T, ID> implements Serializable {
 	}
 	return true;
     }
+
+    public EntityTransaction getTransaction() {
+	if (entityManager == null) {
+	    return null;
+	}
+	return entityManager.getTransaction();
+    }
+
 }
