@@ -119,3 +119,8 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+## DB ##
+healthVisDb.lock.db
+healthVisDb.mv.db
+healthVisDb.trace.db
+
