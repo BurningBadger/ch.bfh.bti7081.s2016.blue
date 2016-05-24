@@ -14,4 +14,10 @@ public class DrugsModel extends BaseModel<Drug, Long> {
 	super(Drug.class);
     }
     
+    boolean validate(Drug drug)
+    {
+	
+	return false;
+    }
+    
 }

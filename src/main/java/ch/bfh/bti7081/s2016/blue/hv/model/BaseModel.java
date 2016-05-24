@@ -14,6 +14,7 @@ import javax.persistence.RollbackException;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.BaseEntity;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
 
 /**
@@ -24,7 +25,7 @@ import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
  * @param <ID>
  *            The Type of the primary-key field of {@link T}.
  */
-public abstract class BaseModel<T, ID> implements Serializable {
+public abstract class BaseModel<T extends BaseEntity, ID> implements Serializable {
 
     private static final long serialVersionUID = -7938358022103672493L;
 
@@ -48,10 +49,16 @@ public abstract class BaseModel<T, ID> implements Serializable {
      * @param element
      * @return true, if saving was successful.
      */
-    public boolean save(T element) {
+    public boolean saveOrUpdate(T element) {
 	try {
 	    entityManager.getTransaction().begin();
-	    entityManager.merge(element);
+	    // new, if no id exists
+	    if (element.getId() == null) {
+		entityManager.persist(element);
+	    }
+	    else {
+		entityManager.merge(element);
+	    }
 	    entityManager.getTransaction().commit();
 	}
 	catch (RollbackException ex) {

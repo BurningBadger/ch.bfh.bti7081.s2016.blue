@@ -30,4 +30,13 @@ public class Drug extends BaseEntity {
     public void setPatient(Patient patient) {
 	this.patient = patient;
     }
+
+    // TODO where do we want to add validation?
+    // public Set<ConstraintViolation<Drug>> validate() {
+    // // validate
+    // ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    // Validator validator = factory.getValidator();
+    // Set<ConstraintViolation<Drug>> errors = validator.validate(this);
+    // return errors;
+    // }
 }

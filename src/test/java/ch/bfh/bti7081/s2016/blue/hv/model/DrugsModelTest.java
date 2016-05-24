@@ -8,7 +8,11 @@ import org.junit.Test;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
 
+/**
+ * Test class for testing the {@link DrugsModel}.
+ */
 public class DrugsModelTest {
+
     private DrugsModel drugsModel = new DrugsModel();
 
     @After
@@ -28,7 +32,7 @@ public class DrugsModelTest {
 	drug.setName("Test Name");
 
 	// when
-	drugsModel.save(drug);
+	drugsModel.saveOrUpdate(drug);
 
 	// then
 	Assert.assertEquals(1, drugsModel.findAll().size());
@@ -41,7 +45,7 @@ public class DrugsModelTest {
 	Drug drug1 = new Drug();
 	drug1.setId(Long.valueOf(999));
 	drug1.setName("Test Name 1");
-	drugsModel.save(drug1);
+	drugsModel.saveOrUpdate(drug1);
 
 	// when
 	Drug d = drugsModel.findById(Long.valueOf(999));
