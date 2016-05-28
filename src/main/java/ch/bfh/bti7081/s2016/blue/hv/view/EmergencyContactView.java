@@ -1,12 +1,8 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
-import ch.bfh.bti7081.s2016.blue.hv.controller.VisitsController;
-
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
-
-import ch.bfh.bti7081.s2016.blue.hv.controller.VisitsController;
 
 /**
  * Created by suttc1 on 22.05.2016.
