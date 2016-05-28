@@ -3,13 +3,17 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.Window;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
+import elemental.html.ShadowElement;
 
 public class VisitsView extends HorizontalLayout implements View {
 
@@ -44,9 +48,9 @@ public class VisitsView extends HorizontalLayout implements View {
 	    Button detailsBtn = new Button("show details");
 	    detailsBtn.setData(visit);
 	    detailsBtn.addClickListener(event -> {
-		// Get the visit
+		// show the detail of the selected element
 		Visit v = (Visit) event.getButton().getData();
-		Notification.show("Link " + v.getId() + " clicked.");
+		showDetailsWindow(v);
 	    });
 	    detailsBtn.addStyleName("link");
 
@@ -57,6 +61,13 @@ public class VisitsView extends HorizontalLayout implements View {
 	}
 
 	this.addComponent(table);
+
+	// button to add visit
+	Button addNewVisitBtn = new Button("add new visit");
+	addNewVisitBtn.addClickListener(event -> {
+	    showDetailsWindow(null);
+	});
+	this.addComponent(addNewVisitBtn);
     }
 
     @Override
@@ -66,6 +77,27 @@ public class VisitsView extends HorizontalLayout implements View {
 
     public static String getName() {
 	return NAME;
+    }
+
+    private void showDetailsWindow(Visit visit) {
+
+	final FormLayout formLayout = new FormLayout();
+	String windowTitle = null;
+
+	// add new
+	if (visit == null) {
+	    windowTitle = "Add new visit";
+	}
+	// show details
+	else {
+	    windowTitle = visit.getPatient().getFirstname() + " " + visit.getPatient().getLastname();
+	}
+
+	final Window window = new Window(windowTitle);
+	window.setWidth(800.0f, Unit.PIXELS);
+	window.center();
+	window.setContent(formLayout);
+	UI.getCurrent().addWindow(window);
     }
 
 }
