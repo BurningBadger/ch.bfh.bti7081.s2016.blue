@@ -2,9 +2,11 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 
 @Entity(name = "visits")
 public class Visit extends BaseEntity {
@@ -19,6 +21,10 @@ public class Visit extends BaseEntity {
 
     @OneToMany(mappedBy = "visit")
     private Set<VisitEvent> visitEvents;
+
+    @Valid
+    @OneToMany(mappedBy = "visit", cascade = CascadeType.PERSIST)
+    private Set<Prescription> prescriptions;
 
     public HealthVisitor getVisitor() {
 	return visitor;
@@ -43,4 +49,8 @@ public class Visit extends BaseEntity {
     public void setVisitEvents(Set<VisitEvent> visitEvents) {
 	this.visitEvents = visitEvents;
     }
+
+    public Set<Prescription> getPrescriptions() { return prescriptions; }
+
+    public void setPrescriptions(Set<Prescription> prescriptions) { this.prescriptions = prescriptions; }
 }

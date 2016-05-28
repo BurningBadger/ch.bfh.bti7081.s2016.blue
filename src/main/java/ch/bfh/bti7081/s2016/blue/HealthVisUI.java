@@ -68,65 +68,65 @@ public class HealthVisUI extends UI {
     }
 
     private void checkLogin() {
-    	String currentUser = (String) getSession().getAttribute("user");
-		if (currentUser != null || !isDebug) {
-		    createMainView();
+	String currentUser = (String) getSession().getAttribute("user");
+	if (currentUser != null || !isDebug) {
+	    createMainView();
+	}
+	else {
+	    this.setContent(new LoginView(new LoginView.LoginListener() {
+		private static final long serialVersionUID = -6472665895715933073L;
+
+		@Override
+		public void loginSuccessful() {
+		    Page.getCurrent().reload();
 		}
-		else {
-		    this.setContent(new LoginView(new LoginView.LoginListener() {
-			private static final long serialVersionUID = -6472665895715933073L;
-	
-			@Override
-			public void loginSuccessful() {
-			    Page.getCurrent().reload();
-			}
-		    }));
-		}
+	    }));
+	}
     }
 
     private void createMainView() {
-		// Create Main Container for Views
-		HorizontalLayout mainVl = new HorizontalLayout();
-		mainVl.setSizeFull();
-		this.setContent(mainVl);
-		
-		// implement Vaadin Navigator
-		CssLayout viewContainer = new CssLayout();
-		viewContainer.addStyleName("valo-content");
-		viewContainer.setSizeFull();
-		
-		final Navigator navigator = new Navigator(this, viewContainer);
-		
-		// Menu
-		menu = new Menu(navigator);
-		menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
-		menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
-		menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
-		menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
-		menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
-		if (navigator.getState().isEmpty()) {
-            navigator.navigateTo(LandingView.getName());
-        }
-		navigator.addViewChangeListener(viewChangeListener);
-		
-		// Adding to the main Pane
-		mainVl.addComponent(menu);
-		mainVl.addComponent(viewContainer);
-		mainVl.setExpandRatio(viewContainer, 1);
+	// Create Main Container for Views
+	HorizontalLayout mainVl = new HorizontalLayout();
+	mainVl.setSizeFull();
+	this.setContent(mainVl);
+
+	// implement Vaadin Navigator
+	CssLayout viewContainer = new CssLayout();
+	viewContainer.addStyleName("valo-content");
+	viewContainer.setSizeFull();
+
+	final Navigator navigator = new Navigator(this, viewContainer);
+
+	// Menu
+	menu = new Menu(navigator);
+	menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
+	menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
+	menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
+	menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
+	menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
+	if (navigator.getState().isEmpty()) {
+	    navigator.navigateTo(LandingView.getName());
+	}
+	navigator.addViewChangeListener(viewChangeListener);
+
+	// Adding to the main Pane
+	mainVl.addComponent(menu);
+	mainVl.addComponent(viewContainer);
+	mainVl.setExpandRatio(viewContainer, 1);
     }
 
     ViewChangeListener viewChangeListener = new ViewChangeListener() {
-		private static final long serialVersionUID = -1303877173524139079L;
-	
-		@Override
-		public boolean beforeViewChange(ViewChangeEvent event) {
-		    return true;
-		}
-	
-		@Override
-		public void afterViewChange(ViewChangeEvent event) {
-		    menu.setActiveView(event.getViewName());
-		}
+	private static final long serialVersionUID = -1303877173524139079L;
+
+	@Override
+	public boolean beforeViewChange(ViewChangeEvent event) {
+	    return true;
+	}
+
+	@Override
+	public void afterViewChange(ViewChangeEvent event) {
+	    menu.setActiveView(event.getViewName());
+	}
 
     };
 
