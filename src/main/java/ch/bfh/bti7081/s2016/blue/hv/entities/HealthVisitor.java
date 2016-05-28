@@ -18,6 +18,9 @@ public class HealthVisitor extends Person {
     @Column(name = "user_name", length = 255, nullable = false)
     private String userName;
 
+    @Column(name = "password", length = 512, nullable = false)
+    private String password;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Visitors_Patients", joinColumns = @JoinColumn(name = "health_visitor_id"), inverseJoinColumns = @JoinColumn(name = "patient_id"))
     private Set<Patient> patients;
@@ -49,6 +52,11 @@ public class HealthVisitor extends Person {
 	this.userName = userName;
     }
 
-    // TODO add visits if needed in another iteration.
-    // private Set<Visit> visits;
+    public String getPassword() {
+	return password;
+    }
+
+    public void setPassword(String password) {
+	this.password = password;
+    }
 }

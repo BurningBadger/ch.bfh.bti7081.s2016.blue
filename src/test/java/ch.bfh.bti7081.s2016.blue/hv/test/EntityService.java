@@ -8,20 +8,18 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
-import ch.bfh.bti7081.s2016.blue.hv.entities.Calendar;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Contact;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
-import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Note;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Report;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
+import ch.bfh.bti7081.s2016.blue.hv.entities.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.junit.Test;
 
 /**
  * Created by Denis on 5/21/2016.
  */
 public class EntityService {
+
+    final static String[] userNames = {"user1@test.com", "user2@test.com", "user3@test.com", "user4@test.com", "user5@test.com"};
+
+    final static String[] passwords = {"user1test", "user2test", "user3test", "user4test", "user5test"};
 
     final static String[] firstNames = { "Peter", "Alice", "Joshua", "Mike", "Olivia", "Nina", "Alex", "Rita", "Dan",
 	    "Umberto", "Henrik", "Rene", "Lisa", "Marge", "Marshall" };
@@ -46,24 +44,145 @@ public class EntityService {
 
     final static String drugs[] = { "Analgin", "Ibuprofen", "Ketamin", "Pervitin", "Cocaine", "Heroine" };
 
+    static Random r = new Random();
+
+    private Contact createContact(){
+	Contact contact = new Contact();
+
+	contact.setCity(cities[r.nextInt(cities.length)]);
+	contact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
+	contact.setStreet(streets[r.nextInt(streets.length)]);
+	contact.setZip(10000 + r.nextInt(20000) + "");
+
+	return contact;
+    };
+
+    private EmergencyContact createEmergencyContact(){
+	EmergencyContact contact = new EmergencyContact();
+
+	contact.setFirstname(firstNames[r.nextInt(firstNames.length)]);
+	contact.setLastname(lastNames[r.nextInt(lastNames.length)]);
+
+	contact.setCity(cities[r.nextInt(cities.length)]);
+	contact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
+	contact.setStreet(streets[r.nextInt(streets.length)]);
+	contact.setZip(10000 + r.nextInt(20000) + "");
+
+	return contact;
+    };
+
+    private HealthVisitor createVisitor(int i, Contact contact){
+	HealthVisitor visitor = new HealthVisitor();
+
+	visitor.setFirstname(firstNames[r.nextInt(firstNames.length)]);
+	visitor.setLastname(lastNames[r.nextInt(lastNames.length)]);
+	visitor.setBirthday(new Date(1990, 5, 1));
+	visitor.setUserName(userNames[i]);
+	visitor.setPassword(DigestUtils.md5Hex(passwords[i]));
+	visitor.setContact(contact);
+
+	return visitor;
+    };
+
+    private Patient createPatient(Contact contact, EmergencyContact emergencyContact, HealthVisitor visitor){
+	Patient patient = new Patient();
+	Set<HealthVisitor> visitors = new HashSet<HealthVisitor>();
+	visitors.add(visitor);
+
+	patient.setFirstname(firstNames[r.nextInt(firstNames.length)]);
+	patient.setLastname(lastNames[r.nextInt(lastNames.length)]);
+	patient.setBirthday(new Date(1990, 5, 1));
+	patient.setContact(contact);
+	patient.setEmergencyContact(emergencyContact);
+	patient.setVisitors(visitors);
+
+	return patient;
+    };
+
+    private Visit createVisit(HealthVisitor visitor, Patient patient){
+	Visit visit = new Visit();
+
+	visit.setVisitor(visitor);
+	visit.setPatient(patient);
+
+	return visit;
+    };
+
+    private VisitEvent createVisitEvent(Calendar calendar){
+	VisitEvent visitEvent = new VisitEvent();
+
+	visitEvent.setCalendar(calendar);
+
+	return visitEvent;
+    };
+
+    private Calendar createCalendar(){
+	Calendar calendar = new Calendar();
+
+	int day = r.nextInt(15) + 1;
+	int hour = r.nextInt(12) + 1;
+
+	Date dateFrom = new Date(2016, 6, day, hour, 0);
+	Date dateTo = new Date(2016, 6, day, hour + 2, 0);
+	calendar.setDateFrom(dateFrom);
+	calendar.setDateTo(dateTo);
+
+	return calendar;
+    };
+
+    @Test
     public void create() {
 
 	EntityManager em = Persistence.createEntityManagerFactory("healthVisApp").createEntityManager();
 
-	Random r = new Random();
-	Contact vContact = new Contact();
-	HealthVisitor visitor = new HealthVisitor();
+	em.getTransaction().begin();
 
-	vContact.setCity(cities[r.nextInt(14) + 1]);
-	vContact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
-	vContact.setStreet(streets[r.nextInt(40) + 1]);
-	vContact.setZip(10000 + r.nextInt(20000) + "");
+	for(int hv=0; hv < userNames.length; hv++){
+	    Contact vContact = createContact();
+	    HealthVisitor visitor = createVisitor(hv, vContact);
 
-	visitor.setFirstname(firstNames[r.nextInt(14) + 1]);
-	visitor.setLastname(lastNames[r.nextInt(14) + 1]);
-	visitor.setBirthday(new Date(1990, 5, 1));
-	visitor.setUserName("testUser");
+	    Set<Patient> patients = new HashSet<Patient>();
 
+	    int amount = r.nextInt(5) + 1;
+	    for (int i = 0; i < amount; i++) {
+		Contact pContact = createContact();
+		EmergencyContact emContact = createEmergencyContact();
+		Patient patient = createPatient(pContact, emContact, visitor);
+		Visit visit = createVisit(visitor, patient);
+
+		Set<Visit> visits = new HashSet<Visit>();
+		visits.add(visit);
+		Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
+
+		int visitsAmount = r.nextInt(5) + 1;
+		for (int j = 0; j < visitsAmount; j++) {
+		    Calendar calendar = createCalendar();
+		    VisitEvent visitEvent = createVisitEvent(calendar);
+		    visitEvents.add(visitEvent);
+
+		    em.persist(calendar);
+		    em.persist(visitEvent);
+		}
+
+		visit.setVisitEvents(visitEvents);
+		patient.setVisits(visits);
+		patients.add(patient);
+
+		em.persist(visit);
+		em.persist(emContact);
+		em.persist(pContact);
+		em.persist(patient);
+	    }
+
+	    visitor.setPatients(patients);
+
+	    em.persist(vContact);
+	    em.persist(visitor);
+	}
+
+	em.getTransaction().commit();
+
+/*
 	em.getTransaction().begin();
 
 	Set<Patient> vPatients = new HashSet<Patient>();
@@ -156,5 +275,6 @@ public class EntityService {
 	em.persist(visitor);
 
 	em.getTransaction().commit();
+*/
     }
 }
