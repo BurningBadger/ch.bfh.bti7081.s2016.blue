@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.model;
+package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
@@ -51,5 +51,4 @@ public class HealthVisitor extends Person {
 
     // TODO add visits if needed in another iteration.
     // private Set<Visit> visits;
-
 }
