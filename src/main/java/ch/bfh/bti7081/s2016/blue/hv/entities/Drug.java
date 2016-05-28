@@ -24,7 +24,7 @@ public class Drug extends BaseEntity {
     private Patient patient;
 
     @OneToMany(mappedBy = "drug")
-    private Set<Prescriptions> prescriptions;
+    private Set<Prescription> prescriptions;
 
     public String getName() {
 	return name;
@@ -46,11 +46,11 @@ public class Drug extends BaseEntity {
 	this.patient = patient;
     }
 
-    public Set<Prescriptions> getPrescriptions() {
+    public Set<Prescription> getPrescriptions() {
         return prescriptions;
     }
 
-    public void setPrescriptions(Set<Prescriptions> prescriptions) {
+    public void setPrescriptions(Set<Prescription> prescriptions) {
         this.prescriptions = prescriptions;
     }
 }

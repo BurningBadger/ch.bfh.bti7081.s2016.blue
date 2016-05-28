@@ -13,7 +13,7 @@ import java.util.Date;
  * Created by kerberos on 28/05/16.
  */
 @Entity
-public class Prescriptions extends BaseEntity{
+public class Prescription extends BaseEntity{
 
     @Valid
     @ManyToOne(optional = false)
