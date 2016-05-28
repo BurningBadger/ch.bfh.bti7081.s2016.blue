@@ -6,12 +6,7 @@ import com.vaadin.data.Container;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.test.EntityService;
@@ -19,7 +14,7 @@ import ch.bfh.bti7081.s2016.blue.hv.test.EntityService;
 /**
  * Created by uck1 on 22.05.2016.
  */
-public class PatientListView extends Panel implements View {
+public class PatientListView extends VerticalLayout implements View {
 
     private static final String NAME = "Patients"; // variable for HealthVisUI
 
@@ -33,7 +28,7 @@ public class PatientListView extends Panel implements View {
     private Button butKalender = new Button("Kalender");
 
     public PatientListView() {
-	setSizeFull();
+//	setSizeFull();
 	buildLayout();
     }
 
@@ -41,17 +36,35 @@ public class PatientListView extends Panel implements View {
 	EntityService es = new EntityService();
 	es.create();
 
-	Panel panel = new Panel("Patients");
+	Panel panel = new Panel();
 	panel.setSizeFull();
-	VerticalLayout vertLay = new VerticalLayout();
 
 	// 1st row
-	HorizontalLayout firstLay = new HorizontalLayout(butMenu, butCall);
-	vertLay.addComponent(firstLay);
+	HorizontalLayout firstLay = new HorizontalLayout();
+	firstLay.addComponent(butMenu);
+	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
+	firstLay.addComponent(butCall);
+	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
+	firstLay.setMargin(true);
+	butMenu.addStyleName("btntestclass");
+	butCall.addStyleName("btntestclass");
+	firstLay.setWidth("100%");
+	this.addComponent(firstLay);
 
 	// 2nd row
-	HorizontalLayout horizontalTage = new HorizontalLayout(butGestern, butHeute, butMorgen);
-	vertLay.addComponent(horizontalTage);
+	HorizontalLayout horizontalTage = new HorizontalLayout();
+	horizontalTage.addComponent(butGestern);
+	horizontalTage.setComponentAlignment(butGestern, Alignment.MIDDLE_LEFT);
+	horizontalTage.addComponent(butHeute);
+	horizontalTage.setComponentAlignment(butHeute, Alignment.MIDDLE_CENTER);
+	horizontalTage.addComponent(butMorgen);
+	horizontalTage.setComponentAlignment(butMorgen, Alignment.MIDDLE_RIGHT);
+	horizontalTage.setMargin(true);
+	butGestern.addStyleName("btntestclass");
+	butHeute.addStyleName("btntestclass");
+	butMorgen.addStyleName("btntestclass");
+	horizontalTage.setWidth("100%");
+	this.addComponent(horizontalTage);
 
 	// table row
 	JPAContainer<Patient> patients = JPAContainerFactory.make(Patient.class, "healthVisApp");
@@ -69,21 +82,28 @@ public class PatientListView extends Panel implements View {
 	    Container.Filter filter = new Compare.Equal("firstname", name.getValue());
 	    patients.addContainerFilter(filter);
 	    patients.addNestedContainerProperty("drugs.*");
-	    vertLay.addComponent(new Table("The patients drugs", patients));
+	    this.addComponent(new Table("The patients drugs", patients));
 	});
 
-	vertLay.addComponents(name, button, personTable);
-	vertLay.setMargin(true);
-	vertLay.setSpacing(true);
+	this.addComponents(name, button, personTable);
+	this.setMargin(true);
+	this.setSpacing(true);
 
 	// last row
-	HorizontalLayout horizontalPages = new HorizontalLayout(butTermine, butRoute, butKalender);
-	vertLay.addComponent(horizontalPages);
-
-	// binding to the panel
-	panel.setContent(vertLay);
-	// setCompositionRoot(panel);
-	setContent(panel);
+	HorizontalLayout horizontalPages = new HorizontalLayout();
+	horizontalPages.addComponent(butTermine);
+	horizontalPages.setComponentAlignment(butTermine, Alignment.MIDDLE_LEFT);
+	horizontalPages.addComponent(butRoute);
+	horizontalPages.setComponentAlignment(butRoute, Alignment.MIDDLE_CENTER);
+	horizontalPages.addComponent(butKalender);
+	horizontalPages.setComponentAlignment(butKalender, Alignment.MIDDLE_RIGHT);
+	horizontalPages.setMargin(true);
+	butTermine.addStyleName("btntestclass");
+	butRoute.addStyleName("btntestclass");
+	butKalender.addStyleName("btntestclass");
+	horizontalPages.setWidth("100%");
+	this.addComponent(horizontalPages);
+	panel.setContent(this);
     }
 
     // method for the HealthVisUI

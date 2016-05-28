@@ -117,8 +117,8 @@ public class Menu extends CssLayout {
      *            view icon in the menu
      */
     public void addView(View view, final String name, String caption, Resource icon) {
-	navigator.addView(name, view);
-	createViewButton(name, caption, icon);
+    	navigator.addView(name, view);
+    	createViewButton(name, caption, icon);
     }
 
     /**
@@ -147,13 +147,13 @@ public class Menu extends CssLayout {
 	
 		    @Override
 		    public void buttonClick(ClickEvent event) {
-			if (!name.equals("")) {
-			    Page.getCurrent().setTitle(name + " | Health Visitor");
-			}
-			else {
-			    Page.getCurrent().setTitle("Health Visitor");
-			}
-			navigator.navigateTo(name);
+				if (!caption.equals("")) {
+				    Page.getCurrent().setTitle(caption + " | Health Visitor");
+				}
+				else {
+				    Page.getCurrent().setTitle("Health Visitor");
+				}
+				navigator.navigateTo(name);
 		    }
 		});
 		button.setPrimaryStyleName(ValoTheme.MENU_ITEM);

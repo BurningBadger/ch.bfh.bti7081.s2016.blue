@@ -4,9 +4,8 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.HorizontalLayout;
 
-public class VisitsView extends HorizontalLayout implements View {
-	
-	private static final String NAME = "Visits";
+public class SettingsView extends HorizontalLayout implements View {
+	private static final String NAME = "Settings";
 
 	@Override
 	public void enter(ViewChangeEvent event) {
