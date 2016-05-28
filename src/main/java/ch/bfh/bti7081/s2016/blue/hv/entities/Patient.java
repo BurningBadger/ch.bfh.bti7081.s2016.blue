@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity(name = "Patients")
 public class Patient extends Person {
@@ -18,6 +15,18 @@ public class Patient extends Person {
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Drug> drugs;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "emergency_contact_id", unique = true)
+    private EmergencyContact emergencyContact;
+
+    public EmergencyContact getEmergencyContact() {
+	return emergencyContact;
+    }
+
+    public void setEmergencyContact(EmergencyContact emergencyContact) {
+	this.emergencyContact = emergencyContact;
+    }
 
     public Set<Drug> getDrugs() {
 	return drugs;

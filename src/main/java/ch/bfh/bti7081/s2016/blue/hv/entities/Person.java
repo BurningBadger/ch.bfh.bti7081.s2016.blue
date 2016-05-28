@@ -28,7 +28,7 @@ public class Person extends BaseEntity {
     private Date birthday;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "Contact_Id", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "Contact_Id", unique = true, nullable = false)
     private Contact contact;
 
     public Date getBirthday() {
