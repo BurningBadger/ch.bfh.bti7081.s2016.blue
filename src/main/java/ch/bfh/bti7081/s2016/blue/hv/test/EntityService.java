@@ -118,13 +118,14 @@ public class EntityService {
 
 	    int drugsAmount = r.nextInt(5) + 1;
 	    for (int j = 0; j < drugsAmount; j++) {
-		Drug drug = new Drug();
+            Drug drug = new Drug();
 
-		drug.setName(drugs[r.nextInt(4) + 1]);
-		drug.setPatient(patient);
+            drug.setName(drugs[r.nextInt(4) + 1]);
+            drug.setPatient(patient);
+            drug.setDescription("Test");
 
-		pDrugs.add(drug);
-		em.persist(drug);
+            pDrugs.add(drug);
+            em.persist(drug);
 	    }
 	    patient.setDrugs(pDrugs);
 	    patient.setBirthday(new Date(1990, 5, 1));
