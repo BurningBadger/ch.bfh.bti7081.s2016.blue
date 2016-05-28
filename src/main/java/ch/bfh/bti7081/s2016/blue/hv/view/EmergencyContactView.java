@@ -2,6 +2,9 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Sizeable;
+import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 
 /**
@@ -9,18 +12,23 @@ import com.vaadin.ui.*;
  */
 
 public class EmergencyContactView extends VerticalLayout implements View {
-
+    
+    //Buttons headLine
     private static final String NAME = "EmergencyContactView";
     private Button menuBut = new Button("Menu");
     private Button backBut = new Button("Back");
-
+    private Button callBut = new Button("CALL");
+    
+    //Labels mainContent
     private Label nameLabel = new Label("Name:");
     private Label nameDB = new Label("Muster");
     private Label surnameLabel = new Label("Vorname:");
     private Label surnameDB = new Label("Muster");
     private Label addressLabel = new Label("Address:");
-    private Label addressDB = new Label("Langstrasse 1337");
-    private Label areaLabel = new Label("City Code:");
+    private Label addressDB = new Label("Langstrasse");
+    private Label addressNumberLabel = new Label("Number");
+    private Label addressNumberDB = new Label("1337");
+    private Label areaLabel = new Label("ZIP-Code:");
     private Label areaDB = new Label("3000");
     private Label cityLabel = new Label("City:");
     private Label cityDB = new Label("Bern");
@@ -28,6 +36,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
     private Label phoneDB = new Label("079 999 99 99");
     private Label birthDayLabel = new Label("Date of Birth:");
     private Label birthDayDB = new Label("01.01.1999");
+    
 
     public EmergencyContactView() {
     
@@ -51,19 +60,24 @@ public class EmergencyContactView extends VerticalLayout implements View {
     }
 
     private void buildLayout() {
-	// 1st row
-	HorizontalLayout headline = new HorizontalLayout();
-	headline.addComponent(backBut);
-	headline.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
-	headline.addComponent(menuBut);
-	headline.setComponentAlignment(menuBut, Alignment.MIDDLE_CENTER);
-	headline.setMargin(true);
-	headline.setWidth("100%");
-	headline.setHeight("10%");
-	this.addComponent(headline);
-
-	HorizontalLayout container = new HorizontalLayout();
-
+	
+	VerticalSplitPanel container = new VerticalSplitPanel();
+	container.setSplitPosition(37, Sizeable.UNITS_PIXELS);
+	container.setWidth(100, Unit.PERCENTAGE);
+	
+	// HeadLine
+	HorizontalLayout headLine = new HorizontalLayout();
+	headLine.addComponent(backBut);
+	headLine.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
+	headLine.addComponent(callBut);
+	headLine.setComponentAlignment(callBut, Alignment.MIDDLE_CENTER);
+	headLine.addComponent(menuBut);
+	headLine.setComponentAlignment(menuBut, Alignment.MIDDLE_RIGHT);
+	headLine.setWidth("100%");
+	container.setFirstComponent(headLine);
+	
+	// Main Content
+	HorizontalLayout mainContent = new HorizontalLayout();
 	GridLayout grid = new GridLayout(4, 4);
 	grid.addComponent(nameLabel, 0, 0);
 	grid.setComponentAlignment(nameLabel, Alignment.MIDDLE_LEFT);
@@ -82,6 +96,12 @@ public class EmergencyContactView extends VerticalLayout implements View {
 
 	grid.addComponent(addressDB, 1, 1);
 	grid.setComponentAlignment(addressDB, Alignment.MIDDLE_LEFT);
+	
+	grid.addComponent(addressNumberLabel, 2, 1);
+	grid.setComponentAlignment(addressNumberLabel, Alignment.MIDDLE_LEFT);
+	
+	grid.addComponent(addressNumberDB, 3, 1);
+	grid.setComponentAlignment(addressNumberDB, Alignment.MIDDLE_LEFT);
 
 	grid.addComponent(areaLabel, 0, 2);
 	grid.setComponentAlignment(areaLabel, Alignment.MIDDLE_LEFT);
@@ -107,11 +127,13 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	grid.addComponent(birthDayDB, 3, 3);
 	grid.setComponentAlignment(birthDayDB, Alignment.MIDDLE_LEFT);
 	
-	container.setSpacing(true);
-	container.setMargin(true);
-	container.setWidth("100%");
-	container.setHeight("100%");
-	container.addComponent(grid);
+	grid.setHeight(100, Unit.PERCENTAGE);
+	grid.setSpacing(true);
+	grid.setMargin(true);
+	mainContent.addComponent(grid);
+	mainContent.setComponentAlignment(grid, Alignment.MIDDLE_CENTER);
+	mainContent.setWidth("100%");
+	container.setSecondComponent(mainContent);
 	this.addComponent(container);
     }
 
