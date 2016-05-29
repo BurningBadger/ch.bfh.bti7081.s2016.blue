@@ -2,13 +2,11 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.Valid;
 
-@Entity(name = "visits")
+@Entity(name = "Visit")
+@Table(name = "visits")
 public class Visit extends BaseEntity {
 
     private static final long serialVersionUID = -2691308440282309881L;

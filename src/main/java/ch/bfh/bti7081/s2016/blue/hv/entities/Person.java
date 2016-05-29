@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public class Person extends BaseEntity {
 
+    private static final long serialVersionUID = -3624890888887228591L;
+
     @Column(name = "first_name", nullable = false, length = 100)
     @Size(min = 1, max = 100)
     private String firstname;

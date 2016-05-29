@@ -1,18 +1,12 @@
 package ch.bfh.bti7081.s2016.blue.hv.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-/**
- * Created by kerberos on 28/05/16.
- */
-@Entity
+@Entity(name = "Prescription")
+@Table(name = "prescriptions")
 public class Prescription extends BaseEntity{
 
     @Valid

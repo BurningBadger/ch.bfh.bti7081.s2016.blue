@@ -3,9 +3,11 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-@Entity(name = "Reports")
+@Entity(name = "Report")
+@Table(name = "Reports")
 public class Report extends BaseEntity {
 
     @Column(name = "Title", nullable = false, length = 100)

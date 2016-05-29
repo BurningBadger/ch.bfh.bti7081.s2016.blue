@@ -2,11 +2,13 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-@Entity(name = "Contacts")
+@Entity(name = "Contact")
+@Table(name = "Contacts")
 public class Contact extends BaseEntity {
 
     @Column(name = "City", nullable = false, length = 100)

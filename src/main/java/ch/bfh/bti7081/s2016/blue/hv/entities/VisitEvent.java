@@ -2,13 +2,10 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
-@Entity(name = "visit_events")
+@Entity(name = "VisitEvent")
+@Table(name = "visit_events")
 public class VisitEvent extends BaseEntity {
 
     private static final long serialVersionUID = -3616824349353093546L;
@@ -25,6 +22,15 @@ public class VisitEvent extends BaseEntity {
 
     @OneToMany(mappedBy = "visitEvent")
     private Set<Note> visitNodes;
+
+
+    public Visit getVisit() {
+	return visit;
+    }
+
+    public void setVisit(Visit visit) {
+	this.visit = visit;
+    }
 
     public Calendar getCalendar() {
 	return calendar;
