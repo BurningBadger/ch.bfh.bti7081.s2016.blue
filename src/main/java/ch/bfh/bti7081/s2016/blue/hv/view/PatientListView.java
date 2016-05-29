@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.Contact;
+import ch.bfh.bti7081.s2016.blue.hv.model.ContactModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -13,10 +15,11 @@ public class PatientListView extends VerticalLayout implements View {
 
     public PatientListView() {
 
+	// define background panel
 	Panel panel = new Panel();
 	panel.setSizeFull();
 
-	// 1st row
+	// vertical layout: 1st row
 	HorizontalLayout firstLay = new HorizontalLayout();
 	Button butMenu = new Button("Menu");
 	firstLay.addComponent(butMenu);
@@ -30,7 +33,7 @@ public class PatientListView extends VerticalLayout implements View {
 	firstLay.setWidth("100%");
 	this.addComponent(firstLay);
 
-	// 2nd row
+	// vertical layout: 2nd row
 	HorizontalLayout horizontalTage = new HorizontalLayout();
 	Button butGestern = new Button("Gestern");
 	horizontalTage.addComponent(butGestern);
@@ -48,8 +51,9 @@ public class PatientListView extends VerticalLayout implements View {
 	horizontalTage.setWidth("100%");
 	this.addComponent(horizontalTage);
 
-	// table row
+	// vertical layout: table row
 	final Table table = new Table();
+	table.setWidth("100%");
 	table.addStyleName("components-inside");
 
 	// define the columns
@@ -61,6 +65,7 @@ public class PatientListView extends VerticalLayout implements View {
 	// connect with the DB and add data into the table
 	PatientModel patientModel = new PatientModel();
 
+	// show all elements
 	for (Patient patient : patientModel.findAll()) {
 
 	    Label firstName = new Label(patient.getFirstname());
@@ -81,6 +86,7 @@ public class PatientListView extends VerticalLayout implements View {
 	}
 
 	this.addComponent(table);
+	this.setMargin(true);
 
 	// button to add patient
 	Button addNewPatientBtn = new Button("add new patient");
@@ -116,38 +122,54 @@ public class PatientListView extends VerticalLayout implements View {
 	PatientView showPatient = new PatientView(patient);
 	final Window window = new Window();
 	window.setSizeFull();
-	window.center();
+//	window.center();
 	window.setContent(showPatient);
 	UI.getCurrent().addWindow(window);
     }
 
     // help method to entry a new patient data
     public void entryDetailsWindow() {
-	Patient patEdit = new Patient();
 	final FormLayout formLayout = new FormLayout();
 
-	TextField firstNameEntry = new TextField("first name");
-	//	firstNameEntry.setRequired(true);
-	//	firstNameEntry.addValidator(new NullValidator("Must enter the first name!", false));
-	formLayout.addComponent(firstNameEntry);
-
-	TextField lastNameEntry = new TextField("last name");
-	//	lastNameEntry.setRequired(true);
-	//	lastNameEntry.addValidator(new NullValidator("Must enter the last name!", false));
-	formLayout.addComponent(lastNameEntry);
-
-	PopupDateField birthdayFill = new PopupDateField();
-	birthdayFill.setDateFormat("yyyy-MM-dd");
-	formLayout.addComponent(birthdayFill);
+	TextField firstName = new TextField("first name");
+	//	firstName.setRequired(true);
+	//	firstName.addValidator(new NullValidator("Must enter the first name!", false));
+	formLayout.addComponent(firstName);
+	TextField lastName = new TextField("last name");
+	formLayout.addComponent(lastName);
+	PopupDateField birthday = new PopupDateField("birthday");
+	birthday.setDateFormat("yyyy-MM-dd");
+	formLayout.addComponent(birthday);
+	TextField street = new TextField("street");
+	formLayout.addComponent(street);
+	TextField zip = new TextField("zip");
+	formLayout.addComponent(zip);
+	TextField city = new TextField("city");
+	formLayout.addComponent(city);
+	TextField phoneNumber = new TextField("phone number");
+	formLayout.addComponent(phoneNumber);
 
 	Button saveButn = new Button("save");
 	saveButn.addClickListener(event -> {
+	    Patient patient = new Patient();
 	    PatientModel patMod = new PatientModel();
-	    patEdit.setFirstname(firstNameEntry.getValue());
-	    patEdit.setLastname(lastNameEntry.getValue());
-	    patEdit.setBirthday(birthdayFill.getValue());
-	    patMod.saveOrUpdate(patEdit);
+	    patient.setFirstname(firstName.getValue());
+	    patient.setLastname(lastName.getValue());
+	    patient.setBirthday(birthday.getValue());
+
+	    Contact pContact = new Contact();
+	    ContactModel contactModel = new ContactModel();
+	    pContact.setStreet(street.getValue());
+	    pContact.setZip(zip.getValue());
+	    pContact.setCity(city.getValue());
+	    pContact.setPhoneNumber(phoneNumber.getValue());
+
+	    patient.setContact(pContact);
+	    contactModel.saveOrUpdate(pContact);
+
+	    patMod.saveOrUpdate(patient);
 	});
+	formLayout.setMargin(true);
 	formLayout.addComponent(saveButn);
 
 	final Window window = new Window();
