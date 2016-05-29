@@ -3,11 +3,16 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Contact;
 import ch.bfh.bti7081.s2016.blue.hv.model.ContactModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
+import com.vaadin.client.ui.VFilterSelect;
+import com.vaadin.client.widgets.*;
+import com.vaadin.client.widgets.Grid;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
+
+import java.util.List;
 
 public class PatientListView extends VerticalLayout implements View {
 
@@ -15,9 +20,8 @@ public class PatientListView extends VerticalLayout implements View {
 
     public PatientListView() {
 
-	// define background panel
-	Panel panel = new Panel();
-	panel.setSizeFull();
+	this.setSizeFull();
+	this.setMargin(true);
 
 	// vertical layout: 1st row
 	HorizontalLayout firstLay = new HorizontalLayout();
@@ -27,10 +31,10 @@ public class PatientListView extends VerticalLayout implements View {
 	Button butCall = new Button("Call");
 	firstLay.addComponent(butCall);
 	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
-	firstLay.setMargin(true);
 //	butMenu.addStyleName("btntestclass");
 //	butCall.addStyleName("btntestclass");
 	firstLay.setWidth("100%");
+	firstLay.setHeight("100%");
 	this.addComponent(firstLay);
 
 	// vertical layout: 2nd row
@@ -44,17 +48,20 @@ public class PatientListView extends VerticalLayout implements View {
 	Button butMorgen = new Button("Morgen");
 	horizontalTage.addComponent(butMorgen);
 	horizontalTage.setComponentAlignment(butMorgen, Alignment.MIDDLE_RIGHT);
-	horizontalTage.setMargin(true);
 //	butGestern.addStyleName("btntestclass");
 //	butHeute.addStyleName("btntestclass");
 //	butMorgen.addStyleName("btntestclass");
 	horizontalTage.setWidth("100%");
+	horizontalTage.setHeight("100%");
 	this.addComponent(horizontalTage);
 
 	// vertical layout: table row
 	final Table table = new Table();
 	table.setWidth("100%");
+	table.setHeight("100%");
 	table.addStyleName("components-inside");
+	table.setSelectable(true);
+	table.setImmediate(true);
 
 	// define the columns
 	table.addContainerProperty("first name", Label.class, null);
@@ -84,16 +91,34 @@ public class PatientListView extends VerticalLayout implements View {
 	    table.addItem(new Object[] {firstName, lastName, birthday, detailsBtn},
 			    patient.getId());
 	}
-
 	this.addComponent(table);
-	this.setMargin(true);
 
-	// button to add patient
+	// buttons to add/del patient
+	HorizontalLayout adDel = new HorizontalLayout();
 	Button addNewPatientBtn = new Button("add new patient");
 	addNewPatientBtn.addClickListener(event -> {
 	    entryDetailsWindow();
 	});
-	this.addComponent(addNewPatientBtn);
+	adDel.addComponent(addNewPatientBtn);
+	adDel.setComponentAlignment(addNewPatientBtn, Alignment.TOP_LEFT);
+	Button deletePatientBtn = new Button("delete patient");
+	deletePatientBtn.addClickListener(event -> {
+//	    Patient patient = new Patient();
+	    Object selected = table.getValue();
+	    if (selected == null) {
+		Notification.show("Please select an item!");
+	    }
+	    else {
+		Notification.show("Person : " + selected);
+		table.removeItem(selected);
+		patientModel.save((List<Patient>) table.getValue());
+	    }
+	});
+	adDel.addComponent(deletePatientBtn);
+	adDel.setComponentAlignment(deletePatientBtn, Alignment.TOP_RIGHT);
+	adDel.setWidth("100%");
+	adDel.setHeight("100%");
+	this.addComponent(adDel);
 
 	// last row
 	HorizontalLayout horizontalPages = new HorizontalLayout();
@@ -108,13 +133,17 @@ public class PatientListView extends VerticalLayout implements View {
 	Button butKalender = new Button("Kalender");
 	horizontalPages.addComponent(butKalender);
 	horizontalPages.setComponentAlignment(butKalender, Alignment.MIDDLE_RIGHT);
-	horizontalPages.setMargin(true);
 //	butTermine.addStyleName("btntestclass");
 //	butRoute.addStyleName("btntestclass");
 //	butKalender.addStyleName("btntestclass");
 	horizontalPages.setWidth("100%");
+	horizontalPages.setHeight("100%");
 	this.addComponent(horizontalPages);
-	panel.setContent(this);
+	this.setExpandRatio(firstLay, 0.1f);		//10% of the mainframe
+	this.setExpandRatio(horizontalTage, 0.1f);	//10% of the mainframe
+	this.setExpandRatio(table, 0.65f);		//65% of the mainframe
+	this.setExpandRatio(adDel, 0.05f);		//05% of the mainframe
+	this.setExpandRatio(horizontalPages, 0.1f);	//10% of the mainframe
     }
 
     // help method to connect to the PatientView class
@@ -122,13 +151,13 @@ public class PatientListView extends VerticalLayout implements View {
 	PatientView showPatient = new PatientView(patient);
 	final Window window = new Window();
 	window.setSizeFull();
-//	window.center();
 	window.setContent(showPatient);
 	UI.getCurrent().addWindow(window);
+//	getUI().getNavigator().navigateTo(PatientView.NAME);
     }
 
     // help method to entry a new patient data
-    public void entryDetailsWindow() {
+    private void entryDetailsWindow() {
 	final FormLayout formLayout = new FormLayout();
 
 	TextField firstName = new TextField("first name");
@@ -157,6 +186,7 @@ public class PatientListView extends VerticalLayout implements View {
 	    patient.setLastname(lastName.getValue());
 	    patient.setBirthday(birthday.getValue());
 
+	    // Contact as Entity: create object needed
 	    Contact pContact = new Contact();
 	    ContactModel contactModel = new ContactModel();
 	    pContact.setStreet(street.getValue());
