@@ -20,6 +20,9 @@ public class Drug extends BaseEntity {
 
     @OneToMany(mappedBy = "drug")
     private Set<Prescription> prescriptions;
+    
+    @OneToOne
+    private Patient patient;
 
     public String getName() {
 	return name;
