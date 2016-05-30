@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
@@ -50,6 +51,7 @@ public class HealthVisUI extends UI {
 
     public HealthVisUI() {
 	LOGGER.info("HealthVisitor webapp started");
+
     }
 
     public HealthVisitor getCurrentUser(){
@@ -121,6 +123,8 @@ public class HealthVisUI extends UI {
 	    navigator.navigateTo(LandingView.getName());
 	}
 	navigator.addViewChangeListener(viewChangeListener);
+
+	//
 
 	// Adding to the main Pane
 	mainVl.addComponent(menu);

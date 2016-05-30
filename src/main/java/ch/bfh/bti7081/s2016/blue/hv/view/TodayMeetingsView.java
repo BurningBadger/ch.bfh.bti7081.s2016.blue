@@ -45,10 +45,12 @@ public class TodayMeetingsView extends HorizontalLayout implements View {
 
     	VisitEventModel veModel = new VisitEventModel();
     	for (VisitEvent vEvent : veModel.findAll()) {
-    		
-    		if(vEvent.getVisit().getVisitor().getUserName() != "user1@test.com") {
+	    if (vEvent.getVisit() == null) {
+		continue;
+	    }
+    		//if(vEvent.getVisit().getVisitor().getUserName() != "user1@test.com") {
     			//continue;
-    		}
+    		//}
     		
     	    Label patientName = new Label(vEvent.getVisit().getPatient().getFirstname() + " " +
     	    		vEvent.getVisit().getPatient().getLastname());
