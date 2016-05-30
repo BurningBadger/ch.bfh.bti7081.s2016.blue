@@ -3,18 +3,13 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Contact;
 import ch.bfh.bti7081.s2016.blue.hv.model.ContactModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
-import com.vaadin.client.ui.VFilterSelect;
-import com.vaadin.client.widgets.*;
-import com.vaadin.client.widgets.Grid;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
-
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 
-import java.util.List;
 
 public class PatientListView extends VerticalLayout implements View {
 
@@ -33,8 +28,6 @@ public class PatientListView extends VerticalLayout implements View {
 	Button butCall = new Button("Call");
 	firstLay.addComponent(butCall);
 	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
-//	butMenu.addStyleName("btntestclass");
-//	butCall.addStyleName("btntestclass");
 	firstLay.setWidth("100%");
 	firstLay.setHeight("100%");
 	this.addComponent(firstLay);
@@ -50,9 +43,6 @@ public class PatientListView extends VerticalLayout implements View {
 	Button butMorgen = new Button("Morgen");
 	horizontalTage.addComponent(butMorgen);
 	horizontalTage.setComponentAlignment(butMorgen, Alignment.MIDDLE_RIGHT);
-//	butGestern.addStyleName("btntestclass");
-//	butHeute.addStyleName("btntestclass");
-//	butMorgen.addStyleName("btntestclass");
 	horizontalTage.setWidth("100%");
 	horizontalTage.setHeight("100%");
 	this.addComponent(horizontalTage);
@@ -105,7 +95,6 @@ public class PatientListView extends VerticalLayout implements View {
 	adDel.setComponentAlignment(addNewPatientBtn, Alignment.TOP_LEFT);
 	Button deletePatientBtn = new Button("delete patient");
 	deletePatientBtn.addClickListener(event -> {
-//	    Patient patient = new Patient();
 	    Object selected = table.getValue();	//table entry is already an object
 
 	    if (selected == null) {
@@ -113,7 +102,7 @@ public class PatientListView extends VerticalLayout implements View {
 	    }
 	    else {
 		Notification.show("Person : " + selected + "removed!");
-		patientModel.delete((Patient) selected);
+		patientModel.delete(patientModel.findById((Long)selected));
 		table.removeItem(selected);
 	    }
 	});
@@ -136,9 +125,6 @@ public class PatientListView extends VerticalLayout implements View {
 	Button butKalender = new Button("Kalender");
 	horizontalPages.addComponent(butKalender);
 	horizontalPages.setComponentAlignment(butKalender, Alignment.MIDDLE_RIGHT);
-//	butTermine.addStyleName("btntestclass");
-//	butRoute.addStyleName("btntestclass");
-//	butKalender.addStyleName("btntestclass");
 	horizontalPages.setWidth("100%");
 	horizontalPages.setHeight("100%");
 	this.addComponent(horizontalPages);
