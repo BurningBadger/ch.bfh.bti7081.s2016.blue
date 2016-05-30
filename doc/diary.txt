@@ -70,6 +70,35 @@ Iteration 2 Task09:
 - studied Vaadin basics
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
 
+09.05.2016
+- First Sprint, started implementation
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
 
 10.5.2016
+- Standup-Meeting, implementation
 Anwesend: Denis Shevchenko,  Nicolas Schmid, Michel Hosmann
+
+
+15.05.2016
+- View-Meeting
+Anwesend: Denis Shevchenko, Karol Ugorcak, Michel Hosmann
+
+17.05.2016
+- Standup-Meeting, implementation
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+23.05.2016
+- Second Sprint, partial refactoring
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+24.05.2016
+- Standup-Meeting, implementation
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
+
+28.05.2016
+- Standup-Meeting, implementation
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann
+
+30.05.2016
+-
+Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
