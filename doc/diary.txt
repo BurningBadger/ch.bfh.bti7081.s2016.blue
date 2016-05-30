@@ -100,5 +100,5 @@ Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Mic
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann
 
 30.05.2016
--
+- Testing, Standup-Meeting
 Anwesend: Denis Shevchenko, Karol Ugorcak, Christoph Sutter, Nicolas Schmid, Michel Hosmann, Sergii Bilousov
