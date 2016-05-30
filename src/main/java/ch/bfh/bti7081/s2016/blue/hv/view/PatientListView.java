@@ -8,6 +8,8 @@ import com.vaadin.client.widgets.*;
 import com.vaadin.client.widgets.Grid;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
@@ -104,14 +106,15 @@ public class PatientListView extends VerticalLayout implements View {
 	Button deletePatientBtn = new Button("delete patient");
 	deletePatientBtn.addClickListener(event -> {
 //	    Patient patient = new Patient();
-	    Object selected = table.getValue();
+	    Object selected = table.getValue();	//table entry is already an object
+
 	    if (selected == null) {
 		Notification.show("Please select an item!");
 	    }
 	    else {
-		Notification.show("Person : " + selected);
+		Notification.show("Person : " + selected + "removed!");
+		patientModel.delete((Patient) selected);
 		table.removeItem(selected);
-		patientModel.save((List<Patient>) table.getValue());
 	    }
 	});
 	adDel.addComponent(deletePatientBtn);
@@ -140,10 +143,10 @@ public class PatientListView extends VerticalLayout implements View {
 	horizontalPages.setHeight("100%");
 	this.addComponent(horizontalPages);
 	this.setExpandRatio(firstLay, 0.1f);		//10% of the mainframe
-	this.setExpandRatio(horizontalTage, 0.1f);	//10% of the mainframe
-	this.setExpandRatio(table, 0.65f);		//65% of the mainframe
-	this.setExpandRatio(adDel, 0.05f);		//05% of the mainframe
-	this.setExpandRatio(horizontalPages, 0.1f);	//10% of the mainframe
+	this.setExpandRatio(horizontalTage, 0.1f);
+	this.setExpandRatio(table, 0.65f);
+	this.setExpandRatio(adDel, 0.05f);
+	this.setExpandRatio(horizontalPages, 0.1f);
     }
 
     // help method to connect to the PatientView class
@@ -196,8 +199,12 @@ public class PatientListView extends VerticalLayout implements View {
 
 	    patient.setContact(pContact);
 	    contactModel.saveOrUpdate(pContact);
-
 	    patMod.saveOrUpdate(patient);
+
+	    Notification notif = new Notification("..saved!", Notification.Type.WARNING_MESSAGE);
+	    notif.setDelayMsec(2000);
+	    notif.setPosition(Position.MIDDLE_CENTER);
+	    notif.show(Page.getCurrent());
 	});
 	formLayout.setMargin(true);
 	formLayout.addComponent(saveButn);
