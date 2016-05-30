@@ -70,7 +70,7 @@ public class DrugsModelTest {
 	drugsModel.saveOrUpdate(drug1);
 
 	Drug d = drugsModel.findById(Long.valueOf(999));
-	Patient patients = d.getPatient();
+	//Patient patients = d.getPatient();
     }
 
     @Ignore

@@ -44,9 +44,46 @@ public class EntityService {
 
     final static String drugs[] = { "Analgin", "Ibuprofen", "Ketamin", "Pervitin", "Cocaine", "Heroine" };
 
+	final static String drugDescriptions[] = {
+			"That thing your mom takes to get \"in the mood\"",
+			"Headache, cancer, Aids, whatever - just take this.",
+			"When your ass burns like fire, this won't help - but it makes you feel good.",
+			"One of these in her drink and you're good to go.",
+			"Try not to take too many of these - but, well, I'm not your mom, so do what you want.",
+			"Don't mix with alcohol. Or do, how should I know? I'm just a description."};
+
+	final static String doses[] = { "1 teaspoon", "2 teaspoons", "1 buttload", "7 metric tons", "As much as it takes",
+			"several cups, fill with vodka", "3 times as much as you should", "RTFM", "2 buckets" };
+
     static Random r = new Random();
 
-    private Contact createContact(){
+    private Drug createDrug(){
+		Drug drug = new Drug();
+
+		drug.setName(drugs[r.nextInt(drugs.length)]);
+		drug.setDescription(drugDescriptions[r.nextInt(drugDescriptions.length)]);
+
+		return drug;
+	}
+
+	private Prescription createPrescription(Visit visit, Drug drug){
+		Prescription prescription = new Prescription();
+
+		prescription.setDose(doses[r.nextInt(doses.length)]);
+		prescription.setMo(r.nextBoolean());
+		prescription.setTu(r.nextBoolean());
+		prescription.setWe(r.nextBoolean());
+		prescription.setTh(r.nextBoolean());
+		prescription.setFr(r.nextBoolean());
+		prescription.setSa(r.nextBoolean());
+		prescription.setSo(r.nextBoolean());
+		prescription.setDrug(drug);
+		prescription.setVisit(visit);
+
+		return prescription;
+	}
+
+	private Contact createContact(){
 	Contact contact = new Contact();
 
 	contact.setCity(cities[r.nextInt(cities.length)]);
