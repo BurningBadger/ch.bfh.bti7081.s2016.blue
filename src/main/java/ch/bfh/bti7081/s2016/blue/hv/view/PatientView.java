@@ -2,17 +2,17 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
+import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
+import com.vaadin.server.StreamResource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
+import java.io.*;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 
 public class PatientView extends VerticalLayout implements View {
 
@@ -43,19 +43,43 @@ public class PatientView extends VerticalLayout implements View {
 
 	// 2nd row horizontal splitted
 	HorizontalSplitPanel hsplit = new HorizontalSplitPanel();
-	hsplit.addStyleName("invisibleSplitter");
+	hsplit.addStyleName("invisiblesplitter");
 	hsplit.setSplitPosition(40, Unit.PERCENTAGE);
 	/*
 	 left side
 	  */
 	AbsoluteLayout left = new AbsoluteLayout();
-	Image picture = new Image(null, new ThemeResource("icons/Guy.png"));  // for testing
+//	Image picture = new Image(null, new ThemeResource("icons/Guy.png"));  // for testing
+	/**
+	 * image handling
+	 */
+	Upload upload = new Upload("Upload here", null);
+	upload.setButtonCaption("Upload");
+	final Embedded picture = new Embedded("UpImage");
+	picture.setVisible(false);
 
-//	Upload upload = new Upload("Upload here", null);
-//	upload.setButtonCaption("Upload");
-//
-//	final Embedded picture = new Embedded("UpImage");
-//	picture.setVisible(false);
+	// create upload stream
+	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	upload.setReceiver(new Upload.Receiver() {
+	    @Override
+	    public OutputStream receiveUpload(String filename, String mimeType) {
+		return baos;
+	    }
+	});
+	upload.addSucceededListener(new Upload.SucceededListener() {
+	    @Override
+	    public void uploadSucceeded(Upload.SucceededEvent succeededEvent) {
+		final byte[] bytes = baos.toByteArray();
+		picture.setVisible(true);
+		picture.setSource(new StreamResource(new StreamResource.StreamSource() {
+		    @Override
+		    public InputStream getStream() {
+//			return new ByteArrayInputStream(bytes);
+			return new ByteArrayInputStream(baos.toByteArray());
+		    }
+		},""));
+	    }
+	});
 //
 //	//	upload.addClickListener(event -> {
 //	class ImageUploader implements Upload.Receiver, Upload.SucceededListener {
@@ -81,7 +105,8 @@ public class PatientView extends VerticalLayout implements View {
 //
 //	    ImageUploader receiver = new ImageUploader();
 //	};
-	left.addComponent(picture, "left: 30px; top: 20px;");
+	left.addComponent(picture, "left: 30px; top: 30px;");
+	left.addComponent(upload, "left: 30px; top: 400px;");
 //	final ImageUploader uploader = new ImageUploader();
 //	upload.setReceiver(uploader);
 //	upload.addListener(uploader);
@@ -167,24 +192,27 @@ public class PatientView extends VerticalLayout implements View {
 	 right side
 	  */
 	AbsoluteLayout buttonRightLay = new AbsoluteLayout();
-	Button butThree = new Button("Choice 3");
+	Button butThree = new Button();
 	buttonRightLay.addComponent(new Image(null, new ThemeResource("icons/double-cutted-circle-120x120.png")),
 		"right:180; top: 50px;");
 	butThree.setDescription("Choice 3");
 	butThree.addClickListener(e -> {});
 
-	Button butFour = new Button("Choice 4");
+	Button butFour = new Button();
 	buttonRightLay.addComponent(new Image(null, new ThemeResource("icons/double-cutted-circle-120x120.png")),
 		"right:180; top: 250px;");
-	butFour.setDescription("Choice 4");
-	butFour.addClickListener(e -> {});
+	butFour.setDescription("Emergency Contact");
+	butFour.addClickListener(e -> {
+//	    EmergencyContactView emergency = new EmergencyContactView();
+//	    emergency
+	});
 	buttonLay.setWidth("100%");
 	buttonLay.setHeight("100%");
 	buttonLay.setSecondComponent(buttonRightLay);
 	this.addComponent(buttonLay);
 	this.setExpandRatio(firstLay, 0.1f);	//take 10% of the frame
-	this.setExpandRatio(hsplit, 0.5f);	//take 50% of the frame
-	this.setExpandRatio(buttonLay, 0.4f);	//take 40% of the frame
+	this.setExpandRatio(hsplit, 0.5f);
+	this.setExpandRatio(buttonLay, 0.4f);
     }
 
     // method for the HealthVisUI
