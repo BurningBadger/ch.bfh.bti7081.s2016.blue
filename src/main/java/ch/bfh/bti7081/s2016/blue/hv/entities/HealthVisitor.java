@@ -1,16 +1,13 @@
 package ch.bfh.bti7081.s2016.blue.hv.entities;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
-@Entity(name = "health_visitors")
+@Entity(name = "HealthVisitor")
+@Table(name = "health_visitors")
 public class HealthVisitor extends Person {
 
     private static final long serialVersionUID = -4737237051107455291L;
@@ -57,6 +54,6 @@ public class HealthVisitor extends Person {
     }
 
     public void setPassword(String password) {
-	this.password = password;
+	this.password = DigestUtils.md5Hex(password);
     }
 }

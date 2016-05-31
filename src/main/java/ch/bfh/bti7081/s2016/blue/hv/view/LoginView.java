@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import java.io.Serializable;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
 import com.vaadin.data.validator.AbstractValidator;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.navigator.View;
@@ -26,11 +28,11 @@ public class LoginView extends CustomComponent implements View {
     private TextField user;
     private PasswordField password;
     private Button loginButton;
+    private HealthVisitorsModel healthVisitorsModel = new HealthVisitorsModel();
 
     public LoginView(LoginListener loginListener) {
-		this.loginListener = loginListener;
-	
-		buildUi();
+	this.loginListener = loginListener;
+	buildUi();
     }
 
     private void buildUi() {
@@ -60,30 +62,17 @@ public class LoginView extends CustomComponent implements View {
 			if (!user.isValid() || !password.isValid()) {
 			    return;
 			}
-	
-			String username = user.getValue();
-			String password = LoginView.this.password.getValue();
-	
-			//
-			// Validate username and password with database here. For
-			// examples sake
-			// I use a dummy username and password.
-			//
-			
-			boolean isValid = username.equals("test@test.com") && password.equals("passw0rd");
-			 
-	
-			/*boolean isValid = false;
-			try {
-			    // isValid = um.isLoginCorrect(username, password);
-			    isValid = true;
-			}
-			catch (Exception e) {
-	
-			}*/
-	
-			if (isValid) {
-			    getSession().setAttribute("user", username);
+
+			HealthVisitor hv = new HealthVisitor();
+
+			hv.setUserName(user.getValue());
+			hv.setPassword(password.getValue());
+
+			HealthVisitor user = healthVisitorsModel.findHealthVisitor(hv);
+
+			if (user != null) {
+			    getSession().setAttribute("user", user.getUserName());
+			    getSession().setAttribute("userId", user.getId());
 			    LoginView.this.loginListener.loginSuccessful();
 			}
 			else {

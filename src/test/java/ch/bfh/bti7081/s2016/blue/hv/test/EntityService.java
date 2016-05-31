@@ -78,7 +78,7 @@ public class EntityService {
 	visitor.setLastname(lastNames[r.nextInt(lastNames.length)]);
 	visitor.setBirthday(new Date(1990, 5, 1));
 	visitor.setUserName(userNames[i]);
-	visitor.setPassword(DigestUtils.md5Hex(passwords[i]));
+	visitor.setPassword(passwords[i]);
 	visitor.setContact(contact);
 
 	return visitor;
@@ -108,10 +108,11 @@ public class EntityService {
 	return visit;
     };
 
-    private VisitEvent createVisitEvent(Calendar calendar){
+    private VisitEvent createVisitEvent(Calendar calendar, Visit visit){
 	VisitEvent visitEvent = new VisitEvent();
 
 	visitEvent.setCalendar(calendar);
+	visitEvent.setVisit(visit);
 
 	return visitEvent;
     };
@@ -152,12 +153,12 @@ public class EntityService {
 
 		Set<Visit> visits = new HashSet<Visit>();
 		visits.add(visit);
-		Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
 
+		Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
 		int visitsAmount = r.nextInt(5) + 1;
 		for (int j = 0; j < visitsAmount; j++) {
 		    Calendar calendar = createCalendar();
-		    VisitEvent visitEvent = createVisitEvent(calendar);
+		    VisitEvent visitEvent = createVisitEvent(calendar, visit);
 		    visitEvents.add(visitEvent);
 
 		    em.persist(calendar);

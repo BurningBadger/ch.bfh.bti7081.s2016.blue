@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
+import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.annotations.Theme;
@@ -40,31 +42,43 @@ import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 public class HealthVisUI extends UI {
 
     private static final long serialVersionUID = -5147606114440444224L;
-
     private final static Logger LOGGER = Logger.getLogger(HealthVisUI.class.getName());
-
-    private JPAContainer<HealthVisitor> healthVisitors;
-
     private static Menu menu = null;
     private static final boolean isDebug = true;
+    private HealthVisitorsModel healthVisitorsModel = new HealthVisitorsModel();
+    private HealthVisitor currentUser;
+    Navigator navigator;
 
     public HealthVisUI() {
 	LOGGER.info("HealthVisitor webapp started");
-	// initializations
-	healthVisitors = JPAContainerFactory.make(HealthVisitor.class, Constants.PERSISTENCE_UNIT);
+
+    }
+
+    public HealthVisitor getCurrentUser(){
+	if (currentUser != null) {
+	    return currentUser;
+	}
+
+    	VaadinSession session = getSession();
+	if (session == null) {
+	    return null;
+	}
+
+	final Long userId = Long.valueOf(session.getAttribute("userId").toString());
+	currentUser = healthVisitorsModel.findById(userId);
+
+	if(currentUser != null)
+	    return currentUser;
+
+	return null;
     }
 
     @Override
     protected void init(VaadinRequest request) {
-
-	// //Set Session timeout to 3000s
 	VaadinSession.getCurrent().getSession().setMaxInactiveInterval(3000);
-	// //Change Page title
 	this.getPage().setTitle("Health Visitor");
-	// //Prepare the template page
-	//
+
 	checkLogin();
-	createMainView();
     }
 
     private void checkLogin() {
@@ -103,11 +117,14 @@ public class HealthVisUI extends UI {
 	menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
 	menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
 	menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
+		menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
 	menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
 	if (navigator.getState().isEmpty()) {
 	    navigator.navigateTo(LandingView.getName());
 	}
 	navigator.addViewChangeListener(viewChangeListener);
+
+	//
 
 	// Adding to the main Pane
 	mainVl.addComponent(menu);

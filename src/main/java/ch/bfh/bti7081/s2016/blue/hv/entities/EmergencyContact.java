@@ -1,12 +1,9 @@
 package ch.bfh.bti7081.s2016.blue.hv.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
-
-@Entity(name = "emergency_contacts")
+@Entity(name = "EmergencyContact")
+@Table(name = "emergency_contacts")
 public class EmergencyContact extends BaseEntity  {
 
     @Column(name = "first_name", nullable = false, length = 100)

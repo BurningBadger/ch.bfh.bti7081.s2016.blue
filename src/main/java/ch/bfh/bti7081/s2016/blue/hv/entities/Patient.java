@@ -4,7 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-@Entity(name = "Patients")
+@Entity(name = "Patient")
+@Table(name = "Patients")
 public class Patient extends Person {
 
     @ManyToMany(mappedBy = "patients", fetch = FetchType.EAGER)

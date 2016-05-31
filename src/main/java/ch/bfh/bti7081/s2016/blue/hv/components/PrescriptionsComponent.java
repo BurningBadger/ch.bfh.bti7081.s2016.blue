@@ -41,7 +41,6 @@ public class PrescriptionsComponent extends VerticalLayout {
         table.setWidth("100%");
         table.setHeight("300px");
         table.setEditable(enabled);
-        //table.setTableFieldFactory(new GivenMedicationFieldFactory());
 
         table.addContainerProperty(COLUMN_NAME_TIME, Date.class, new Date());
         table.addContainerProperty(COLUMN_NAME_DOSE, String.class, "");
@@ -125,6 +124,6 @@ public class PrescriptionsComponent extends VerticalLayout {
 
     // implement validation!!!!
     private boolean validate(ArrayList<Prescription> data) {
-        return true; //prescriptionsModel.validateGivenMedication(data)
+        return true;
     }
 }

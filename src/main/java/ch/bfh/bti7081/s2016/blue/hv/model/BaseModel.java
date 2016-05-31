@@ -11,11 +11,14 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.RollbackException;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.BaseEntity;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
+import org.hibernate.metamodel.source.annotations.entity.EntityClass;
 
 /**
  * {@link BaseModel} offering some CRUD operations.
@@ -52,8 +55,11 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
     public boolean saveOrUpdate(T element) {
 	try {
 	    entityManager.getTransaction().begin();
+
 	    // new, if no id exists
-	    if (element.getId() == null) {
+	    // TODO: remove check 999
+//	    if (element.getId() == null || element.getId() == 999) {
+	    if (element.getId() == null ) {
 		entityManager.persist(element);
 	    }
 	    else {
@@ -178,4 +184,20 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	return entityManager.getTransaction();
     }
 
+    public T findHealthVisitor(HealthVisitor element) throws EntityNotFoundException{
+	entityManager.getTransaction().begin();
+
+	Entity annotation = entityClass.getAnnotation(Entity.class);
+	String tableName = annotation.name();
+
+	List<T> users = entityManager.createQuery(
+	    "SELECT hv FROM " + tableName + " hv WHERE hv.userName LIKE :userName AND hv.password LIKE :userPass")
+	    .setParameter("userName", element.getUserName())
+	    .setParameter("userPass", element.getPassword())
+	    .setMaxResults(1).getResultList();
+
+	entityManager.getTransaction().commit();
+
+	return users.size() > 0 ? users.get(0) : null;
+    }
 }
