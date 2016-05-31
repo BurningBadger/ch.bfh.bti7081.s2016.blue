@@ -11,6 +11,8 @@ import com.vaadin.server.StreamResource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.Position;
 import com.vaadin.ui.*;
+
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 
@@ -55,15 +57,16 @@ public class PatientView extends VerticalLayout implements View {
 	 */
 	Upload upload = new Upload("Upload here", null);
 	upload.setButtonCaption("Upload");
-	final Embedded picture = new Embedded("UpImage");
+	final Image picture = new Image("Uploaded image");
 	picture.setVisible(false);
 
 	// create upload stream
 	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	// first implement the Upload.Receiver interface
 	upload.setReceiver(new Upload.Receiver() {
 	    @Override
 	    public OutputStream receiveUpload(String filename, String mimeType) {
-		return baos;
+		return baos;	//return the output stream
 	    }
 	});
 	upload.addSucceededListener(new Upload.SucceededListener() {
@@ -74,42 +77,16 @@ public class PatientView extends VerticalLayout implements View {
 		picture.setSource(new StreamResource(new StreamResource.StreamSource() {
 		    @Override
 		    public InputStream getStream() {
-//			return new ByteArrayInputStream(bytes);
-			return new ByteArrayInputStream(baos.toByteArray());
+			return new ByteArrayInputStream(bytes);
 		    }
 		},""));
 	    }
 	});
-//
-//	//	upload.addClickListener(event -> {
-//	class ImageUploader implements Upload.Receiver, Upload.SucceededListener {
-//	    public File file;
-//
-//	    public OutputStream receiveUpload(String filename, String mimType) {
-//		FileOutputStream fos = null;        // create output stream
-//		try {
-//		    file = new File("icons/" + filename);
-//		    fos = new FileOutputStream(file);
-//		}
-//		catch (final java.io.FileNotFoundException e) {
-//		    new Notification("Can't open the file!", e.getMessage(), Notification.Type.WARNING_MESSAGE).show(Page.getCurrent());
-//		    return null;
-//		}
-//		return fos;        //return the output stream
-//	    }
-//
-//	    public void uploadSucceeded(Upload.SucceededEvent event) {
-//		picture.setVisible(true);
-//		picture.setSource(new FileResource(file));
-//	    }
-//
-//	    ImageUploader receiver = new ImageUploader();
-//	};
+
+	// resize the image
+	picture.setWidth("60%");
 	left.addComponent(picture, "left: 30px; top: 30px;");
 	left.addComponent(upload, "left: 30px; top: 400px;");
-//	final ImageUploader uploader = new ImageUploader();
-//	upload.setReceiver(uploader);
-//	upload.addListener(uploader);
 
 	hsplit.setFirstComponent(left);
 	/*
