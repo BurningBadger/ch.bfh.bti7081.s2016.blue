@@ -1,9 +1,7 @@
 package ch.bfh.bti7081.s2016.blue.hv.components;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Prescription;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.model.PrescriptionsModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 import com.vaadin.data.Item;
 import com.vaadin.server.SystemError;

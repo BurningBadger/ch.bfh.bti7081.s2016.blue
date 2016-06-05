@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity(name = "Drug")
 @Table(name = "drugs")
-public class Drug extends BaseEntity {
+public class Drug extends BaseEntity implements Product {
 
     private static final long serialVersionUID = -838966460652903682L;
 
@@ -17,11 +17,8 @@ public class Drug extends BaseEntity {
     @Column(nullable = false, length = 800)
     @Size(min = 0, max = 800)
     private String description;
-
-    @OneToMany(mappedBy = "drug")
-    private Set<Prescription> prescriptions;
     
-    @OneToOne
+    @OneToMany
     private Patient patient;
 
     public String getName() {
@@ -35,12 +32,4 @@ public class Drug extends BaseEntity {
     public String getDescription() { return description; }
 
     public void setDescription(String description) { this.description = description; }
-
-    public Set<Prescription> getPrescriptions() {
-        return prescriptions;
-    }
-
-    public void setPrescriptions(Set<Prescription> prescriptions) {
-        this.prescriptions = prescriptions;
-    }
 }
