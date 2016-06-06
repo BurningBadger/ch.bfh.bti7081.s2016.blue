@@ -20,10 +20,6 @@ public class Visit extends BaseEntity {
     @OneToMany(mappedBy = "visit")
     private Set<VisitEvent> visitEvents;
 
-    @Valid
-    @OneToMany(mappedBy = "visit", cascade = CascadeType.PERSIST)
-    private Set<Prescription> prescriptions;
-
     public HealthVisitor getVisitor() {
 	return visitor;
     }
@@ -48,7 +44,4 @@ public class Visit extends BaseEntity {
 	this.visitEvents = visitEvents;
     }
 
-    public Set<Prescription> getPrescriptions() { return prescriptions; }
-
-    public void setPrescriptions(Set<Prescription> prescriptions) { this.prescriptions = prescriptions; }
 }

@@ -66,23 +66,6 @@ public class EntityService {
 		return drug;
 	}
 
-	private Prescription createPrescription(Visit visit, Drug drug){
-		Prescription prescription = new Prescription();
-
-		prescription.setDose(doses[r.nextInt(doses.length)]);
-		prescription.setMo(r.nextBoolean());
-		prescription.setTu(r.nextBoolean());
-		prescription.setWe(r.nextBoolean());
-		prescription.setTh(r.nextBoolean());
-		prescription.setFr(r.nextBoolean());
-		prescription.setSa(r.nextBoolean());
-		prescription.setSo(r.nextBoolean());
-		prescription.setDrug(drug);
-		prescription.setVisit(visit);
-
-		return prescription;
-	}
-
 	private Contact createContact(){
 	Contact contact = new Contact();
 

@@ -17,6 +17,9 @@ public class Patient extends Person {
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Drug> drugs;
 
+    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<DrugOrder> drugOrders;
+
     @OneToOne(optional = false)
     @JoinColumn(name = "emergency_contact_id", unique = true)
     private EmergencyContact emergencyContact;

@@ -15,6 +15,7 @@ import java.util.Date;
  * Created by kerberos on 28/05/16.
  */
 public class PrescriptionsComponent extends VerticalLayout {
+    /**
     private static final String COLUMN_NAME_TIME = "Time";
     private static final String COLUMN_NAME_DOSE = "Dose";
     private static final String COLUMN_NAME_DRUG = "Drug";
@@ -124,4 +125,5 @@ public class PrescriptionsComponent extends VerticalLayout {
     private boolean validate(ArrayList<Prescription> data) {
         return true;
     }
+    */
 }

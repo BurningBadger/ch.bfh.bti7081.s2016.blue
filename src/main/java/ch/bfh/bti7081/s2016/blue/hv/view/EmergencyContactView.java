@@ -8,7 +8,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.EmergencyContact;
-import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
+//import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
 
 /**
  * Created by suttc1 on 22.05.2016.
@@ -61,8 +61,8 @@ public class EmergencyContactView extends VerticalLayout implements View {
 
 	this.emergencyContactID = emergencyContactID;
 
-	EmergencyContactModel contactModel = new EmergencyContactModel();
-	EmergencyContact contact = contactModel.findById(emergencyContactID);
+	//EmergencyContactModel contactModel = new EmergencyContactModel();
+	EmergencyContact contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
 
 	fieldGrpTF = new FieldGroup();
 
