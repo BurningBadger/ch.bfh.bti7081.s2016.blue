@@ -12,33 +12,25 @@ public class Cart {
 
     List<DrugOrderItem> items;
     int cartSize;
-    Patient patient;
     String remarks;
 
-    public Cart(Patient patient) {
-        this.patient = patient;
+    public Cart() {
         items = new ArrayList<DrugOrderItem>();
         cartSize = 0;
         remarks = "";
     }
 
     public synchronized void addItem(DrugOrderItem drugOrderItem){
+        boolean newItem = true;
 
-        if(drugOrderItem.getDrug().isPrescribed(patient)) {
-
-            boolean newItem = true;
-
-            for (DrugOrderItem i : items) {
-                if (i.getName().equals(drugOrderItem.getName())) { // besser mit ID??? -> implement
-                    newItem = false;
-                    i.setQuantity(i.getQuantity() + drugOrderItem.getQuantity());
-                }
+        for (DrugOrderItem i : items) {
+            if (i.getId().equals(drugOrderItem.getId())) {
+                newItem = false;
+                i.setQuantity(i.getQuantity() + drugOrderItem.getQuantity());
             }
-            if (newItem) {
-                items.add(drugOrderItem);
-            }
-        }  else {
-            // throw not prescribed exception
+        }
+        if (newItem) {
+            items.add(drugOrderItem);
         }
     }
 
@@ -46,7 +38,7 @@ public class Cart {
         if (quantity >= 0){
             DrugOrderItem item = null;
             for (DrugOrderItem i : items){
-                if (i.getName().equals(drugOrderItem.getName())) { // s.o.
+                if (i.getId().equals(drugOrderItem.getId())) {
                     if (quantity != 0){
                         i.setQuantity(quantity);
                     } else {
@@ -80,7 +72,7 @@ public class Cart {
         cartSize = 0;
     }
 
-    public DrugOrder getDrugOrder() {
+    public DrugOrder getDrugOrder(Patient patient) {
         if (getNumberOfItems() > 0) {
             DrugOrder drugOrder = new DrugOrder();
             drugOrder.setPatient(patient);

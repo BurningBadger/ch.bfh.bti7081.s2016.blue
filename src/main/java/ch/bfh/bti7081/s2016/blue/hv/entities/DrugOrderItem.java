@@ -23,6 +23,9 @@ public class DrugOrderItem extends BaseEntity{
     @Size(min = 1,max = 4)
     private int quantity;
 
+    @Column
+    private boolean isPrescribed;
+
     public Drug getDrug() { return drug; }
 
     public void setDrug(Drug drug) { this.drug = drug; }
@@ -34,6 +37,8 @@ public class DrugOrderItem extends BaseEntity{
     public int getQuantity() { return quantity; }
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public boolean isPrescribed() { return this.drug.isPrescribed(this.drugOrder.getPatient()); }
 
     public String getName(){ return this.getDrug().getName(); }
 

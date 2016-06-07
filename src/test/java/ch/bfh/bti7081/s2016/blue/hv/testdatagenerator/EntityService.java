@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2016.blue.hv.test;
+package ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
 
 import java.util.Date;
 import java.util.HashSet;

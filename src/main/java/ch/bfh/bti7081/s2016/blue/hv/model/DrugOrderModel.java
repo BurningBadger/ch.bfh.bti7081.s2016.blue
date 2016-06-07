@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2016.blue.hv.model;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Cart;
 import ch.bfh.bti7081.s2016.blue.hv.entities.DrugOrder;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 
 import java.util.logging.Logger;
 
@@ -25,7 +26,7 @@ public class DrugOrderModel extends BaseModel<DrugOrder, Long> {
                 // Send Order via Mail
 
                 // Persist DrugOrder
-                if (saveOrUpdate(cart.getDrugOrder())){
+                if (saveOrUpdate(cart.getDrugOrder(new Patient()))){
                     orderSuccessful = true;
                 }
             }
