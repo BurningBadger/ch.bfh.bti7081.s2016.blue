@@ -23,21 +23,11 @@ public class DrugsView extends VerticalLayout implements View {
         // define the columns
         table.addContainerProperty("Drug Name", Label.class, null);
         table.addContainerProperty("Description", Label.class, null);
-        table.addContainerProperty("", Button.class, null);
 
         for (Drug d : model.findAll()) {
 
             Label drugName = new Label(d.getName());
             Label drugDescription = new Label(d.getDescription());
-
-            Button editButton = new Button("edit");
-            editButton.setData(d);
-            editButton.addClickListener(event -> {
-                // show the detail of the selected element
-                Drug dr = (Drug) event.getButton().getData();
-                showEditWindow(dr);
-            });
-            editButton.addStyleName("link");
 
             // Create the table row.
             table.addItem(

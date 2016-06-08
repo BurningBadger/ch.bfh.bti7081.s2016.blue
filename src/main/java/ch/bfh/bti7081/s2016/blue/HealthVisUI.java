@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
+import ch.bfh.bti7081.s2016.blue.hv.view.*;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.annotations.Theme;
@@ -24,15 +25,6 @@ import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
-import ch.bfh.bti7081.s2016.blue.hv.view.DrugsView;
-import ch.bfh.bti7081.s2016.blue.hv.view.LandingView;
-import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
-import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
-import ch.bfh.bti7081.s2016.blue.hv.view.PatientListView;
-import ch.bfh.bti7081.s2016.blue.hv.view.PatientView;
-import ch.bfh.bti7081.s2016.blue.hv.view.SettingsView;
-import ch.bfh.bti7081.s2016.blue.hv.view.TodayMeetingsView;
-import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 
 /**
  * {@link HealthVisUI}. This represents the applications main entry point.
@@ -112,17 +104,18 @@ public class HealthVisUI extends UI {
 	final Navigator navigator = new Navigator(this, viewContainer);
 
 	// Menu
-	menu = new Menu(navigator);
-	menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
-	menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
-	menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
-	menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
-		menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
-	menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
-	if (navigator.getState().isEmpty()) {
-	    navigator.navigateTo(LandingView.getName());
-	}
-	navigator.addViewChangeListener(viewChangeListener);
+	    menu = new Menu(navigator);
+	    menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
+	    menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
+	    menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
+        menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
+		menu.addView(new DrugsOrderView(), "Drug Orders", DrugsOrderView.getName(), FontAwesome.MEDKIT);
+        menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
+        menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
+	    if (navigator.getState().isEmpty()) {
+	        navigator.navigateTo(LandingView.getName());
+	    }
+	    navigator.addViewChangeListener(viewChangeListener);
 
 	//
 

@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity(name = "Drug")
 @Table(name = "drugs")
-public class Drug extends BaseEntity implements Product {
+public class Drug extends BaseEntity {
 
     private static final long serialVersionUID = -838966460652903682L;
 
@@ -15,6 +15,7 @@ public class Drug extends BaseEntity implements Product {
     private String name;
 
     @Column(unique = true)
+
     @Size(min=1, max = 14)
     private int gtin; // GTIN: Global Trade Item Number
 
@@ -22,7 +23,7 @@ public class Drug extends BaseEntity implements Product {
     @Size(min = 0, max = 800)
     private String description;
     
-    @ManyToOne()
+    @ManyToOne(optional = true)
     private Patient patient;
 
     public String getName() {
@@ -36,6 +37,10 @@ public class Drug extends BaseEntity implements Product {
     public String getDescription() { return description; }
 
     public void setDescription(String description) { this.description = description; }
+
+    public int getGtin() { return gtin; }
+
+    public void setGtin(int gtin) { this.gtin = gtin; }
 
     public boolean isPrescribed(Patient p){
         boolean prescribed = false;

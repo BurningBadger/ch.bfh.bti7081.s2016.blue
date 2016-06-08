@@ -1,14 +1,14 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import ch.bfh.bti7081.s2016.blue.HealthVisUI;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Cart;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
-import ch.bfh.bti7081.s2016.blue.hv.entities.DrugOrder;
-import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugOrderModel;
+import com.vaadin.data.Item;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
+
+import java.util.Date;
 
 /**
  * Created by kerberos on 06/06/16.
@@ -23,30 +23,53 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         DrugOrderModel drugOrderModel = new DrugOrderModel();
 
-        //left panel (drug order table)
+
         VerticalLayout leftPanel = new VerticalLayout();
         final Table drugOrderTable = new Table();
         drugOrderTable.setSelectable(true);
-        //drugOrderTable.addItemClickListener();
         drugOrderTable.addStyleName("components-inside");
 
-        //define columns
-        drugOrderTable.addContainerProperty("Date", Label.class, null);
+        drugOrderTable.addContainerProperty("Date", Date.class, null);
         drugOrderTable.addContainerProperty("Patient firstname", Label.class, null);
         drugOrderTable.addContainerProperty("Patient lastname", Label.class, null);
         drugOrderTable.addContainerProperty("Amount of items", Label.class, null);
+        drugOrderTable.addContainerProperty("Order details", Button.class, null);
+
+        VerticalLayout rightPanel = new VerticalLayout();
+        final Table orderDetailsTable = new Table();
+        orderDetailsTable.addStyleName("components-inside");
+        rightPanel.setVisible(false);
+        rightPanel.setImmediate(true);
+
+        orderDetailsTable.addContainerProperty("Drug name", Label.class, null);
+        orderDetailsTable.addContainerProperty("Amount", Label.class, null);
 
         for (DrugOrder order : drugOrderModel.findAll()){
-            if (visitor.getPatients().contains(order.getPatient())){
-                Label orderDate = new Label(order.getCreatedAt().toString());
+            if (order.isInPatients(visitor.getPatients())){ // ToDo: maybe generic method in BaseEntity?
                 Label patientFirstname = new Label(order.getPatient().getFirstname());
                 Label patientLastname = new Label(order.getPatient().getLastname());
                 Label amount = new Label(Integer.toString(order.getTotalItemsAmount()));
+                Button detailsBtn = new Button("Details");
+                detailsBtn.setData(order);
+                detailsBtn.addClickListener(event -> {
+                    if(!rightPanel.isVisible()){
+                        rightPanel.setVisible(true);
+                    }
+                    orderDetailsTable.removeAllItems();
+                    DrugOrder drugOrder = (DrugOrder)event.getButton().getData();
+                    for(DrugOrderItem item : drugOrder.getDrugOrderItems()){
+                        Label drugName = new Label(item.getName());
+                        Label drugAmount = new Label(Integer.toString(item.getQuantity()));
 
+                        //add to table
+                        orderDetailsTable.addItem(new Object[] { drugName, drugAmount}, item.getId());
+                    }
+                });
                 //add to table
-                drugOrderTable.addItem(new Object[] { orderDate, patientFirstname, patientLastname, amount}, order.getId());
+                drugOrderTable.addItem(new Object[] { order.getCreatedAt(), patientFirstname, patientLastname, amount, detailsBtn}, order.getId());
             }
         }
+
         leftPanel.addComponent(drugOrderTable);
 
         //button for new order
@@ -54,20 +77,13 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         addNewOrderBtn.addClickListener(event -> {
             showOrderWindow(null);
         });
-        this.addComponent(addNewOrderBtn);
+        leftPanel.addComponent(addNewOrderBtn);
 
         this.addComponent(leftPanel);
 
-        // *************
+        rightPanel.addComponent(orderDetailsTable);
 
-        // right panel (order details)
-        VerticalLayout rightPanel = new VerticalLayout();
-        final Table orderDetailsTable = new Table();
-        orderDetailsTable.addStyleName("components-inside");
-
-        //define columns
-        orderDetailsTable.addContainerProperty("Drug name", Label.class, null);
-        orderDetailsTable.addContainerProperty("Amount", Label.class, null);
+        this.addComponent(rightPanel);
 
     }
 

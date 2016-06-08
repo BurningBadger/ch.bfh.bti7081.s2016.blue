@@ -55,5 +55,8 @@ public class Patient extends Person {
     public void setVisits(Set<Visit> visits) {
 	this.visits = visits;
     }
-    
+
+    public Set<DrugOrder> getDrugOrders() { return drugOrders; }
+
+    public void setDrugOrders(Set<DrugOrder> drugOrders) { this.drugOrders = drugOrders; }
 }

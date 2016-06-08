@@ -41,4 +41,17 @@ public class DrugOrder extends BaseEntity {
         }
         return orderSize;
     }
+
+
+    // ToDo: generic method?
+    public boolean isInPatients(Set<Patient> patients){
+        boolean isIn = false;
+        for (Patient p : patients) {
+            if (p.getId().compareTo(this.getPatient().getId()) == 0){
+                isIn = true;
+                break;
+            }
+        }
+        return isIn;
+    }
 }

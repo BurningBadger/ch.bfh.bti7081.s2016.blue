@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,15 +55,19 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
      */
     public boolean saveOrUpdate(T element) {
 	try {
+		Date timeStamp = new Date();
 	    entityManager.getTransaction().begin();
 
 	    // new, if no id exists
 	    // TODO: remove check 999
 //	    if (element.getId() == null || element.getId() == 999) {
 	    if (element.getId() == null ) {
+		element.setCreatedAt(timeStamp);
+		element.setUpdatedAt(timeStamp);
 		entityManager.persist(element);
 	    }
 	    else {
+		element.setUpdatedAt(timeStamp);
 		entityManager.merge(element);
 	    }
 	    entityManager.getTransaction().commit();
