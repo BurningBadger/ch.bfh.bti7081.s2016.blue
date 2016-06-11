@@ -13,12 +13,23 @@ public class Visit extends BaseEntity {
 
     @ManyToOne
     private HealthVisitor visitor;
+    
+    @ManyToMany(mappedBy = "visit", fetch = FetchType.EAGER)
+    private Set<HealthVisitor> visitors;
 
-    @ManyToOne
-    private Patient patient;
+    @ManyToMany(mappedBy = "visit", fetch = FetchType.EAGER)
+    private Patient patients;
 
     @OneToMany(mappedBy = "visit")
     private Set<VisitEvent> visitEvents;
+    
+    public Set<HealthVisitor> getVisitors() {
+	return visitors;
+    }
+
+    public void setVisitors(Set<HealthVisitor> visitors) {
+	this.visitors = visitors;
+    }
 
     public HealthVisitor getVisitor() {
 	return visitor;
@@ -29,11 +40,11 @@ public class Visit extends BaseEntity {
     }
 
     public Patient getPatient() {
-	return patient;
+	return patients;
     }
 
     public void setPatient(Patient patient) {
-	this.patient = patient;
+	this.patients = patient;
     }
 
     public Set<VisitEvent> getVisitEvents() {
@@ -43,5 +54,4 @@ public class Visit extends BaseEntity {
     public void setVisitEvents(Set<VisitEvent> visitEvents) {
 	this.visitEvents = visitEvents;
     }
-
 }
