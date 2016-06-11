@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -43,5 +44,13 @@ public class HealthVisitor extends Person {
 
     public void setPassword(String password) {
 	this.password = DigestUtils.md5Hex(password);
+    }
+
+    public Set<Patient> getPatients(){
+	Set<Patient> patients = new HashSet<Patient>();
+	for(Visit visit : visits){
+	    patients.add(visit.getPatient());
+	}
+	return patients;
     }
 }

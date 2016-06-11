@@ -37,12 +37,12 @@ public class TodayMeetingsView extends HorizontalLayout implements View {
 
     }
 
-    public TodayMeetingsView() throws ParseException {
+    public TodayMeetingsView(){
 		setSizeFull();
 		prepareUI();
     }
 	
-    public void prepareUI() throws ParseException {
+    public void prepareUI()  {
     	final Table table = new Table();
     	table.setSizeFull();
     	table.addStyleName("components-inside");
