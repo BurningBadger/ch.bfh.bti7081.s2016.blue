@@ -2,23 +2,30 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
 
 @Entity(name = "Patient")
 @Table(name = "Patients")
 public class Patient extends Person {
 
-    @ManyToMany(mappedBy = "patients", fetch = FetchType.EAGER)
-    private Set<HealthVisitor> visitors;
+	private static final long serialVersionUID = 8023922743116129612L;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Visit> visits;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Drug> drugs;
-
-    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Set<DrugOrder> drugOrders;
+    
+    @Valid
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
+    private Set<Prescription> prescriptions;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "emergency_contact_id", unique = true)
@@ -40,14 +47,6 @@ public class Patient extends Person {
 	this.drugs = drugs;
     }
 
-    public Set<HealthVisitor> getVisitors() {
-	return visitors;
-    }
-
-    public void setVisitors(Set<HealthVisitor> visitors) {
-	this.visitors = visitors;
-    }
-
     public Set<Visit> getVisits() {
 	return visits;
     }
@@ -55,8 +54,13 @@ public class Patient extends Person {
     public void setVisits(Set<Visit> visits) {
 	this.visits = visits;
     }
+    
+    public Set<Prescription> getPrescriptions() { 
+    	return prescriptions; 
+    }
 
-    public Set<DrugOrder> getDrugOrders() { return drugOrders; }
-
-    public void setDrugOrders(Set<DrugOrder> drugOrders) { this.drugOrders = drugOrders; }
+    public void setPrescriptions(Set<Prescription> prescriptions) { 
+    	this.prescriptions = prescriptions; 
+    }
+    
 }
