@@ -53,7 +53,7 @@ public class PrescriptionsComponent extends VerticalLayout {
         });
 
         // Get data from db
-        for (Prescription g : visit.getPrescriptions()) {
+        for (Prescription g : visit.getPatient().getPrescriptions()) {
             Item item = table.addItem(g.getId());
             item.getItemProperty(COLUMN_NAME_TIME).setValue(g.getPrescriptionDate());
             item.getItemProperty(COLUMN_NAME_DOSE).setValue(g.getDose());
