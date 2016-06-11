@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
 
+import java.sql.Time;
 import java.util.*;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -25,34 +25,26 @@ public class EntityService {
     final static String[] lastNames = { "Smith", "Gordon", "Simpson", "Brown", "Clavel", "Simons", "Verne", "Scott",
 	    "Allison", "Gates", "Rowling", "Barks", "Ross", "Schneider", "Tate" };
 
-    final static String cities[] = { "Amsterdam", "Berlin", "Helsinki", "Hong Kong", "London", "Luxemburg", "New York",
-	    "Oslo", "Paris", "Rome", "Stockholm", "Tokyo", "Turku", "Basel", "Geneve" };
+    final static String cities[] = { "Bern"};
 
-    final static String streets[] = { "4215 Blandit Av.", "452-8121 Sem Ave", "279-4475 Tellus Road",
-	    "4062 Libero. Av.", "7081 Pede. Ave", "6800 Aliquet St.", "P.O. Box 298, 9401 Mauris St.",
-	    "161-7279 Augue Ave", "P.O. Box 496, 1390 Sagittis. Rd.", "448-8295 Mi Avenue", "6419 Non Av.",
-	    "659-2538 Elementum Street", "2205 Quis St.", "252-5213 Tincidunt St.", "P.O. Box 175, 4049 Adipiscing Rd.",
-	    "3217 Nam Ave", "P.O. Box 859, 7661 Auctor St.", "2873 Nonummy Av.", "7342 Mi, Avenue",
-	    "539-3914 Dignissim. Rd.", "539-3675 Magna Avenue", "Ap #357-5640 Pharetra Avenue", "416-2983 Posuere Rd.",
-	    "141-1287 Adipiscing Avenue", "Ap #781-3145 Gravida St.", "6897 Suscipit Rd.", "8336 Purus Avenue",
-	    "2603 Bibendum. Av.", "2870 Vestibulum St.", "Ap #722 Aenean Avenue", "446-968 Augue Ave",
-	    "1141 Ultricies Street", "Ap #992-5769 Nunc Street", "6690 Porttitor Avenue", "Ap #105-1700 Risus Street",
-	    "P.O. Box 532, 3225 Lacus. Avenue", "736 Metus Street", "414-1417 Fringilla Street",
-	    "Ap #183-928 Scelerisque Road", "561-9262 Iaculis Avenue" };
+    final static String streets[] = { "Erlenweg 23", "Neuengasse 43", "Viktoriastrasse 21", "Sempachstrasse 22",
+	    "Laupenstrasse 19", "Südbahnhofstrasse 14", "Riedbachstrasse 100", "Wankdorfallee 4"};
+
+    final static String zips[] = {"3008", "3011", "3030", "3014", "3008", "3007", "3027", "3030"};
 
     final static String drugNames[] = { "Analgin", "Ibuprofen", "Ketamin", "Pervitin", "Cocaine", "Heroine",
 			"Viagra", "Prozac", "Tamiflu", "Opium", "LSD", "Valium", "Cannabis", "Aspirin", "Crestor",
 			"Synthroid", "Ventolin HFA", "Nexium", "Advair Diskus", "Vyvanse", "Lyrica", "Ponstan"};
 
-	final static String drugDescriptions[] = {
-			"That thing your mom takes to get \"in the mood\"",
-			"Headache, cancer, Aids, whatever - just take this.",
-			"When your ass burns like fire, this won't help - but it makes you feel good.",
-			"One of these in her drink and you're good to go.",
-			"Try not to take too many of these - but, well, I'm not your mom, so do what you want.",
-			"Don't mix with alcohol. Or do, how should I know? I'm just a description."};
+    final static String drugDescriptions[] = {
+		    "That thing your mom takes to get \"in the mood\"",
+		    "Headache, cancer, Aids, whatever - just take this.",
+		    "When your ass burns like fire, this won't help - but it makes you feel good.",
+		    "One of these in her drink and you're good to go.",
+		    "Try not to take too many of these - but, well, I'm not your mom, so do what you want.",
+		    "Don't mix with alcohol. Or do, how should I know? I'm just a description."};
 
-	final static String remarks[] = { "Urgent!", "Please deliver as soon as possible.", "The Patient will get it at your store." };
+    final static String remarks[] = { "Urgent!", "Please deliver as soon as possible.", "The Patient will get it at your store." };
 
     static Random r = new Random();
 
@@ -91,8 +83,11 @@ public class EntityService {
 
 	contact.setCity(cities[r.nextInt(cities.length)]);
 	contact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
-	contact.setStreet(streets[r.nextInt(streets.length)]);
-	contact.setZip(10000 + r.nextInt(20000) + "");
+
+	int randStreetIndex = r.nextInt(streets.length);
+
+	contact.setStreet(streets[randStreetIndex]);
+	contact.setZip(zips[randStreetIndex]);
 
 	return contact;
     };
@@ -158,12 +153,26 @@ public class EntityService {
 	Calendar calendar = new Calendar();
 
 	int day = r.nextInt(15) + 1;
-	int hour = r.nextInt(12) + 1;
+	int hourFrom = r.nextInt(12) + 1;
+	int hourTo = hourFrom + 2;
 
-	Date dateFrom = new Date(2016, 6, day, hour, 0);
-	Date dateTo = new Date(2016, 6, day, hour + 2, 0);
-	calendar.setDateFrom(dateFrom);
-	calendar.setDateTo(dateTo);
+
+	java.util.Calendar dateCalendar = java.util.Calendar.getInstance();
+	dateCalendar.set(java.util.Calendar.YEAR, 2016);
+	dateCalendar.set(java.util.Calendar.MONTH, java.util.Calendar.JUNE);
+	dateCalendar.set(java.util.Calendar.DAY_OF_MONTH, day);
+
+	java.util.Calendar timeFrom = java.util.Calendar.getInstance();
+	timeFrom.set(java.util.Calendar.HOUR, hourFrom);
+	timeFrom.set(java.util.Calendar.MINUTE,30);
+
+	java.util.Calendar timeTo = java.util.Calendar.getInstance();
+	timeTo.set(java.util.Calendar.HOUR, hourTo);
+	timeTo.set(java.util.Calendar.MINUTE,30);
+
+	calendar.setMeetingDate(dateCalendar.getTime());
+	calendar.setTimeFrom(timeFrom.getTime());
+	calendar.setTimeTo(timeTo.getTime());
 
 	return calendar;
     };
@@ -263,100 +272,5 @@ public class EntityService {
 	}
 
 	em.getTransaction().commit();
-
-/*
-	em.getTransaction().begin();
-
-	Set<Patient> vPatients = new HashSet<Patient>();
-
-	int amount = r.nextInt(5) + 1;
-	for (int i = 0; i < amount; i++) {
-	    Contact pContact = new Contact();
-	    Patient patient = new Patient();
-	    Visit visit = new Visit();
-
-	    visit.setPatient(patient);
-	    visit.setVisitor(visitor);
-
-	    Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
-
-	    int visitsAmount = r.nextInt(5) + 1;
-	    for (int j = 0; j < visitsAmount; j++) {
-		VisitEvent visitEvent = new VisitEvent();
-		Calendar calendar = new Calendar();
-
-		int day = r.nextInt(31) + 1;
-		int hour = r.nextInt(12) + 1;
-		Date dateFrom = new Date(2015, 5, day, hour, 0);
-		Date dateTo = new Date(2015, 5, day, hour + 2, 0);
-		calendar.setDateFrom(dateFrom);
-		calendar.setDateTo(dateTo);
-		visitEvent.setCalendar(calendar);
-
-		Set<Note> notes = new HashSet<Note>();
-		Note note = new Note();
-		note.setNoteText("Dummy note text");
-		notes.add(note);
-
-		Set<Report> reports = new HashSet<Report>();
-		Report report = new Report();
-		report.setTitle("Dummy report title");
-		report.setReportText("Dummy report text");
-		reports.add(report);
-
-		em.persist(calendar);
-		em.persist(note);
-		em.persist(report);
-
-		visitEvents.add(visitEvent);
-
-		em.persist(visitEvent);
-	    }
-	    visit.setVisitEvents(visitEvents);
-	    em.persist(visit);
-
-	    Set<Drug> pDrugs = new HashSet<Drug>();
-
-	    int drugsAmount = r.nextInt(5) + 1;
-	    for (int j = 0; j < drugsAmount; j++) {
-            Drug drug = new Drug();
-
-            drug.setName(drugs[r.nextInt(4) + 1]);
-            drug.setPatient(patient);
-            drug.setDescription("Test");
-
-            pDrugs.add(drug);
-            em.persist(drug);
-	    }
-	    patient.setDrugs(pDrugs);
-	    patient.setBirthday(new Date(1990, 5, 1));
-
-	    Set<HealthVisitor> visitors = new HashSet<HealthVisitor>();
-	    visitors.add(visitor);
-
-	    pContact.setCity(cities[r.nextInt(14) + 1]);
-	    pContact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
-	    pContact.setStreet(streets[streets.length -1]);
-	    pContact.setZip(10000 + r.nextInt(20000) + "");
-
-	    patient.setFirstname(firstNames[r.nextInt(14) + 1]);
-	    patient.setLastname(lastNames[r.nextInt(14) + 1]);
-	    patient.setVisitors(visitors);
-	    patient.setContact(pContact);
-
-	    vPatients.add(patient);
-
-	    em.persist(pContact);
-	    em.persist(patient);
-	}
-
-	visitor.setContact(vContact);
-	visitor.setPatients(vPatients);
-
-	em.persist(vContact);
-	em.persist(visitor);
-
-	em.getTransaction().commit();
-*/
     }
 }

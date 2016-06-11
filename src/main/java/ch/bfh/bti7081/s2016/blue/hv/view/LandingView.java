@@ -42,7 +42,7 @@ public class LandingView extends Panel implements View {
 
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
 
-      //  Set<Patient> patients = visitor.getPatients();
+        Set<Visit> visits = visitor.getVisits();
 
         Table patientsTable = new Table("Patients");
         patientsTable.setSizeFull();
@@ -51,23 +51,34 @@ public class LandingView extends Panel implements View {
         patientsTable.addContainerProperty("Last Name", String.class, null);
         patientsTable.addContainerProperty("Birthday", String.class, null);
         patientsTable.addContainerProperty("City", String.class, null);
+        patientsTable.addContainerProperty("Street", String.class, null);
+        patientsTable.addContainerProperty("Zip", String.class, null);
 
-//        for(Patient p : patients){
-//            patientsTable.addItem(
-//                new Object[] { p.getFirstname(), p.getLastname(), p.getBirthday().toString(), p.getContact().getCity() },
-//                null
-//            );
-//        }
+        for(Visit v : visits){
+            Patient patient = v.getPatient();
+            patientsTable.addItem(
+                new Object[] {
+                    patient.getFirstname(),
+                    patient.getLastname(),
+                    patient.getBirthday().toString(),
+                    patient.getContact().getCity(),
+                    patient.getContact().getStreet(),
+                    patient.getContact().getZip()
+                }, null
+            );
+        }
 
         patientsTable.setSelectable(true);
         patientsTable.setImmediate(true);
 
-
         Embedded e = new Embedded("Routing", new ExternalResource("http://localhost:50588/"));
+        e.setData(new Object[]{
+            "3084 Sprengerweg 8",
+            "3007 Rosenweg 7"
+        });
         e.setType(Embedded.TYPE_BROWSER);
         e.setWidth("100%");
         e.setHeight("400px");
-
 
         final VerticalLayout layout = new VerticalLayout();
         layout.addComponent(e);

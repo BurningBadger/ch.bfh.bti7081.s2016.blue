@@ -36,71 +36,46 @@ public class LoginView extends CustomComponent implements View {
     }
 
     private void buildUi() {
-		setSizeFull();
-	
-		// Create the user input field
-		user = new TextField("User:");
-		user.setWidth("300px");
-		user.setRequired(true);
-		user.setInputPrompt("Your username (eg. joe@email.com)");
-		user.addValidator(new EmailValidator("Username must be a valid email address"));
-		user.setInvalidAllowed(false);
-	
-		// Create the password input field
-		password = new PasswordField("Password:");
-		password.setWidth("300px");
-		password.addValidator(new PasswordValidator());
-		password.setRequired(true);
-		password.setValue("");
-		password.setNullRepresentation("");
-	
-		// Create login button
-		loginButton = new Button("Login", new Button.ClickListener() {
-	
-		    @Override
-		    public void buttonClick(ClickEvent event) {
-			if (!user.isValid() || !password.isValid()) {
-			    return;
-			}
+	setSizeFull();
 
-			HealthVisitor hv = new HealthVisitor();
+	// Create the user input field
+	user = new TextField("User:");
+	user.setWidth("300px");
+	user.setRequired(true);
+	user.setInputPrompt("Your username (eg. joe@email.com)");
+	user.addValidator(new EmailValidator("Username must be a valid email address"));
+	user.setInvalidAllowed(false);
 
-			hv.setUserName(user.getValue());
-			hv.setPassword(password.getValue());
+	// Create the password input field
+	password = new PasswordField("Password:");
+	password.setWidth("300px");
+	password.addValidator(new PasswordValidator());
+	password.setRequired(true);
+	password.setValue("");
+	password.setNullRepresentation("");
 
-			HealthVisitor user = healthVisitorsModel.findHealthVisitor(hv);
+	// Create login button
+	loginButton = new Button("Login");
+	loginButton.addClickListener(e -> {logIn();});
 
-			if (user != null) {
-			    getSession().setAttribute("user", user.getUserName());
-			    getSession().setAttribute("userId", user.getId());
-			    LoginView.this.loginListener.loginSuccessful();
-			}
-			else {
-			    // Wrong password clear the password field and refocuses it
-			    showNotification(
-				    new Notification("Login failed", "Please check your username and password and try again.",
-					    Notification.Type.HUMANIZED_MESSAGE));
-	
-			    LoginView.this.password.setValue(null);
-			    LoginView.this.password.focus();
-			}
-		    }
-		});
-	
-		// Add both to a panel
-		VerticalLayout fields = new VerticalLayout(user, password, loginButton);
-		// fields.setCaption("Please login to access the application.
-		// (test@test.com/passw0rd)");
-		fields.setSpacing(true);
-		fields.setMargin(new MarginInfo(true, true, true, false));
-		fields.setSizeUndefined();
-	
-		// The view root layout
-		VerticalLayout viewLayout = new VerticalLayout(fields);
-		viewLayout.setSizeFull();
-		viewLayout.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
-		viewLayout.setStyleName(Reindeer.LAYOUT_BLUE);
-		setCompositionRoot(viewLayout);
+	// TODO delete
+	Button testLoginButton = new Button("Test User Login");
+	testLoginButton.addClickListener(e -> testLogIn());
+
+	    // Add both to a panel
+	VerticalLayout fields = new VerticalLayout(user, password, loginButton, testLoginButton);
+	// fields.setCaption("Please login to access the application.
+	// (test@test.com/passw0rd)");
+	fields.setSpacing(true);
+	fields.setMargin(new MarginInfo(true, true, true, false));
+	fields.setSizeUndefined();
+
+	// The view root layout
+	VerticalLayout viewLayout = new VerticalLayout(fields);
+	viewLayout.setSizeFull();
+	viewLayout.setComponentAlignment(fields, Alignment.MIDDLE_CENTER);
+	viewLayout.setStyleName(Reindeer.LAYOUT_BLUE);
+	setCompositionRoot(viewLayout);
     }
 
     // Validator for validating the passwords
@@ -134,6 +109,58 @@ public class LoginView extends CustomComponent implements View {
 	// mouse, or until clicked
 	notification.setDelayMsec(2000);
 	notification.show(Page.getCurrent());
+    }
+
+    private void logIn(){
+	if (!user.isValid() || !password.isValid()) {
+	    return;
+	}
+
+	HealthVisitor hv = new HealthVisitor();
+
+	hv.setUserName(user.getValue());
+	hv.setPassword(password.getValue());
+
+	HealthVisitor user = healthVisitorsModel.findHealthVisitor(hv);
+
+	if (user != null) {
+	    getSession().setAttribute("user", user.getUserName());
+	    getSession().setAttribute("userId", user.getId());
+	    LoginView.this.loginListener.loginSuccessful();
+	}
+	else {
+	    // Wrong password clear the password field and refocuses it
+	    showNotification(
+		new Notification("Login failed", "Please check your username and password and try again.",
+		Notification.Type.HUMANIZED_MESSAGE));
+
+	    LoginView.this.password.setValue(null);
+	    LoginView.this.password.focus();
+	}
+    }
+
+    private void testLogIn(){
+	HealthVisitor hv = new HealthVisitor();
+
+	hv.setUserName("user1@test.com");
+	hv.setPassword("user1test");
+
+	HealthVisitor user = healthVisitorsModel.findHealthVisitor(hv);
+
+	if (user != null) {
+	    getSession().setAttribute("user", user.getUserName());
+	    getSession().setAttribute("userId", user.getId());
+	    LoginView.this.loginListener.loginSuccessful();
+	}
+	else {
+	    // Wrong password clear the password field and refocuses it
+	    showNotification(
+			    new Notification("Login failed", "Please check your username and password and try again.",
+					    Notification.Type.HUMANIZED_MESSAGE));
+
+	    LoginView.this.password.setValue(null);
+	    LoginView.this.password.focus();
+	}
     }
 
     @Override
