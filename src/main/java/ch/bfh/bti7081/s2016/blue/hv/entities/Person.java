@@ -2,12 +2,7 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,6 +23,11 @@ public class Person extends BaseEntity {
     @Temporal(TemporalType.DATE)
     @NotNull
     private Date birthday;
+
+    @Lob
+    @Basic(fetch = FetchType.LAZY) //save only when needed
+    @Column(name = "picture", nullable = true)
+    private byte[] picture;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "Contact_Id", unique = true, nullable = false)
@@ -64,5 +64,12 @@ public class Person extends BaseEntity {
     public void setLastname(String lastname) {
 	this.lastname = lastname;
     }
-    
+
+    public byte[] getPicture() {
+	return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+	this.picture = picture;
+    }
 }

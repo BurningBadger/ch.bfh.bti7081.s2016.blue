@@ -8,6 +8,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.EmergencyContact;
+import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
 //import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
 
 /**
@@ -22,16 +23,11 @@ public class EmergencyContactView extends VerticalLayout implements View {
     private static final String NAME = "EmergencyContactView";
 
     private long emergencyContactID;
-
-    // header
-
+    
     private HorizontalLayout header;
-
-    // middle
-
-    // footers
     private HorizontalLayout footerView;
     private HorizontalLayout footerEdit;
+    private EmergencyContact contact;
 
     private Button menuBut = new Button("Menu");
     private Button backBut = new Button("Back");
@@ -61,8 +57,9 @@ public class EmergencyContactView extends VerticalLayout implements View {
 
 	this.emergencyContactID = emergencyContactID;
 
-	//EmergencyContactModel contactModel = new EmergencyContactModel();
-	EmergencyContact contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
+	EmergencyContactModel contactModel = new EmergencyContactModel();
+	contact = contactModel.findById(emergencyContactID);
+//	contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
 
 	fieldGrpTF = new FieldGroup();
 
@@ -112,6 +109,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	header.addComponent(menuBut);
 	header.setComponentAlignment(menuBut, Alignment.MIDDLE_RIGHT);
 	header.setHeight(37, Unit.PIXELS);
+	header.setHeight("100%");
 	header.setWidth("100%");
 
 	// Middle/Center
@@ -165,6 +163,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	middle.setComponentAlignment(grid, Alignment.MIDDLE_CENTER);
 	middle.setWidth("100%");
 	middle.setHeight("100%");
+	middle.setSizeFull();
 
 	// View footer
 	footerView = new HorizontalLayout();
@@ -183,7 +182,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	footerEdit = new HorizontalLayout();
 	footerEdit.addComponent(saveBut);
 	saveBut.addClickListener(event -> {
-	    // Store Changes in DB
+	    saveChange();
 	    switchToView();
 	});
 	footerEdit.setComponentAlignment(saveBut, Alignment.MIDDLE_CENTER);
@@ -201,7 +200,6 @@ public class EmergencyContactView extends VerticalLayout implements View {
 
 	this.addComponent(header);
 	this.addComponent(middle);
-
 	this.addComponent(footerView);
     }
 
@@ -215,6 +213,15 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	fieldGrpTF.setReadOnly(false);
 	this.replaceComponent(footerView, footerEdit);
 	return;
+    }
+    
+    private void saveChange(){
+	contact.setLastname(lastNameDBe.getValue());
+	contact.setFirstname(firstNameDBe.getValue());
+	contact.setStreet(addressDBe.getValue());
+	contact.setZip(zipDBe.getValue());
+	contact.setCity(cityDBe.getValue());
+	contact.setPhoneNumber(phoneDBe.getValue());
     }
 
     public static String getName() {

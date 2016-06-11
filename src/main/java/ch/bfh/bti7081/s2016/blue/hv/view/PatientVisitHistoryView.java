@@ -1,5 +1,8 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
+import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
@@ -22,16 +25,29 @@ public class PatientVisitHistoryView extends VerticalLayout implements View {
     private Label patientSurnameLabel = new Label("Muster");
     private Label history = new Label("Lorem ipsum");
 
-    public PatientVisitHistoryView(int patientID, int date) {
-	// try {
-	// //GET DB INFO FOR USER ID WITH DATE & TITLE
-	// } catch (Exception dbconnectionerror) {
-	// Notification notif = new Notification(
-	// "WARNING",
-	// "<br/>unable to get requested data",
-	// Notification.TYPE_ERROR_MESSAGE);
-	// }
+    public PatientVisitHistoryView(long patientID, int date) {
+	
+	final Table table = new Table();
+	table.addStyleName("components-inside");
 
+	// define the columns
+	table.addContainerProperty("Patient firstname", Label.class, null);
+	table.addContainerProperty("Patient lastname", Label.class, null);
+	table.addContainerProperty("Phone number", Label.class, null);
+	table.addContainerProperty("Street", Label.class, null);
+	table.addContainerProperty("Zip", Label.class, null);
+	table.addContainerProperty("City", Label.class, null);
+	table.addContainerProperty("", Button.class, null);
+
+	VisitsModel visitsModel = new VisitsModel();
+
+	    Label patientFirstname = new Label(visitsModel.findById(patientID).getPatient().getFirstname());
+	    Label patientLastname = new Label(visitsModel.findById(patientID).getPatient().getLastname());
+	    Label phoneNumber = new Label(visitsModel.findById(patientID).getPatient().getContact().getPhoneNumber());
+	    Label street = new Label(visitsModel.findById(patientID).getPatient().getContact().getStreet());
+	    Label zip = new Label(visitsModel.findById(patientID).getPatient().getContact().getZip());
+	    Label city = new Label(visitsModel.findById(patientID).getPatient().getContact().getCity());
+	    
 	configureComponents();
 	buildLayout();
     }
