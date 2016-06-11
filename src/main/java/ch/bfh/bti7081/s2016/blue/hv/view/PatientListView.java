@@ -141,8 +141,8 @@ public class PatientListView extends VerticalLayout implements View {
 	final Window window = new Window();
 	window.setSizeFull();
 	window.setContent(showPatient);
-	UI.getCurrent().addWindow(window);
-//	getUI().getNavigator().navigateTo(PatientView.NAME);
+	//UI.getCurrent().addWindow(window);
+	UI.getCurrent().getNavigator().navigateTo(PatientView.NAME);
     }
 
     // help method to entry a new patient data

@@ -18,20 +18,8 @@ public class HealthVisitor extends Person {
     @Column(name = "password", length = 512, nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "Visitors_Patients", joinColumns = @JoinColumn(name = "health_visitor_id"), inverseJoinColumns = @JoinColumn(name = "patient_id"))
-    private Set<Patient> patients;
-
     @OneToMany(mappedBy = "visitor")
     private Set<Visit> visits;
-
-    public Set<Patient> getPatients() {
-	return patients;
-    }
-
-    public void setPatients(Set<Patient> patients) {
-	this.patients = patients;
-    }
 
     public Set<Visit> getVisits() {
 	return visits;

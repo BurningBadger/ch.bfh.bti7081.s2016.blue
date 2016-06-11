@@ -8,6 +8,7 @@ import com.vaadin.data.Container;
 import com.vaadin.data.util.filter.Compare;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 
@@ -16,6 +17,7 @@ import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Table;
 
 import javax.persistence.*;
@@ -60,7 +62,15 @@ public class LandingView extends Panel implements View {
         patientsTable.setSelectable(true);
         patientsTable.setImmediate(true);
 
+
+        Embedded e = new Embedded("Routing", new ExternalResource("http://localhost:50588/"));
+        e.setType(Embedded.TYPE_BROWSER);
+        e.setWidth("100%");
+        e.setHeight("400px");
+
+
         final VerticalLayout layout = new VerticalLayout();
+        layout.addComponent(e);
         layout.addComponent(new Label(visitor.getFirstname()));
         layout.addComponent(new Label(visitor.getLastname()));
         layout.addComponent(new Label(visitor.getBirthday().toString()));

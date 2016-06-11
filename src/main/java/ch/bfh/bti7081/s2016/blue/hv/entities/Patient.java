@@ -3,16 +3,16 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 @Entity(name = "Patient")
 @Table(name = "Patients")
 public class Patient extends Person {
 
-    @ManyToMany(mappedBy = "patients", fetch = FetchType.EAGER)
-    private Set<HealthVisitor> visitors;
+    private static final long serialVersionUID = 8023922743116129612L;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
-    private Set<Visit> visits;
+    @OneToOne(mappedBy = "patient")
+    private Visit visit;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Drug> drugs;
@@ -40,20 +40,12 @@ public class Patient extends Person {
 	this.drugs = drugs;
     }
 
-    public Set<HealthVisitor> getVisitors() {
-	return visitors;
+    public Visit getVisit() {
+	return visit;
     }
 
-    public void setVisitors(Set<HealthVisitor> visitors) {
-	this.visitors = visitors;
-    }
-
-    public Set<Visit> getVisits() {
-	return visits;
-    }
-
-    public void setVisits(Set<Visit> visits) {
-	this.visits = visits;
+    public void setVisit(Visit visit) {
+	this.visit = visit;
     }
 
     public Set<DrugOrder> getDrugOrders() { return drugOrders; }

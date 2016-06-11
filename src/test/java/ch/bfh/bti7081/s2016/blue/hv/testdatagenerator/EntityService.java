@@ -66,27 +66,27 @@ public class EntityService {
 		return drug;
 	}
 
-	private DrugOrder createDrugOrder(Patient patient, Set<DrugOrderItem> items){
-		DrugOrder drugOrder = new DrugOrder();
+    private DrugOrder createDrugOrder(Patient patient, Set<DrugOrderItem> items){
+	    DrugOrder drugOrder = new DrugOrder();
 
-		drugOrder.setPatient(patient);
-		drugOrder.setDrugs(items);
-		drugOrder.setRemarks(remarks[r.nextInt(remarks.length)]);
+	    drugOrder.setPatient(patient);
+	    drugOrder.setDrugs(items);
+	    drugOrder.setRemarks(remarks[r.nextInt(remarks.length)]);
 
-		return drugOrder;
-	}
+	    return drugOrder;
+    }
 
-	private DrugOrderItem createDrugOrderItem(Drug drug, DrugOrder drugOrder){
-		DrugOrderItem di = new DrugOrderItem();
+    private DrugOrderItem createDrugOrderItem(Drug drug, DrugOrder drugOrder){
+	    DrugOrderItem di = new DrugOrderItem();
 
-		di.setDrug(drug);
-		di.setQuantity(r.nextInt(20));
-		di.setDrugOrder(drugOrder);
+	    di.setDrug(drug);
+	    di.setQuantity(r.nextInt(20));
+	    di.setDrugOrder(drugOrder);
 
-		return di;
-	}
+	    return di;
+    }
 
-	private Contact createContact(){
+    private Contact createContact(){
 	Contact contact = new Contact();
 
 	contact.setCity(cities[r.nextInt(cities.length)]);
@@ -124,17 +124,14 @@ public class EntityService {
 	return visitor;
     };
 
-    private Patient createPatient(Contact contact, EmergencyContact emergencyContact, HealthVisitor visitor){
+    private Patient createPatient(Contact contact, EmergencyContact emergencyContact){
 	Patient patient = new Patient();
-	Set<HealthVisitor> visitors = new HashSet<HealthVisitor>();
-	visitors.add(visitor);
 
 	patient.setFirstname(firstNames[r.nextInt(firstNames.length)]);
 	patient.setLastname(lastNames[r.nextInt(lastNames.length)]);
 	patient.setBirthday(new Date(1990, 5, 1));
 	patient.setContact(contact);
 	patient.setEmergencyContact(emergencyContact);
-	patient.setVisitors(visitors);
 
 	return patient;
     };
@@ -178,7 +175,7 @@ public class EntityService {
 
 	em.getTransaction().begin();
 
-		ArrayList<Drug> drugs = new ArrayList<Drug>();
+	ArrayList<Drug> drugs = new ArrayList<Drug>();
 
 	for ( int i=0; i < 20; i++){
 		Drug drug = createDrug();
@@ -189,82 +186,77 @@ public class EntityService {
 	for(int hv=0; hv < userNames.length; hv++){
 	    Contact vContact = createContact();
 	    HealthVisitor visitor = createVisitor(hv, vContact);
-
-	    Set<Patient> patients = new HashSet<Patient>();
+	    Set<Visit> visits = new HashSet<Visit>();
 
 	    int amount = r.nextInt(5) + 1;
 	    for (int i = 0; i < amount; i++) {
-			Contact pContact = createContact();
-			EmergencyContact emContact = createEmergencyContact();
-			Patient patient = createPatient(pContact, emContact, visitor);
-			Visit visit = createVisit(visitor, patient);
+		Contact pContact = createContact();
+		EmergencyContact emContact = createEmergencyContact();
+		Patient patient = createPatient(pContact, emContact);
+		Visit visit = createVisit(visitor, patient);
 
-			Set<Visit> visits = new HashSet<Visit>();
-			visits.add(visit);
+		Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
 
-			Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
-			int visitsAmount = r.nextInt(5) + 1;
-			for (int j = 0; j < visitsAmount; j++) {
-				Calendar calendar = createCalendar();
-				VisitEvent visitEvent = createVisitEvent(calendar, visit);
-				visitEvents.add(visitEvent);
+		int visitsAmount = r.nextInt(5) + 1;
+		for (int j = 0; j < visitsAmount; j++) {
+		    Calendar calendar = createCalendar();
+		    VisitEvent visitEvent = createVisitEvent(calendar, visit);
+		    visitEvents.add(visitEvent);
 
-				em.persist(calendar);
-				em.persist(visitEvent);
+		    em.persist(calendar);
+		    em.persist(visitEvent);
+		}
+
+		Set<Drug> drugSet = new HashSet<Drug>();
+		for (int j=0;j<8;j++){
+			Drug d = drugs.get(r.nextInt(drugs.size()));
+			if(!drugSet.contains(d)){
+				drugSet.add(d);
 			}
+		}
 
-			Set<Drug> drugSet = new HashSet<Drug>();
-			for (int j=0;j<8;j++){
-				Drug d = drugs.get(r.nextInt(drugs.size()));
-				if(!drugSet.contains(d)){
-					drugSet.add(d);
-				}
+		Set<DrugOrder> drugOrderSet = new HashSet<DrugOrder>();
+		for (int j=0;j<10;j++){
+		    DrugOrder d = new DrugOrder();
+
+		    Set<DrugOrderItem> items = new HashSet<DrugOrderItem>();
+		    int orderItemsAmount = r.nextInt(20)+1;
+		    for (int k=0;k<orderItemsAmount;k++){
+			DrugOrderItem di = createDrugOrderItem((Drug)drugSet.toArray()[r.nextInt(drugSet.size())], d);
+			boolean isInSet = false;
+			for (DrugOrderItem x : items){
+			    if(x.getName().equals(di.getName())){
+				isInSet = true;
+				break;
+			    }
 			}
-
-			Set<DrugOrder> drugOrderSet = new HashSet<DrugOrder>();
-			for (int j=0;j<10;j++){
-				DrugOrder d = new DrugOrder();
-
-				Set<DrugOrderItem> items = new HashSet<DrugOrderItem>();
-				int orderItemsAmount = r.nextInt(20)+1;
-				for (int k=0;k<orderItemsAmount;k++){
-					DrugOrderItem di = createDrugOrderItem((Drug)drugSet.toArray()[r.nextInt(drugSet.size())], d);
-					boolean isInSet = false;
-					for (DrugOrderItem x : items){
-						if(x.getName().equals(di.getName())){
-							isInSet = true;
-							break;
-						}
-					}
-					if(!isInSet){
-						items.add(di);
-					}
-				}
-
-				Date now = new Date();
-
-				d.setCreatedAt(now);
-				d.setUpdatedAt(now);
-				d.setDrugs(items);
-				d.setPatient(patient);
-				d.setRemarks(remarks[r.nextInt(remarks.length)]);
-				em.persist(d);
-
+			if(!isInSet){
+			    items.add(di);
 			}
+		    }
 
-			visit.setVisitEvents(visitEvents);
-			patient.setVisits(visits);
-			patient.setDrugs(drugSet);
-			patient.setDrugOrders(drugOrderSet);
-			patients.add(patient);
+		    Date now = new Date();
 
-			em.persist(visit);
-			em.persist(emContact);
-			em.persist(pContact);
-			em.persist(patient);
+		    d.setCreatedAt(now);
+		    d.setUpdatedAt(now);
+		    d.setDrugs(items);
+		    d.setPatient(patient);
+		    d.setRemarks(remarks[r.nextInt(remarks.length)]);
+		    em.persist(d);
+		}
+
+		visit.setVisitEvents(visitEvents);
+		patient.setVisit(visit);
+		patient.setDrugs(drugSet);
+		patient.setDrugOrders(drugOrderSet);
+
+		em.persist(visit);
+		em.persist(emContact);
+		em.persist(pContact);
+		em.persist(patient);
 	    }
 
-	    visitor.setPatients(patients);
+	    visitor.setVisits(visits);
 
 	    em.persist(vContact);
 	    em.persist(visitor);
