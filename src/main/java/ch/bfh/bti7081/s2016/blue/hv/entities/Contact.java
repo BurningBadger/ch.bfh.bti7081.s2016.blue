@@ -24,7 +24,7 @@ public class Contact extends BaseEntity {
     private String zip;
 
     @Column(name = "Phone_Number", nullable = false, length = 9)
-    @Size(min = 5, max = 9)
+    @Size(min = 5, max = 12)
     private String phoneNumber;
 
     public String getCity() {
