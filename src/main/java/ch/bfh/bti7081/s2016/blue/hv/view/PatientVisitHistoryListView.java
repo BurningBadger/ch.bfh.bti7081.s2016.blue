@@ -79,7 +79,7 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 
 	    for (VisitEvent visitEvent : visit.getVisitEvents()) {
 
-		Label date = new Label(visitEvent.getCalendar().getDateFrom().toString());
+		Label date = new Label(visitEvent.getCalendar().getFormattedMeetingDate());
 		Label visitor = new Label(visitEvent.getVisit().getVisitor().getUserName());
 		Label content = new Label(visitEvent.getVisitReports().toString());
 
@@ -118,7 +118,7 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 
 	final FormLayout formLayout = new FormLayout();
 	
-	String windowTitle = "Reports of "+visitEvent.getVisit().getPatient().getLastname()+visitEvent.getVisit().getPatient().getFirstname()+" from "+visitEvent.getCalendar().getDateFrom();
+	String windowTitle = "Reports of "+visitEvent.getVisit().getPatient().getLastname()+visitEvent.getVisit().getPatient().getFirstname()+" from "+visitEvent.getCalendar().getFormattedMeetingDate();
 	
 	final Table table = new Table();
 	table.addStyleName("components-inside");

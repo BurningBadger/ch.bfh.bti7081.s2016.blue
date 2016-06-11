@@ -1,11 +1,17 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import ch.bfh.bti7081.s2016.blue.HealthVisUI;
+import ch.bfh.bti7081.s2016.blue.hv.components.DrugCart;
 import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugOrderModel;
 import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
+import com.vaadin.shared.Position;
+import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 
 import java.util.Date;
@@ -18,6 +24,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
     private static final long serialVersionUID = 2371941312011678653L;
 
     private static final String NAME = "Orders";
+    private Table drugOrderTable = new Table();
 
     public DrugsOrderView(){
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
@@ -25,7 +32,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
 
 
         VerticalLayout leftPanel = new VerticalLayout();
-        final Table drugOrderTable = new Table();
+
         drugOrderTable.setSelectable(true);
         drugOrderTable.addStyleName("components-inside");
 
@@ -33,57 +40,112 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         drugOrderTable.addContainerProperty("Patient firstname", Label.class, null);
         drugOrderTable.addContainerProperty("Patient lastname", Label.class, null);
         drugOrderTable.addContainerProperty("Amount of items", Label.class, null);
-        drugOrderTable.addContainerProperty("Order details", Button.class, null);
 
         VerticalLayout rightPanel = new VerticalLayout();
         final Table orderDetailsTable = new Table();
         orderDetailsTable.addStyleName("components-inside");
+        orderDetailsTable.setPageLength(6);
         rightPanel.setVisible(false);
         rightPanel.setImmediate(true);
 
         orderDetailsTable.addContainerProperty("Drug name", Label.class, null);
         orderDetailsTable.addContainerProperty("Amount", Label.class, null);
 
-        for (DrugOrder order : drugOrderModel.findAll()){
-//            if (order.isInPatients(visitor.getPatients())){ // ToDo: maybe generic method in BaseEntity?
-//                Label patientFirstname = new Label(order.getPatient().getFirstname());
-//                Label patientLastname = new Label(order.getPatient().getLastname());
-//                Label amount = new Label(Integer.toString(order.getTotalItemsAmount()));
-//                Button detailsBtn = new Button("Details");
-//                detailsBtn.setData(order);
-//                detailsBtn.addClickListener(event -> {
-//                    if(!rightPanel.isVisible()){
-//                        rightPanel.setVisible(true);
-//                    }
-//                    orderDetailsTable.removeAllItems();
-//                    DrugOrder drugOrder = (DrugOrder)event.getButton().getData();
-//                    for(DrugOrderItem item : drugOrder.getDrugOrderItems()){
-//                        Label drugName = new Label(item.getName());
-//                        Label drugAmount = new Label(Integer.toString(item.getQuantity()));
-//
-//                        //add to table
-//                        orderDetailsTable.addItem(new Object[] { drugName, drugAmount}, item.getId());
-//                    }
-//                });
-//                //add to table
-//                drugOrderTable.addItem(new Object[] { order.getCreatedAt(), patientFirstname, patientLastname, amount, detailsBtn}, order.getId());
-//            }
+        leftPanel.addComponent(drugOrderTable);
+
+        // Container for dropdown and button:
+        HorizontalLayout leftBottom = new HorizontalLayout();
+
+        // Dropdown
+        IndexedContainer container = new IndexedContainer();
+        container.addContainerProperty("name", String.class, null);
+
+        ComboBox patientSelect = new ComboBox("Select Patient", container);
+        patientSelect.setFilteringMode(FilteringMode.CONTAINS);
+        patientSelect.setInvalidAllowed(false);
+        patientSelect.setNullSelectionAllowed(true);
+
+        for(Patient patient : visitor.getPatients()){
+            String name = patient.getFirstname() + " " + patient.getLastname();
+            patientSelect.addItem(patient);
+            patientSelect.setItemCaption(patient, name);
         }
 
-        leftPanel.addComponent(drugOrderTable);
+        patientSelect.addValueChangeListener(e -> {
+            fillDrugOrderTable(drugOrderModel,(Patient)e.getProperty().getValue());
+        });
+
 
         //button for new order
         Button addNewOrderBtn = new Button("new order");
         addNewOrderBtn.addClickListener(event -> {
-            showOrderWindow(null);
+            if(patientSelect.getValue()==null){
+                Notification notif = new Notification("Please select a patient for your order.", Notification.Type.WARNING_MESSAGE);
+                notif.setDelayMsec(2000);
+                notif.setPosition(Position.MIDDLE_CENTER);
+                notif.show(Page.getCurrent());
+            } else {
+                showOrderWindow((Patient)patientSelect.getValue(), null);
+            }
         });
-        leftPanel.addComponent(addNewOrderBtn);
+        leftBottom.addComponent(patientSelect);
+        leftBottom.addComponent(addNewOrderBtn);
+        leftPanel.addComponent(leftBottom);
 
         this.addComponent(leftPanel);
 
         rightPanel.addComponent(orderDetailsTable);
 
+        Label remarksTitle = new Label("Remarks for this order:");
+        rightPanel.addComponent(remarksTitle);
+
+        TextArea remarksArea = new TextArea();
+        remarksArea.setEnabled(false);
+        rightPanel.addComponent(remarksArea);
+
+        Label sentAtTitle = new Label("This order was sent on:");
+        Label sentAt = new Label();
+        rightPanel.addComponent(sentAtTitle);
+        rightPanel.addComponent(sentAt);
+
+        Button copyOrderBtn = new Button("Copy this order");
+        copyOrderBtn.addClickListener(event -> {
+            if(patientSelect.getValue()==null){
+                Notification notif = new Notification("Please select a patient for your order.", Notification.Type.WARNING_MESSAGE);
+                notif.setDelayMsec(2000);
+                notif.setPosition(Position.MIDDLE_CENTER);
+                notif.show(Page.getCurrent());
+            } else {
+                showOrderWindow((Patient) patientSelect.getValue(), (DrugOrder) orderDetailsTable.getData());
+            }
+        });
+
+        rightPanel.addComponent(copyOrderBtn);
         this.addComponent(rightPanel);
+
+        drugOrderTable.addValueChangeListener(new Property.ValueChangeListener() {
+            public void valueChange(Property.ValueChangeEvent event){
+                if(drugOrderTable.getValue()!=null){
+                    if (!rightPanel.isVisible()) {
+                        rightPanel.setVisible(true);
+                    }
+                    orderDetailsTable.removeAllItems();
+                    DrugOrder drugOrder = drugOrderModel.findById((long) drugOrderTable.getValue());
+                    orderDetailsTable.setData(drugOrder);
+                    for (DrugOrderItem item : drugOrder.getDrugOrderItems()) {
+                        Label drugName = new Label(item.getName());
+                        Label drugAmount = new Label(Integer.toString(item.getQuantity()));
+
+                        //add to table
+                        orderDetailsTable.addItem(new Object[] { drugName, drugAmount }, item.getId());
+                    }
+                    remarksArea.setValue(drugOrder.getRemarks());
+                    sentAt.setValue(drugOrder.getCreatedAt().toString());
+                }
+            }
+        });
+
+        fillDrugOrderTable(drugOrderModel, null);
 
     }
 
@@ -95,7 +157,11 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         return NAME;
     }
 
-    private void showOrderWindow(DrugOrder drugOrder){
+    private void showOrderWindow(Patient patient, DrugOrder drugOrder){
+        final Window window = new Window();
+        window.setSizeFull();
+        window.setContent(new DrugCart(patient, drugOrder));
+        UI.getCurrent().addWindow(window);
 
     }
 
@@ -109,5 +175,21 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         UI.getCurrent().addWindow(window);
     }
 
+    private void fillDrugOrderTable(DrugOrderModel model, Patient patient){
+        drugOrderTable.removeAllItems();
+        for (DrugOrder order : model.findAll()){
+            HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
+            if (order.isInPatients(visitor.getPatients())){
+                if(patient==null || order.getPatient().getId()==patient.getId()) {
+                    Label patientFirstname = new Label(order.getPatient().getFirstname());
+                    Label patientLastname = new Label(order.getPatient().getLastname());
+                    Label amount = new Label(Integer.toString(order.getTotalItemsAmount()));
+                    drugOrderTable.addItem(
+                                    new Object[] { order.getCreatedAt(), patientFirstname, patientLastname, amount },
+                                    order.getId());
+                }
+            }
+        }
+    }
 
 }
