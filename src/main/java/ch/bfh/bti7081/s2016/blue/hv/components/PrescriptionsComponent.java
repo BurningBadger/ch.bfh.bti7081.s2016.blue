@@ -1,9 +1,7 @@
 package ch.bfh.bti7081.s2016.blue.hv.components;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Prescription;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.model.PrescriptionsModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 import com.vaadin.data.Item;
 import com.vaadin.server.SystemError;
@@ -17,6 +15,7 @@ import java.util.Date;
  * Created by kerberos on 28/05/16.
  */
 public class PrescriptionsComponent extends VerticalLayout {
+    /**
     private static final String COLUMN_NAME_TIME = "Time";
     private static final String COLUMN_NAME_DOSE = "Dose";
     private static final String COLUMN_NAME_DRUG = "Drug";
@@ -126,4 +125,5 @@ public class PrescriptionsComponent extends VerticalLayout {
     private boolean validate(ArrayList<Prescription> data) {
         return true;
     }
+    */
 }

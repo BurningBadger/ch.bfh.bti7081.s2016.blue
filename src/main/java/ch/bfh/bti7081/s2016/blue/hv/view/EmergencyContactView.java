@@ -1,8 +1,14 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import java.util.List;
+
+import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
+
+import ch.bfh.bti7081.s2016.blue.hv.entities.EmergencyContact;
+//import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
 
 /**
  * Created by suttc1 on 22.05.2016.
@@ -10,36 +16,81 @@ import com.vaadin.ui.*;
 
 public class EmergencyContactView extends VerticalLayout implements View {
 
+    private static final long serialVersionUID = -3931584070955988897L;
+
+    // Buttons headLine
     private static final String NAME = "EmergencyContactView";
+
+    private long emergencyContactID;
+
+    // header
+
+    private HorizontalLayout header;
+
+    // middle
+
+    // footers
+    private HorizontalLayout footerView;
+    private HorizontalLayout footerEdit;
+
     private Button menuBut = new Button("Menu");
     private Button backBut = new Button("Back");
+    private Button callBut = new Button("CALL");
+    private Button editBut = new Button("Edit");
+    private Button cancelBut = new Button("Cancel");
+    private Button saveBut = new Button("Save");
 
-    private Label nameLabel = new Label("Name:");
-    private Label nameDB = new Label("Muster");
-    private Label surnameLabel = new Label("Vorname:");
-    private Label surnameDB = new Label("Muster");
+    // Labels mainContent
+    private Label lastNameLabel = new Label("Name:");
+    private Label firstNameLabel = new Label("Vorname:");
     private Label addressLabel = new Label("Address:");
-    private Label addressDB = new Label("Langstrasse 1337");
-    private Label areaLabel = new Label("City Code:");
-    private Label areaDB = new Label("3000");
+    private Label zipLabel = new Label("ZIP-Code:");
     private Label cityLabel = new Label("City:");
-    private Label cityDB = new Label("Bern");
     private Label phoneLabel = new Label("Phone:");
-    private Label phoneDB = new Label("079 999 99 99");
-    private Label birthDayLabel = new Label("Date of Birth:");
-    private Label birthDayDB = new Label("01.01.1999");
 
-    public EmergencyContactView() {
-    
-	// try {
-	// //GET DB INFO FOR USER ID WITH DATE & TITLE
-	// } catch (Exception dbconnectionerror) {
-	// Notification notif = new Notification(
-	// "WARNING",
-	// "<br/>unable to get requested data",
-	// Notification.TYPE_ERROR_MESSAGE);
-	// }
-	
+    FieldGroup fieldGrpTF;
+
+    private TextField lastNameDBe;
+    private TextField firstNameDBe;
+    private TextField addressDBe;
+    private TextField zipDBe;
+    private TextField cityDBe;
+    private TextField phoneDBe;
+
+    public EmergencyContactView(long emergencyContactID) {
+
+	this.emergencyContactID = emergencyContactID;
+
+	//EmergencyContactModel contactModel = new EmergencyContactModel();
+	EmergencyContact contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
+
+	fieldGrpTF = new FieldGroup();
+
+	lastNameDBe = new TextField();
+	fieldGrpTF.bind(lastNameDBe, "lastNameDB");
+	lastNameDBe.setValue(contact.getLastname());
+
+	firstNameDBe = new TextField();
+	fieldGrpTF.bind(firstNameDBe, "firstNameDB");
+	firstNameDBe.setValue(contact.getFirstname());
+
+	addressDBe = new TextField();
+	fieldGrpTF.bind(addressDBe, "addressDB");
+	addressDBe.setValue(contact.getStreet());
+
+	zipDBe = new TextField();
+	fieldGrpTF.bind(zipDBe, "zipDB");
+	zipDBe.setValue(contact.getZip());
+
+	cityDBe = new TextField();
+	fieldGrpTF.bind(cityDBe, "cityDB");
+	cityDBe.setValue(contact.getCity());
+
+	phoneDBe = new TextField();
+	fieldGrpTF.bind(phoneDBe, "phoneDB");
+	phoneDBe.setValue(contact.getPhoneNumber());
+
+	fieldGrpTF.setReadOnly(true);
 	configureComponents();
 	setSizeFull();
 	buildLayout();
@@ -47,72 +98,123 @@ public class EmergencyContactView extends VerticalLayout implements View {
     }
 
     private void configureComponents() {
-	
+
     }
 
     private void buildLayout() {
-	// 1st row
-	HorizontalLayout headline = new HorizontalLayout();
-	headline.addComponent(backBut);
-	headline.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
-	headline.addComponent(menuBut);
-	headline.setComponentAlignment(menuBut, Alignment.MIDDLE_CENTER);
-	headline.setMargin(true);
-	headline.setWidth("100%");
-	headline.setHeight("10%");
-	this.addComponent(headline);
 
-	HorizontalLayout container = new HorizontalLayout();
+	// Header
+	header = new HorizontalLayout();
+	header.addComponent(backBut);
+	header.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
+	header.addComponent(callBut);
+	header.setComponentAlignment(callBut, Alignment.MIDDLE_CENTER);
+	header.addComponent(menuBut);
+	header.setComponentAlignment(menuBut, Alignment.MIDDLE_RIGHT);
+	header.setHeight(37, Unit.PIXELS);
+	header.setWidth("100%");
 
+	// Middle/Center
+	HorizontalLayout middle = new HorizontalLayout();
 	GridLayout grid = new GridLayout(4, 4);
-	grid.addComponent(nameLabel, 0, 0);
-	grid.setComponentAlignment(nameLabel, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(nameDB, 1, 0);
-	grid.setComponentAlignment(nameDB, Alignment.MIDDLE_LEFT);
+	grid.setCaption("Emergency Contact");
+	grid.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
-	grid.addComponent(surnameLabel, 2, 0);
-	grid.setComponentAlignment(surnameLabel, Alignment.MIDDLE_LEFT);
+	grid.addComponent(lastNameLabel, 0, 0);
+	grid.setComponentAlignment(lastNameLabel, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(surnameDB, 3, 0);
-	grid.setComponentAlignment(surnameDB, Alignment.MIDDLE_LEFT);
+	grid.addComponent(lastNameDBe, 1, 0);
+	grid.setComponentAlignment(lastNameDBe, Alignment.MIDDLE_LEFT);
+
+	grid.addComponent(firstNameLabel, 2, 0);
+	grid.setComponentAlignment(firstNameLabel, Alignment.MIDDLE_LEFT);
+
+	grid.addComponent(firstNameDBe, 3, 0);
+	grid.setComponentAlignment(firstNameDBe, Alignment.MIDDLE_LEFT);
 
 	grid.addComponent(addressLabel, 0, 1);
 	grid.setComponentAlignment(addressLabel, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(addressDB, 1, 1);
-	grid.setComponentAlignment(addressDB, Alignment.MIDDLE_LEFT);
+	grid.addComponent(addressDBe, 1, 1);
+	grid.setComponentAlignment(addressDBe, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(areaLabel, 0, 2);
-	grid.setComponentAlignment(areaLabel, Alignment.MIDDLE_LEFT);
+	grid.addComponent(zipLabel, 0, 2);
+	grid.setComponentAlignment(zipLabel, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(areaDB, 1, 2);
-	grid.setComponentAlignment(areaDB, Alignment.MIDDLE_LEFT);
+	grid.addComponent(zipDBe, 1, 2);
+	grid.setComponentAlignment(zipDBe, Alignment.MIDDLE_LEFT);
 
 	grid.addComponent(cityLabel, 2, 2);
 	grid.setComponentAlignment(cityLabel, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(cityDB, 3, 2);
-	grid.setComponentAlignment(cityDB, Alignment.MIDDLE_LEFT);
+	grid.addComponent(cityDBe, 3, 2);
+	grid.setComponentAlignment(cityDBe, Alignment.MIDDLE_LEFT);
 
 	grid.addComponent(phoneLabel, 0, 3);
 	grid.setComponentAlignment(phoneLabel, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(phoneDB, 1, 3);
-	grid.setComponentAlignment(phoneDB, Alignment.MIDDLE_LEFT);
+	grid.addComponent(phoneDBe, 1, 3);
+	grid.setComponentAlignment(phoneDBe, Alignment.MIDDLE_LEFT);
 
-	grid.addComponent(birthDayLabel, 2, 3);
-	grid.setComponentAlignment(birthDayLabel, Alignment.MIDDLE_LEFT);
+	middle.addComponent(grid);
+	grid.setRowExpandRatio(getComponentCount(), getComponentCount());
+	grid.setSpacing(true);
+	grid.setMargin(true);
 
-	grid.addComponent(birthDayDB, 3, 3);
-	grid.setComponentAlignment(birthDayDB, Alignment.MIDDLE_LEFT);
-	
-	container.setSpacing(true);
-	container.setMargin(true);
-	container.setWidth("100%");
-	container.setHeight("100%");
-	container.addComponent(grid);
-	this.addComponent(container);
+	middle.setComponentAlignment(grid, Alignment.MIDDLE_CENTER);
+	middle.setWidth("100%");
+	middle.setHeight("100%");
+
+	// View footer
+	footerView = new HorizontalLayout();
+	footerView.addComponent(editBut);
+	editBut.addClickListener(event -> {
+	    switchToEdit();
+	});
+	footerView.setComponentAlignment(editBut, Alignment.MIDDLE_CENTER);
+
+	footerView.setMargin(true);
+	footerView.setSpacing(true);
+	footerView.setWidth("100%");
+	footerView.setHeight(37, Unit.PIXELS);
+
+	// Edit footer
+	footerEdit = new HorizontalLayout();
+	footerEdit.addComponent(saveBut);
+	saveBut.addClickListener(event -> {
+	    // Store Changes in DB
+	    switchToView();
+	});
+	footerEdit.setComponentAlignment(saveBut, Alignment.MIDDLE_CENTER);
+
+	footerEdit.addComponent(cancelBut);
+	cancelBut.addClickListener(event -> {
+	    switchToView();
+	});
+	footerEdit.setComponentAlignment(cancelBut, Alignment.MIDDLE_CENTER);
+
+	footerEdit.setMargin(true);
+	footerEdit.setSpacing(true);
+	footerEdit.setWidth("100%");
+	footerEdit.setHeight(37, Unit.PIXELS);
+
+	this.addComponent(header);
+	this.addComponent(middle);
+
+	this.addComponent(footerView);
+    }
+
+    private void switchToView() {
+	fieldGrpTF.setReadOnly(true);
+	this.replaceComponent(footerEdit, footerView);
+	return;
+    }
+
+    private void switchToEdit() {
+	fieldGrpTF.setReadOnly(false);
+	this.replaceComponent(footerView, footerEdit);
+	return;
     }
 
     public static String getName() {

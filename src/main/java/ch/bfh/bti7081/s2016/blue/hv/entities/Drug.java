@@ -14,14 +14,16 @@ public class Drug extends BaseEntity {
     @Size(min=1, max=100)
     private String name;
 
+    @Column(unique = true)
+
+    @Size(min=1, max = 14)
+    private int gtin; // GTIN: Global Trade Item Number
+
     @Column(nullable = false, length = 800)
     @Size(min = 0, max = 800)
     private String description;
-
-    @OneToMany(mappedBy = "drug")
-    private Set<Prescription> prescriptions;
     
-    @OneToOne
+    @ManyToOne(optional = true)
     private Patient patient;
 
     public String getName() {
@@ -36,11 +38,18 @@ public class Drug extends BaseEntity {
 
     public void setDescription(String description) { this.description = description; }
 
-    public Set<Prescription> getPrescriptions() {
-        return prescriptions;
-    }
+    public int getGtin() { return gtin; }
 
-    public void setPrescriptions(Set<Prescription> prescriptions) {
-        this.prescriptions = prescriptions;
+    public void setGtin(int gtin) { this.gtin = gtin; }
+
+    public boolean isPrescribed(Patient p){
+        boolean prescribed = false;
+        for(Drug d : p.getDrugs()){
+            if (this.getName().equals(d.getName())){
+                prescribed = true;
+                break;
+            }
+        }
+        return prescribed;
     }
 }

@@ -3,23 +3,22 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 import java.util.Set;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 
 @Entity(name = "Patient")
 @Table(name = "Patients")
 public class Patient extends Person {
 
-	private static final long serialVersionUID = 8023922743116129612L;
+    @ManyToMany(mappedBy = "patients", fetch = FetchType.EAGER)
+    private Set<HealthVisitor> visitors;
 
-	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Visit> visits;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<Drug> drugs;
-    
-    @Valid
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.PERSIST)
-    private Set<Prescription> prescriptions;
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<DrugOrder> drugOrders;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "emergency_contact_id", unique = true)
@@ -41,6 +40,14 @@ public class Patient extends Person {
 	this.drugs = drugs;
     }
 
+    public Set<HealthVisitor> getVisitors() {
+	return visitors;
+    }
+
+    public void setVisitors(Set<HealthVisitor> visitors) {
+	this.visitors = visitors;
+    }
+
     public Set<Visit> getVisits() {
 	return visits;
     }
@@ -48,13 +55,8 @@ public class Patient extends Person {
     public void setVisits(Set<Visit> visits) {
 	this.visits = visits;
     }
-    
-    public Set<Prescription> getPrescriptions() { 
-    	return prescriptions; 
-    }
 
-    public void setPrescriptions(Set<Prescription> prescriptions) { 
-    	this.prescriptions = prescriptions; 
-    }
-    
+    public Set<DrugOrder> getDrugOrders() { return drugOrders; }
+
+    public void setDrugOrders(Set<DrugOrder> drugOrders) { this.drugOrders = drugOrders; }
 }
