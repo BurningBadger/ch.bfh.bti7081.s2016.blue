@@ -33,7 +33,9 @@ The configuration for the loggers is done in: ``src/main/resources/logging.prope
 
 
 
-## Exception Handling
+## Sending Emails
+A SMTP server for development purposes is included in this project.
+To start the server run ``start_mail_server.sh`` or ``start_mail_sever.bat``
 
 
 ## Backlog
