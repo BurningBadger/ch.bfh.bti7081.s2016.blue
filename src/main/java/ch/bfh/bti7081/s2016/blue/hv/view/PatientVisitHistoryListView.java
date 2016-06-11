@@ -139,8 +139,6 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	window.setWidth(800.0f, Unit.PIXELS);
 	window.center();
 	table.setSizeFull();
-//	table.setWidth(window.getHeight(), Unit.PIXELS);
-//	table.setHeight(window.getWidth(), Unit.PIXELS);
 	window.setContent(formLayout);
 	UI.getCurrent().addWindow(window);
     }
