@@ -42,7 +42,7 @@ public class LandingView extends Panel implements View {
 
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
 
-        Set<Patient> patients = visitor.getPatients();
+      //  Set<Patient> patients = visitor.getPatients();
 
         Table patientsTable = new Table("Patients");
         patientsTable.setSizeFull();
@@ -52,12 +52,12 @@ public class LandingView extends Panel implements View {
         patientsTable.addContainerProperty("Birthday", String.class, null);
         patientsTable.addContainerProperty("City", String.class, null);
 
-        for(Patient p : patients){
-            patientsTable.addItem(
-                new Object[] { p.getFirstname(), p.getLastname(), p.getBirthday().toString(), p.getContact().getCity() },
-                null
-            );
-        }
+//        for(Patient p : patients){
+//            patientsTable.addItem(
+//                new Object[] { p.getFirstname(), p.getLastname(), p.getBirthday().toString(), p.getContact().getCity() },
+//                null
+//            );
+//        }
 
         patientsTable.setSelectable(true);
         patientsTable.setImmediate(true);

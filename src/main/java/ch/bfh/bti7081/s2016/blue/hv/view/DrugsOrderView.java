@@ -45,29 +45,29 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         orderDetailsTable.addContainerProperty("Amount", Label.class, null);
 
         for (DrugOrder order : drugOrderModel.findAll()){
-            if (order.isInPatients(visitor.getPatients())){ // ToDo: maybe generic method in BaseEntity?
-                Label patientFirstname = new Label(order.getPatient().getFirstname());
-                Label patientLastname = new Label(order.getPatient().getLastname());
-                Label amount = new Label(Integer.toString(order.getTotalItemsAmount()));
-                Button detailsBtn = new Button("Details");
-                detailsBtn.setData(order);
-                detailsBtn.addClickListener(event -> {
-                    if(!rightPanel.isVisible()){
-                        rightPanel.setVisible(true);
-                    }
-                    orderDetailsTable.removeAllItems();
-                    DrugOrder drugOrder = (DrugOrder)event.getButton().getData();
-                    for(DrugOrderItem item : drugOrder.getDrugOrderItems()){
-                        Label drugName = new Label(item.getName());
-                        Label drugAmount = new Label(Integer.toString(item.getQuantity()));
-
-                        //add to table
-                        orderDetailsTable.addItem(new Object[] { drugName, drugAmount}, item.getId());
-                    }
-                });
-                //add to table
-                drugOrderTable.addItem(new Object[] { order.getCreatedAt(), patientFirstname, patientLastname, amount, detailsBtn}, order.getId());
-            }
+//            if (order.isInPatients(visitor.getPatients())){ // ToDo: maybe generic method in BaseEntity?
+//                Label patientFirstname = new Label(order.getPatient().getFirstname());
+//                Label patientLastname = new Label(order.getPatient().getLastname());
+//                Label amount = new Label(Integer.toString(order.getTotalItemsAmount()));
+//                Button detailsBtn = new Button("Details");
+//                detailsBtn.setData(order);
+//                detailsBtn.addClickListener(event -> {
+//                    if(!rightPanel.isVisible()){
+//                        rightPanel.setVisible(true);
+//                    }
+//                    orderDetailsTable.removeAllItems();
+//                    DrugOrder drugOrder = (DrugOrder)event.getButton().getData();
+//                    for(DrugOrderItem item : drugOrder.getDrugOrderItems()){
+//                        Label drugName = new Label(item.getName());
+//                        Label drugAmount = new Label(Integer.toString(item.getQuantity()));
+//
+//                        //add to table
+//                        orderDetailsTable.addItem(new Object[] { drugName, drugAmount}, item.getId());
+//                    }
+//                });
+//                //add to table
+//                drugOrderTable.addItem(new Object[] { order.getCreatedAt(), patientFirstname, patientLastname, amount, detailsBtn}, order.getId());
+//            }
         }
 
         leftPanel.addComponent(drugOrderTable);
