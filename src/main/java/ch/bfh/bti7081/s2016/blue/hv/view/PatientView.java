@@ -213,16 +213,17 @@ public class PatientView extends VerticalLayout implements View {
 	/*
 	 * left side
 	 */
+	// image as button: show all patient's visits
 	Image butBesuche = new Image();
 	butBesuche.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butBesuche.setDescription("Patient Visits");
 	butBesuche.addClickListener(e -> {
-	    // TODO
 	    showPatientVisits(patient);
 	});
 	grid.addComponent(butBesuche, 0, 0);
 	grid.setComponentAlignment(butBesuche, Alignment.TOP_LEFT);
 
+	// image as button: show notes
 	Image butAnmerkungen = new Image();
 	butAnmerkungen.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butAnmerkungen.setDescription("Notes");
@@ -231,22 +232,29 @@ public class PatientView extends VerticalLayout implements View {
 	});
 	grid.addComponent(butAnmerkungen, 0, 1);
 	grid.setComponentAlignment(butAnmerkungen, Alignment.BOTTOM_LEFT);
+
 	/*
 	 * right side
 	 */
+	// image as button: show patient's emergency contact
+	Image butEmergencyContact = new Image();
+	butEmergencyContact.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
+	butEmergencyContact.setDescription("Emergency contact");
+	butEmergencyContact.addClickListener(e -> {
+	    showEmergencyContact(patient);
+	});
+	grid.addComponent(butEmergencyContact, 1, 0);
+	grid.setComponentAlignment(butEmergencyContact, Alignment.TOP_RIGHT);
+
+	// image as button: show patient's drugs
 	Image butOrderDrugs = new Image();
 	butOrderDrugs.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butOrderDrugs.setDescription("Order drugs");
-	butOrderDrugs.addClickListener(e -> {});
-	grid.addComponent(butOrderDrugs, 1, 0);
-	grid.setComponentAlignment(butOrderDrugs, Alignment.TOP_RIGHT);
-
-	Image butEmergencyContact = new Image();
-	butEmergencyContact.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
-	butEmergencyContact.setDescription("Order drugs");
-	butEmergencyContact.addClickListener(e -> {});
-	grid.addComponent(butEmergencyContact, 1, 1);
-	grid.setComponentAlignment(butEmergencyContact, Alignment.BOTTOM_RIGHT);
+	butOrderDrugs.addClickListener(e -> {
+	    showPatientsDrugs();
+	});
+	grid.addComponent(butOrderDrugs, 1, 1);
+	grid.setComponentAlignment(butOrderDrugs, Alignment.BOTTOM_RIGHT);
 
 	this.addComponent(grid);
 	this.setExpandRatio(grid, 0.4f);
@@ -257,7 +265,21 @@ public class PatientView extends VerticalLayout implements View {
 
 	this.detach();
 	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId()));
-	this.removeAllComponents();
+//	this.removeAllComponents();
+    }
+
+    // help method to show patient's emergency contact
+    private void showEmergencyContact(Patient patient) {
+
+	this.detach();
+	HealthVisUI.setMainView(new EmergencyContactView(patient.getId()));
+    }
+
+    // help method to show patient's drugs
+    private void showPatientsDrugs() {
+
+	this.detach();
+	HealthVisUI.setMainView(new DrugsView());
     }
 
     // method for the HealthVisUI
