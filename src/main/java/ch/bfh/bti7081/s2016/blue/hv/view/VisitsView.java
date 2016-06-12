@@ -2,9 +2,11 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -14,9 +16,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-
-
-
+import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 import elemental.html.ShadowElement;
@@ -27,15 +27,13 @@ public class VisitsView extends HorizontalLayout implements View {
 
     private static final String NAME = "Visits";
     
-    private static VerticalLayout visitsView = new VerticalLayout();
-    
     public VisitsView() {
-	
 	this.setSizeFull();
-	this.setMargin(true);
 	
-	final Table table = new Table();
-	table.setSizeFull();
+	VerticalLayout visitsView = new VerticalLayout();
+	
+	HorizontalLayout tableView = new HorizontalLayout();
+	Table table = new Table();
 	table.addStyleName("components-inside");
 
 	// define the columns
@@ -62,8 +60,9 @@ public class VisitsView extends HorizontalLayout implements View {
 	    detailsBtn.addClickListener(event -> {
 		// show the detail of the selected element
 		Visit v = (Visit) event.getButton().getData();
-		visitsView.setVisible(false);
-		this.addComponent(new PatientVisitHistoryListView(v.getId()));
+		HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId()));
+//		visitsView.setVisible(false);
+//		this.addComponent(new PatientVisitHistoryListView(v.getId()));
 	    });
 	    detailsBtn.addStyleName("link");
 
@@ -73,7 +72,16 @@ public class VisitsView extends HorizontalLayout implements View {
 		    visit.getId());
 	}
 	
-	visitsView.addComponent(table);
+	table.setWidth("100%");
+	table.setHeight("100%");
+
+	tableView.addComponent(table);
+	tableView.setComponentAlignment(table, Alignment.MIDDLE_CENTER);
+	tableView.setHeight("100%");
+	tableView.setWidth("100%");
+	tableView.setMargin(true);
+	
+	HorizontalLayout footer = new HorizontalLayout();
 
 	// button to add visit
 	Button addNewVisitBtn = new Button("add new visit");
@@ -81,9 +89,14 @@ public class VisitsView extends HorizontalLayout implements View {
 	    showDetailsWindow(null);
 	});
 	
-	visitsView.addComponent(addNewVisitBtn);
-	visitsView.setComponentAlignment(addNewVisitBtn, Alignment.BOTTOM_CENTER);
-	visitsView.setSizeFull();
+	footer.addComponent(addNewVisitBtn);
+	footer.setComponentAlignment(addNewVisitBtn, Alignment.BOTTOM_CENTER);
+	footer.setWidth("100%");
+	footer.setHeight(37, Unit.PIXELS);
+	footer.setMargin(true);
+	
+	visitsView.addComponent(tableView);
+	visitsView.addComponent(footer);
 	this.addComponent(visitsView);
 	
     }
@@ -94,7 +107,6 @@ public class VisitsView extends HorizontalLayout implements View {
     }
     
     public static String getName() {
-	visitsView.setVisible(true);
 	return NAME;
     }
     
