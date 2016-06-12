@@ -27,6 +27,9 @@ public class Patient extends Person {
     @JoinColumn(name = "emergency_contact_id", unique = true)
     private EmergencyContact emergencyContact;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     public EmergencyContact getEmergencyContact() {
 	return emergencyContact;
     }
@@ -50,4 +53,13 @@ public class Patient extends Person {
     public Set<DrugOrder> getDrugOrders() { return drugOrders; }
 
     public void setDrugOrders(Set<DrugOrder> drugOrders) { this.drugOrders = drugOrders; }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
 }
