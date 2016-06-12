@@ -1,10 +1,15 @@
 package ch.bfh.bti7081.s2016.blue.hv.entities;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.apache.commons.beanutils.BeanUtils;
+
 @Entity(name = "EmergencyContact")
 @Table(name = "emergency_contacts")
-public class EmergencyContact extends BaseEntity  {
+public class EmergencyContact extends BaseEntity {
 
     @Column(name = "first_name", nullable = false, length = 100)
     @Size(min = 1, max = 100)
