@@ -4,14 +4,11 @@ import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.view.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.*;
 
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.*;
-
-/**
- * Created by suttc1 on 22.05.2016.
- */
 
 public class PatientVisitHistoryListView extends VerticalLayout implements View {
 
@@ -29,7 +26,7 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	this.patientID = patientID;
 	this.lastPage = lastPage;
 	this.setSizeFull();
-
+	
 	configureComponents();
 	buildLayout();
     }

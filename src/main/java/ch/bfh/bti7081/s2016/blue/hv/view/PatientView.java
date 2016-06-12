@@ -38,9 +38,7 @@ public class PatientView extends VerticalLayout implements View {
 	// button: home
 	Button butMenu = new Button("Home");
 	butMenu.addClickListener(event -> {
-	    this.detach();
 	    getUI().getNavigator().navigateTo(LandingView.getName());
-	    this.removeAllComponents();
 	});
 	firstLay.addComponent(butMenu);
 	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
@@ -191,7 +189,6 @@ public class PatientView extends VerticalLayout implements View {
 	// cancel button
 	Button back = new Button("cancel");
 	back.addClickListener(event -> {
-	    this.detach();
 	    getUI().getNavigator().navigateTo(PatientListView.getName());
 	});
 	bottomButtons.addComponent(back);
@@ -273,22 +270,19 @@ public class PatientView extends VerticalLayout implements View {
     // help method to connect with the Patient Visits
     private void showPatientVisits(Patient patient) {
 
-	this.detach();
-	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId()));
+	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(), "Patients"));
 //	this.removeAllComponents();
     }
 
     // help method to show patient's emergency contact
     private void showEmergencyContact(Patient patient) {
 
-	this.detach();
-	HealthVisUI.setMainView(new EmergencyContactView(patient.getId()));
+	HealthVisUI.setMainView(new EmergencyContactView(patient.getId(), "Patients"));
     }
 
     // help method to show patient's drugs
     private void showPatientsDrugs() {
 
-	this.detach();
 	HealthVisUI.setMainView(new DrugsOrderView());
     }
 
@@ -299,7 +293,7 @@ public class PatientView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
+	
     }
 
 }

@@ -7,10 +7,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
-/**
- * Created by suttc1 on 22.05.2016.
- */
-
 public class PatientVisitHistoryView extends VerticalLayout implements View {
 
     private static final String NAME = "PatientVisitsHistoryView";
