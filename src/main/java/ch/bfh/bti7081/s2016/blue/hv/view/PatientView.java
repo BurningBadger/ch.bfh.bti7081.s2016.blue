@@ -14,6 +14,16 @@ import com.vaadin.ui.*;
 
 import java.io.*;
 
+/**
+ * The PatientView class specify the already selected patient treated by the logged-in Health visitor.
+ * The main part of the class are the details of the patient which are shown in the Textfields. The user
+ * can manipulate these entries directly by selecting each one of them. Additionally can he upload an
+ * image for better profiling. All changed information is directly saved into the database.
+ *
+ * Beside the <<back>>- and the <<call>>-button which the user can return to the previous view, resp. copy
+ * the phone number of the patient with, there are four main buttons at the bottom of the screen. These
+ * connect the patient entity with his most necessary tasks which are crucial for the Health visitor.
+ */
 
 public class PatientView extends VerticalLayout implements View {
 
@@ -114,7 +124,6 @@ public class PatientView extends VerticalLayout implements View {
 	});
 
 	picture.setWidth("90%");	// resize the image
-	picture.setWidth("90%");	// resize the image
 	left.addComponent(picture);
 	left.setExpandRatio(picture, 0.8f);	// set the ratio to 80%
 	left.addComponent(upload);
@@ -169,24 +178,24 @@ public class PatientView extends VerticalLayout implements View {
 	 * is the lambda expression a bit longer
 	 */
 	// save button
-	Button savButn = new Button("save");
-	savButn.addClickListener(event -> {
+	Button updateBtn = new Button("update");
+	updateBtn.addClickListener(event -> {
 	    PatientModel patMod = new PatientModel();
-	    patient.setFirstname(firstName.getValue());
-	    patient.setLastname(lastName.getValue());
+	    patient.setFirstname(firstName.getValue());	// the patient is already in DB, so no need to
+	    patient.setLastname(lastName.getValue());	// build a new contact object
 	    patient.setBirthday(birthday.getValue());
 	    patient.getContact().setStreet(street.getValue());
 	    patient.getContact().setZip(zip.getValue());
 	    patient.getContact().setCity(city.getValue());
 	    patient.getContact().setPhoneNumber(phoneNumber.getValue());
 	    patMod.saveOrUpdate(patient);
-	    Notification notif = new Notification("..saved!", Notification.Type.WARNING_MESSAGE);
+	    Notification notif = new Notification("..updated!", Notification.Type.WARNING_MESSAGE);
 	    notif.setDelayMsec(2000);
-	    getUI().setPollInterval(1000);
+//	    getUI().setPollInterval(1000);
 	    notif.setPosition(Position.MIDDLE_CENTER);
 	    notif.show(Page.getCurrent());
 	});
-	bottomButtons.addComponent(savButn);
+	bottomButtons.addComponent(updateBtn);
 
 	// cancel button
 	Button back = new Button("cancel");
@@ -264,8 +273,9 @@ public class PatientView extends VerticalLayout implements View {
 	this.setExpandRatio(grid, 0.4f);
     }
 
-    // help method: bind patient to person and show the number
+    // help method: bind patient to person in general and show the phone number
     private void showPatientsNumber(Patient patient) {
+
 	PhoneComponent component = new PhoneComponent(patient);
 	component.getClass();
     }
@@ -275,7 +285,6 @@ public class PatientView extends VerticalLayout implements View {
 
 	this.detach();
 	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId()));
-//	this.removeAllComponents();
     }
 
     // help method to show patient's emergency contact
