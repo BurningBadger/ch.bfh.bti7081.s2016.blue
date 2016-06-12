@@ -120,6 +120,7 @@ public class HealthVisUI extends UI {
 	menu.addView(new DrugsOrderView(), "Drug Orders", DrugsOrderView.getName(), FontAwesome.MEDKIT);
 	menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
 	menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
+	
 	if (navigator.getState().isEmpty()) {
 	    navigator.navigateTo(LandingView.getName());
 	}
@@ -144,6 +145,7 @@ public class HealthVisUI extends UI {
 	@Override
 	public void afterViewChange(ViewChangeEvent event) {
 	    menu.setActiveView(event.getViewName());
+	    menu.addView(event.getNewView(), event.getViewName(), event.getClass().getName(), FontAwesome.NAVICON);
 	}
 
     };

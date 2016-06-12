@@ -26,11 +26,13 @@ public class VisitsView extends HorizontalLayout implements View {
     private static final long serialVersionUID = -4194821923203100613L;
 
     private static final String NAME = "Visits";
+    
+    private static VerticalLayout visitsView;
 
     public VisitsView() {
 	this.setSizeFull();
 
-	VerticalLayout visitsView = new VerticalLayout();
+	visitsView = new VerticalLayout();
 
 	HorizontalLayout tableView = new HorizontalLayout();
 	Table table = new Table();
@@ -59,8 +61,8 @@ public class VisitsView extends HorizontalLayout implements View {
 	    detailsBtn.setData(visit);
 	    detailsBtn.addClickListener(event -> {
 		    Visit v = (Visit) event.getButton().getData();
-		    HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId()));
-//		    HealthVisUI.setMainView(new EmergencyContactView(v.getId()));
+		    HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
+//		    HealthVisUI.setMainView(new EmergencyContactView(v.getId(), getName()));
 		});
 	    detailsBtn.addStyleName("link");
 

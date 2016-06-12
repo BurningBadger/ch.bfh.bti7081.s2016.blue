@@ -68,9 +68,7 @@ public class PatientListView extends VerticalLayout implements View {
 	HorizontalLayout firstLay = new HorizontalLayout();
 	Button butMenu = new Button("Home");
 	butMenu.addClickListener(event -> {
-	    this.detach();
 	    getUI().getNavigator().navigateTo(LandingView.getName());
-	    this.removeAllComponents();
 	});
 	firstLay.addComponent(butMenu);
 	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
@@ -250,8 +248,6 @@ public class PatientListView extends VerticalLayout implements View {
 
     // help method to connect to the PatientView class
     private void showDetailsWindow(Patient patient) {
-
-	this.detach();
 	HealthVisUI.setMainView(new PatientView(patient));
     }
 
