@@ -26,12 +26,12 @@ public class VisitsView extends HorizontalLayout implements View {
     private static final long serialVersionUID = -4194821923203100613L;
 
     private static final String NAME = "Visits";
-    
+
     public VisitsView() {
 	this.setSizeFull();
-	
+
 	VerticalLayout visitsView = new VerticalLayout();
-	
+
 	HorizontalLayout tableView = new HorizontalLayout();
 	Table table = new Table();
 	table.addStyleName("components-inside");
@@ -58,12 +58,10 @@ public class VisitsView extends HorizontalLayout implements View {
 	    Button detailsBtn = new Button("show details");
 	    detailsBtn.setData(visit);
 	    detailsBtn.addClickListener(event -> {
-		// show the detail of the selected element
-		Visit v = (Visit) event.getButton().getData();
-		HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId()));
-//		visitsView.setVisible(false);
-//		this.addComponent(new PatientVisitHistoryListView(v.getId()));
-	    });
+		    Visit v = (Visit) event.getButton().getData();
+		    HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId()));
+//		    HealthVisUI.setMainView(new EmergencyContactView(v.getId()));
+		});
 	    detailsBtn.addStyleName("link");
 
 	    // Create the table row.
@@ -71,7 +69,7 @@ public class VisitsView extends HorizontalLayout implements View {
 		    new Object[] { patientFirstname, patientLastname, phoneNumber, street, zip, city, detailsBtn },
 		    visit.getId());
 	}
-	
+
 	table.setWidth("100%");
 	table.setHeight("100%");
 
@@ -80,7 +78,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	tableView.setHeight("100%");
 	tableView.setWidth("100%");
 	tableView.setMargin(true);
-	
+
 	HorizontalLayout footer = new HorizontalLayout();
 
 	// button to add visit
@@ -88,33 +86,32 @@ public class VisitsView extends HorizontalLayout implements View {
 	addNewVisitBtn.addClickListener(event -> {
 	    showDetailsWindow(null);
 	});
-	
+
 	footer.addComponent(addNewVisitBtn);
 	footer.setComponentAlignment(addNewVisitBtn, Alignment.BOTTOM_CENTER);
 	footer.setWidth("100%");
 	footer.setHeight(37, Unit.PIXELS);
 	footer.setMargin(true);
-	
+
 	visitsView.addComponent(tableView);
 	visitsView.addComponent(footer);
 	this.addComponent(visitsView);
-	
     }
-    
+
     @Override
     public void enter(ViewChangeEvent event) {
-	
+
     }
-    
+
     public static String getName() {
 	return NAME;
     }
-    
+
     private void showDetailsWindow(Visit visit) {
-	
+
 	final FormLayout formLayout = new FormLayout();
 	String windowTitle = null;
-	
+
 	// add newy
 	if (visit == null) {
 	    windowTitle = "Add new visit";

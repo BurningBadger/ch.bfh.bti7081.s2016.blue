@@ -5,12 +5,14 @@ import java.util.List;
 import com.vaadin.data.fieldgroup.FieldGroup;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.EmergencyContact;
-//import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
-//import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
+import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
+import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 
 /**
  * Created by suttc1 on 22.05.2016.
@@ -19,18 +21,21 @@ import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
 public class EmergencyContactView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = -3931584070955988897L;
+    
 
     // Buttons headLine
     private static final String NAME = "EmergencyContactView";
-
-    private long emergencyContactID;
+    private long patientID;
+    private Visit visit;
+    private EmergencyContactModel emergencyContactModel = new EmergencyContactModel();
     
+    private VerticalLayout main;
     private HorizontalLayout header;
     private HorizontalLayout footerView;
     private HorizontalLayout footerEdit;
-    private EmergencyContact contact;
+  
 
-    private Button menuBut = new Button("Menu");
+    private Button homeBut = new Button("Home");
     private Button backBut = new Button("Back");
     private Button callBut = new Button("CALL");
     private Button editBut = new Button("Edit");
@@ -54,43 +59,43 @@ public class EmergencyContactView extends VerticalLayout implements View {
     private TextField cityDBe;
     private TextField phoneDBe;
 
-    public EmergencyContactView(long emergencyContactID) {
-
-	this.emergencyContactID = emergencyContactID;
-
-	EmergencyContactModel contactModel = new EmergencyContactModel();
-	contact = contactModel.findById(emergencyContactID);
-	contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
+    public EmergencyContactView(long patientID) {
+	this.patientID = patientID;
+	this.setSizeFull();
+	
+	visit = new VisitsModel().findById(patientID);
+	EmergencyContact emergencyContact = emergencyContactModel.findById(visit.getPatient().getEmergencyContact().getId());
+	
+//	contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
 
 	fieldGrpTF = new FieldGroup();
 
 	lastNameDBe = new TextField();
 	fieldGrpTF.bind(lastNameDBe, "lastNameDB");
-	lastNameDBe.setValue(contact.getLastname());
+	lastNameDBe.setValue(emergencyContact.getLastname());
 
 	firstNameDBe = new TextField();
 	fieldGrpTF.bind(firstNameDBe, "firstNameDB");
-	firstNameDBe.setValue(contact.getFirstname());
+	firstNameDBe.setValue(emergencyContact.getFirstname());
 
 	addressDBe = new TextField();
 	fieldGrpTF.bind(addressDBe, "addressDB");
-	addressDBe.setValue(contact.getStreet());
+	addressDBe.setValue(emergencyContact.getStreet());
 
 	zipDBe = new TextField();
 	fieldGrpTF.bind(zipDBe, "zipDB");
-	zipDBe.setValue(contact.getZip());
+	zipDBe.setValue(emergencyContact.getZip());
 
 	cityDBe = new TextField();
 	fieldGrpTF.bind(cityDBe, "cityDB");
-	cityDBe.setValue(contact.getCity());
+	cityDBe.setValue(emergencyContact.getCity());
 
 	phoneDBe = new TextField();
 	fieldGrpTF.bind(phoneDBe, "phoneDB");
-	phoneDBe.setValue(contact.getPhoneNumber());
+	phoneDBe.setValue(emergencyContact.getPhoneNumber());
 
 	fieldGrpTF.setReadOnly(true);
 	configureComponents();
-	setSizeFull();
 	buildLayout();
 
     }
@@ -100,24 +105,51 @@ public class EmergencyContactView extends VerticalLayout implements View {
     }
 
     private void buildLayout() {
+	main = new VerticalLayout();
 
 	// Header
 	header = new HorizontalLayout();
 	header.addComponent(backBut);
+	backBut.addClickListener(event -> {
+	    this.detach();
+	    getUI().getNavigator().navigateTo(VisitsView.getName());
+	    this.removeAllComponents();
+	});
 	header.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
+	
 	header.addComponent(callBut);
+	callBut.addClickListener(event -> {
+	    final FormLayout formLayout = new FormLayout();
+
+	    String windowTitle = "Phone: " + visit.getPatient().getEmergencyContact().getPhoneNumber();
+
+	    final Window window = new Window(windowTitle);
+	    window.setWidth(400.0f, Unit.PIXELS);
+	    window.center();
+	    window.setContent(formLayout);
+	    UI.getCurrent().addWindow(window);
+	});
 	header.setComponentAlignment(callBut, Alignment.MIDDLE_CENTER);
-	header.addComponent(menuBut);
-	header.setComponentAlignment(menuBut, Alignment.MIDDLE_RIGHT);
+	
+	header.addComponent(homeBut);
+	homeBut.addClickListener(event -> {
+	    this.detach();
+	    getUI().getNavigator().navigateTo(LandingView.getName());
+	    this.removeAllComponents();
+	});
+	header.setComponentAlignment(homeBut, Alignment.MIDDLE_RIGHT);
 	header.setHeight(37, Unit.PIXELS);
 	header.setHeight("100%");
 	header.setWidth("100%");
+	header.setMargin(true);
 
 	// Middle/Center
 	HorizontalLayout middle = new HorizontalLayout();
 	GridLayout grid = new GridLayout(4, 4);
-
-	grid.setCaption("Emergency Contact");
+	
+	grid.setCaption("Emergency Contact of " + visit.getPatient().getFirstname() + " "
+		    + visit.getPatient().getLastname());
+	
 	grid.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
 
 	grid.addComponent(lastNameLabel, 0, 0);
@@ -155,16 +187,15 @@ public class EmergencyContactView extends VerticalLayout implements View {
 
 	grid.addComponent(phoneDBe, 1, 3);
 	grid.setComponentAlignment(phoneDBe, Alignment.MIDDLE_LEFT);
-
-	middle.addComponent(grid);
+	
 	grid.setRowExpandRatio(getComponentCount(), getComponentCount());
 	grid.setSpacing(true);
-	grid.setMargin(true);
-
+	
+	middle.addComponent(grid);
 	middle.setComponentAlignment(grid, Alignment.MIDDLE_CENTER);
 	middle.setWidth("100%");
 	middle.setHeight("100%");
-	middle.setSizeFull();
+	middle.setMargin(true);
 
 	// View footer
 	footerView = new HorizontalLayout();
@@ -183,7 +214,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	footerEdit = new HorizontalLayout();
 	footerEdit.addComponent(saveBut);
 	saveBut.addClickListener(event -> {
-	    saveChange();
+	    saveChange(visit.getPatient().getEmergencyContact().getId());
 	    switchToView();
 	});
 	footerEdit.setComponentAlignment(saveBut, Alignment.MIDDLE_CENTER);
@@ -199,30 +230,35 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	footerEdit.setWidth("100%");
 	footerEdit.setHeight(37, Unit.PIXELS);
 
-	this.addComponent(header);
-	this.addComponent(middle);
-	this.addComponent(footerView);
+	main.addComponent(header);
+	main.addComponent(middle);
+	main.addComponent(footerView);
+	this.addComponent(main);
     }
 
     private void switchToView() {
 	fieldGrpTF.setReadOnly(true);
-	this.replaceComponent(footerEdit, footerView);
+	main.replaceComponent(footerEdit, footerView);
 	return;
     }
 
     private void switchToEdit() {
 	fieldGrpTF.setReadOnly(false);
-	this.replaceComponent(footerView, footerEdit);
+	main.replaceComponent(footerView, footerEdit);
 	return;
     }
     
-    private void saveChange(){
-	contact.setLastname(lastNameDBe.getValue());
-	contact.setFirstname(firstNameDBe.getValue());
-	contact.setStreet(addressDBe.getValue());
-	contact.setZip(zipDBe.getValue());
-	contact.setCity(cityDBe.getValue());
-	contact.setPhoneNumber(phoneDBe.getValue());
+    private void saveChange(long id){
+	EmergencyContact newEmergencyContact = new EmergencyContact();
+	newEmergencyContact.setId(id);
+	newEmergencyContact.setLastname(lastNameDBe.getValue());
+	newEmergencyContact.setFirstname(firstNameDBe.getValue());
+	newEmergencyContact.setStreet(addressDBe.getValue());
+	newEmergencyContact.setZip(zipDBe.getValue());
+	newEmergencyContact.setCity(cityDBe.getValue());
+	newEmergencyContact.setPhoneNumber(phoneDBe.getValue());
+	
+	emergencyContactModel.saveOrUpdate(newEmergencyContact);
     }
 
     public static String getName() {
