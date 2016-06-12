@@ -1,12 +1,11 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
 import ch.bfh.bti7081.s2016.blue.HealthVisUI;
+import ch.bfh.bti7081.s2016.blue.hv.components.PhoneComponent;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
-import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.ThemeResource;
@@ -26,16 +25,17 @@ public class PatientView extends VerticalLayout implements View {
 	this.setMargin(true);
 
 	// show the vertical layout parts
-	showFirstRow();
+	showFirstRow(patient);
 	showSplittedRow(patient);
 	showBottomButtons(patient);
     }
 
     // vertical layout: 1st row buttons
-    private void showFirstRow() {
+    private void showFirstRow(Patient patient) {
+
+	HorizontalLayout firstLay = new HorizontalLayout();
 
 	// button: home
-	HorizontalLayout firstLay = new HorizontalLayout();
 	Button butMenu = new Button("Home");
 	butMenu.addClickListener(event -> {
 	    this.detach();
@@ -47,6 +47,9 @@ public class PatientView extends VerticalLayout implements View {
 
 	//button: call
 	Button butCall = new Button("Call");
+	butCall.addClickListener(event -> {
+	    showPatientsNumber(patient);
+	});
 	firstLay.addComponent(butCall);
 	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
 	firstLay.setMargin(true);
@@ -110,6 +113,7 @@ public class PatientView extends VerticalLayout implements View {
 	    patient.setPicture(bytes);
 	});
 
+	picture.setWidth("90%");	// resize the image
 	picture.setWidth("90%");	// resize the image
 	left.addComponent(picture);
 	left.setExpandRatio(picture, 0.8f);	// set the ratio to 80%
@@ -217,7 +221,7 @@ public class PatientView extends VerticalLayout implements View {
 	Image butBesuche = new Image();
 	butBesuche.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butBesuche.setDescription("Patient Visits");
-	butBesuche.addClickListener(e -> {
+	butBesuche.addClickListener(event -> {
 	    showPatientVisits(patient);
 	});
 	grid.addComponent(butBesuche, 0, 0);
@@ -227,7 +231,7 @@ public class PatientView extends VerticalLayout implements View {
 	Image butAnmerkungen = new Image();
 	butAnmerkungen.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butAnmerkungen.setDescription("Notes");
-	butAnmerkungen.addClickListener(e -> {
+	butAnmerkungen.addClickListener(event -> {
 	    // TODO
 	});
 	grid.addComponent(butAnmerkungen, 0, 1);
@@ -240,7 +244,7 @@ public class PatientView extends VerticalLayout implements View {
 	Image butEmergencyContact = new Image();
 	butEmergencyContact.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butEmergencyContact.setDescription("Emergency contact");
-	butEmergencyContact.addClickListener(e -> {
+	butEmergencyContact.addClickListener(event -> {
 	    showEmergencyContact(patient);
 	});
 	grid.addComponent(butEmergencyContact, 1, 0);
@@ -250,7 +254,7 @@ public class PatientView extends VerticalLayout implements View {
 	Image butOrderDrugs = new Image();
 	butOrderDrugs.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butOrderDrugs.setDescription("Order drugs");
-	butOrderDrugs.addClickListener(e -> {
+	butOrderDrugs.addClickListener(event -> {
 	    showPatientsDrugs();
 	});
 	grid.addComponent(butOrderDrugs, 1, 1);
@@ -258,6 +262,12 @@ public class PatientView extends VerticalLayout implements View {
 
 	this.addComponent(grid);
 	this.setExpandRatio(grid, 0.4f);
+    }
+
+    // help method: bind patient to person and show the number
+    private void showPatientsNumber(Patient patient) {
+	PhoneComponent component = new PhoneComponent(patient);
+	component.getClass();
     }
 
     // help method to connect with the Patient Visits
@@ -279,7 +289,7 @@ public class PatientView extends VerticalLayout implements View {
     private void showPatientsDrugs() {
 
 	this.detach();
-	HealthVisUI.setMainView(new DrugsView());
+	HealthVisUI.setMainView(new DrugsOrderView());
     }
 
     // method for the HealthVisUI
