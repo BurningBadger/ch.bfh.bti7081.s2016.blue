@@ -31,6 +31,9 @@ public class PhoneComponent {
 	TextField firstName = new TextField("first name");
 	firstName.setConvertedValue(person.getFirstname());
 	formLayout.addComponent(firstName);
+	TextField lastName = new TextField("last name");
+	lastName.setConvertedValue(person.getLastname());
+	formLayout.addComponent(lastName);
 	TextField phoneNumber = new TextField("phone number");
 	phoneNumber.setConvertedValue(person.getContact().getPhoneNumber());
 	formLayout.addComponent(phoneNumber);
