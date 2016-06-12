@@ -23,8 +23,8 @@ public class Drug extends BaseEntity {
     @Size(min = 0, max = 800)
     private String description;
     
-    @ManyToOne(optional = true)
-    private Patient patient;
+    @ManyToMany(mappedBy = "drugs", fetch = FetchType.EAGER)
+    private Set<Patient> patients;
 
     public String getName() {
 	return name;
@@ -38,14 +38,18 @@ public class Drug extends BaseEntity {
 
     public void setDescription(String description) { this.description = description; }
 
+    public Set<Patient> getPatients() { return patients; }
+
+    public void setPatients(Set<Patient> patients) { this.patients = patients; }
+
     public int getGtin() { return gtin; }
 
     public void setGtin(int gtin) { this.gtin = gtin; }
 
-    public boolean isPrescribed(Patient p){
+    public boolean isPrescribed(Patient patient){
         boolean prescribed = false;
-        for(Drug d : p.getDrugs()){
-            if (this.getName().equals(d.getName())){
+        for(Patient p : patients){
+            if (patient.getId()==p.getId()){
                 prescribed = true;
                 break;
             }

@@ -14,7 +14,10 @@ public class Patient extends Person {
     @OneToOne(mappedBy = "patient")
     private Visit visit;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(name="PATIENT_DRUG", joinColumns=@JoinColumn(name="PAT_ID", referencedColumnName="ID"),
+		    inverseJoinColumns=@JoinColumn(name="DRUG_ID", referencedColumnName="ID")
+    )
     private Set<Drug> drugs;
 
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -32,13 +35,9 @@ public class Patient extends Person {
 	this.emergencyContact = emergencyContact;
     }
 
-    public Set<Drug> getDrugs() {
-	return drugs;
-    }
+    public Set<Drug> getDrugs() { return drugs; }
 
-    public void setDrugs(Set<Drug> drugs) {
-	this.drugs = drugs;
-    }
+    public void setDrugs(Set<Drug> drug) { this.drugs = drug; }
 
     public Visit getVisit() {
 	return visit;

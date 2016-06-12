@@ -80,10 +80,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         Button addNewOrderBtn = new Button("new order");
         addNewOrderBtn.addClickListener(event -> {
             if(patientSelect.getValue()==null){
-                Notification notif = new Notification("Please select a patient for your order.", Notification.Type.WARNING_MESSAGE);
-                notif.setDelayMsec(2000);
-                notif.setPosition(Position.MIDDLE_CENTER);
-                notif.show(Page.getCurrent());
+                showOrderWindow(null, null);
             } else {
                 showOrderWindow((Patient)patientSelect.getValue(), null);
             }
@@ -111,10 +108,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         Button copyOrderBtn = new Button("Copy this order");
         copyOrderBtn.addClickListener(event -> {
             if(patientSelect.getValue()==null){
-                Notification notif = new Notification("Please select a patient for your order.", Notification.Type.WARNING_MESSAGE);
-                notif.setDelayMsec(2000);
-                notif.setPosition(Position.MIDDLE_CENTER);
-                notif.show(Page.getCurrent());
+                showOrderWindow(null, (DrugOrder) orderDetailsTable.getData());
             } else {
                 showOrderWindow((Patient) patientSelect.getValue(), (DrugOrder) orderDetailsTable.getData());
             }

@@ -1,4 +1,4 @@
-package test.java.ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
+package ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
 
 import java.sql.Time;
 import java.util.*;
