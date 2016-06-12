@@ -39,127 +39,132 @@ public class PatientListView extends VerticalLayout implements View {
 
     // vertical layout: 1st row buttons
     private void showFirstRow() {
-	    HorizontalLayout firstLay = new HorizontalLayout();
-	    Button butMenu = new Button("Menu");
-	    firstLay.addComponent(butMenu);
-	    firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
-	    Button butCall = new Button("Call");
-	    firstLay.addComponent(butCall);
-	    firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
-	    firstLay.setWidth("100%");
-	    firstLay.setHeight("100%");
-	    this.addComponent(firstLay);
-	    this.setExpandRatio(firstLay, 0.1f);                //10% of the mainframe
-	}
+
+	HorizontalLayout firstLay = new HorizontalLayout();
+	Button butMenu = new Button("Menu");
+	firstLay.addComponent(butMenu);
+	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
+	Button butCall = new Button("Call");
+	firstLay.addComponent(butCall);
+	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
+	firstLay.setWidth("100%");
+	firstLay.setHeight("100%");
+	this.addComponent(firstLay);
+	this.setExpandRatio(firstLay, 0.1f);                //10% of the mainframe
+    }
 
     // vertical layout: 2nd row buttons
     private void showSecondRow() {
-	    HorizontalLayout horizontalTage = new HorizontalLayout();
-	    Button butGestern = new Button("Gestern");
-	    horizontalTage.addComponent(butGestern);
-	    horizontalTage.setComponentAlignment(butGestern, Alignment.MIDDLE_LEFT);
-	    Button butHeute = new Button("Heute");
-	    horizontalTage.addComponent(butHeute);
-	    horizontalTage.setComponentAlignment(butHeute, Alignment.MIDDLE_CENTER);
-	    Button butMorgen = new Button("Morgen");
-	    horizontalTage.addComponent(butMorgen);
-	    horizontalTage.setComponentAlignment(butMorgen, Alignment.MIDDLE_RIGHT);
-	    horizontalTage.setWidth("100%");
-	    horizontalTage.setHeight("100%");
-	    this.addComponent(horizontalTage);
-	    this.setExpandRatio(horizontalTage, 0.1f);
-	}
+
+	HorizontalLayout horizontalTage = new HorizontalLayout();
+	Button butGestern = new Button("Gestern");
+	horizontalTage.addComponent(butGestern);
+	horizontalTage.setComponentAlignment(butGestern, Alignment.MIDDLE_LEFT);
+	Button butHeute = new Button("Heute");
+	horizontalTage.addComponent(butHeute);
+	horizontalTage.setComponentAlignment(butHeute, Alignment.MIDDLE_CENTER);
+	Button butMorgen = new Button("Morgen");
+	horizontalTage.addComponent(butMorgen);
+	horizontalTage.setComponentAlignment(butMorgen, Alignment.MIDDLE_RIGHT);
+	horizontalTage.setWidth("100%");
+	horizontalTage.setHeight("100%");
+	this.addComponent(horizontalTage);
+	this.setExpandRatio(horizontalTage, 0.1f);
+    }
 
     // vertical layout: table row with patients
     private void showTable() {
-	    final Table table = new Table();
-	    table.setWidth("100%");
-	    table.setHeight("100%");
-	    table.addStyleName("components-inside");
-	    table.setSelectable(true);
-	    table.setImmediate(true);
 
-	    // define the columns
-	    table.addContainerProperty("first name", Label.class, null);
-	    table.addContainerProperty("last name", Label.class, null);
-	    table.addContainerProperty("birthday", Label.class, null);
-	    table.addContainerProperty("", Button.class, null);
+	final Table table = new Table();
+	table.setWidth("100%");
+	table.setHeight("100%");
+	table.addStyleName("components-inside");
+	table.setSelectable(true);
+	table.setImmediate(true);
 
-	    // connect with the DB and add data into the table
-	    PatientModel patientModel = new PatientModel();
+	// define the columns
+	table.addContainerProperty("first name", Label.class, null);
+	table.addContainerProperty("last name", Label.class, null);
+	table.addContainerProperty("birthday", Label.class, null);
+	table.addContainerProperty("", Button.class, null);
 
-	    // show visitor's patients
-	    for (Visit visit : visits) {
-		Patient patient = visit.getPatient();
-		Label firstName = new Label(patient.getFirstname());
-		Label lastName = new Label(patient.getLastname());
-		Label birthday = new Label(String.valueOf(patient.getBirthday()));
+	// connect with the DB and add data into the table
+	PatientModel patientModel = new PatientModel();
 
-		Button detailsBtn = new Button("show details");
-		detailsBtn.setData(patient);
-		detailsBtn.addClickListener(event -> {
-		    Patient pat = (Patient) event.getButton().getData();
-		    showDetailsWindow(pat);
-		});
-		detailsBtn.addStyleName("link");
+	// show visitor's patients
+	for (Visit visit : visits) {
+	    Patient patient = visit.getPatient();
+	    Label firstName = new Label(patient.getFirstname());
+	    Label lastName = new Label(patient.getLastname());
+	    Label birthday = new Label(String.valueOf(patient.getBirthday()));
 
-		// Create the table row
-		table.addItem(new Object[] { firstName, lastName, birthday, detailsBtn }, patient.getId());
-	    }
-	    this.addComponent(table);
-	    this.setExpandRatio(table, 0.65f);
-
-	    // buttons to add/del patient
-	    HorizontalLayout adDel = new HorizontalLayout();
-	    Button addNewPatientBtn = new Button("add new patient");
-	    addNewPatientBtn.addClickListener(event -> {
-		entryDetailsWindow(); //help method
+	    Button detailsBtn = new Button("show details");
+	    detailsBtn.setData(patient);
+	    detailsBtn.addClickListener(event -> {
+		Patient pat = (Patient) event.getButton().getData();
+		showDetailsWindow(pat);
 	    });
-	    adDel.addComponent(addNewPatientBtn);
-	    adDel.setComponentAlignment(addNewPatientBtn, Alignment.TOP_LEFT);
-	    Button deletePatientBtn = new Button("delete patient");
-	    deletePatientBtn.addClickListener(event -> {
-		Object selected = table.getValue();        //table entry is already an object
+	    detailsBtn.addStyleName("link");
 
-		if (selected == null) {
-		    Notification.show("Please select an item!");
-		}
-		else {
-		    Notification.show("Person : " + selected + "removed!");
-		    patientModel.delete(patientModel.findById((Long) selected));
-		    table.removeItem(selected);
-		}
-	    });
-	    adDel.addComponent(deletePatientBtn);
-	    adDel.setComponentAlignment(deletePatientBtn, Alignment.TOP_RIGHT);
-	    adDel.setWidth("100%");
-	    adDel.setHeight("100%");
-	    this.addComponent(adDel);
-	    this.setExpandRatio(adDel, 0.05f);
+	    // Create the table row
+	    table.addItem(new Object[] { firstName, lastName, birthday, detailsBtn }, patient.getId());
 	}
+	this.addComponent(table);
+	this.setExpandRatio(table, 0.65f);
+
+	// buttons to add/del patient
+	HorizontalLayout adDel = new HorizontalLayout();
+	Button addNewPatientBtn = new Button("add new patient");
+	addNewPatientBtn.addClickListener(event -> {
+	    entryDetailsWindow(); //help method
+	});
+	adDel.addComponent(addNewPatientBtn);
+	adDel.setComponentAlignment(addNewPatientBtn, Alignment.TOP_LEFT);
+	Button deletePatientBtn = new Button("delete patient");
+	deletePatientBtn.addClickListener(event -> {
+	    Object selected = table.getValue();        //table entry is already an object
+
+	    if (selected == null) {
+		Notification.show("Please select an item!");
+	    }
+	    else {
+		Notification.show("Person : " + selected + "removed!");
+		patientModel.delete(patientModel.findById((Long) selected));
+		table.removeItem(selected);
+	    }
+	});
+	adDel.addComponent(deletePatientBtn);
+	adDel.setComponentAlignment(deletePatientBtn, Alignment.TOP_RIGHT);
+	adDel.setWidth("100%");
+	adDel.setHeight("100%");
+	this.addComponent(adDel);
+	this.setExpandRatio(adDel, 0.05f);
+    }
 
     // vertical layout: last row buttons
     private void showBottomButtons() {
-	    HorizontalLayout horizontalPages = new HorizontalLayout();
-	    Button butTermine = new Button("Termine");
-	    horizontalPages.addComponent(butTermine);
-	    horizontalPages.setComponentAlignment(butTermine, Alignment.MIDDLE_LEFT);
 
-	    Button butRoute = new Button("Route");
-	    horizontalPages.addComponent(butRoute);
-	    horizontalPages.setComponentAlignment(butRoute, Alignment.MIDDLE_CENTER);
+	HorizontalLayout horizontalPages = new HorizontalLayout();
+	Button butTermine = new Button("Termine");
+	horizontalPages.addComponent(butTermine);
+	horizontalPages.setComponentAlignment(butTermine, Alignment.MIDDLE_LEFT);
 
-	    Button butKalender = new Button("Kalender");
-	    horizontalPages.addComponent(butKalender);
-	    horizontalPages.setComponentAlignment(butKalender, Alignment.MIDDLE_RIGHT);
-	    horizontalPages.setWidth("100%");
-	    horizontalPages.setHeight("100%");
-	    this.addComponent(horizontalPages);
-	    this.setExpandRatio(horizontalPages, 0.1f);
-	}
+	Button butRoute = new Button("Route");
+	horizontalPages.addComponent(butRoute);
+	horizontalPages.setComponentAlignment(butRoute, Alignment.MIDDLE_CENTER);
+
+	Button butKalender = new Button("Kalender");
+	horizontalPages.addComponent(butKalender);
+	horizontalPages.setComponentAlignment(butKalender, Alignment.MIDDLE_RIGHT);
+	horizontalPages.setWidth("100%");
+	horizontalPages.setHeight("100%");
+	this.addComponent(horizontalPages);
+	this.setExpandRatio(horizontalPages, 0.1f);
+    }
 
     // help method to connect to the PatientView class
     private void showDetailsWindow(Patient patient) {
+
 	PatientView showPatient = new PatientView(patient);
 	final Window window = new Window();
 	window.setSizeFull();
@@ -169,6 +174,7 @@ public class PatientListView extends VerticalLayout implements View {
 
     // help method to entry a new patient data
     private void entryDetailsWindow() {
+
 	final FormLayout formLayout = new FormLayout();
 
 	TextField firstName = new TextField("first name");
