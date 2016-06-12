@@ -6,10 +6,14 @@ import ch.bfh.bti7081.s2016.blue.hv.model.DrugOrderModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.data.Validator;
+import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.data.util.ObjectProperty;
+import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.shared.Position;
+import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 
 import java.util.ArrayList;
@@ -22,22 +26,39 @@ import java.util.List;
 public class DrugCart extends HorizontalLayout {
 
     private static final long serialVersionUID = 6414800929293891007L;
-    private Patient patient;
+    private ComboBox patientSelect;
     private List<DrugOrderItem> items;
-    private String remarks;
+    private TextArea remarks;//TextArea remarksArea = new TextArea();
     private Table cartTable = new Table();
     private int cartSize;
     private static final int BASE_AMOUNT = 1;
 
 
     public DrugCart(Patient patient, DrugOrder order){ //use null as second arg to generate an empty cart
-        this.patient = patient;
+        //this.patient = patient;
+        IndexedContainer container = new IndexedContainer();
+        container.addContainerProperty("name", String.class, null);
+
+        this.patientSelect = new ComboBox("Select Patient", container);
+        this.remarks = new TextArea();
         items = new ArrayList<DrugOrderItem>();
         cartSize = 0;
 
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         DrugOrderModel drugOrderModel = new DrugOrderModel();
         DrugsModel drugsModel = new DrugsModel();
+
+        patientSelect.setFilteringMode(FilteringMode.CONTAINS);
+        patientSelect.setInvalidAllowed(false);
+        patientSelect.setNullSelectionAllowed(false);
+        for(Patient p : visitor.getPatients()){
+            String name = p.getFirstname() + " " + p.getLastname();
+            patientSelect.addItem(p);
+            patientSelect.setItemCaption(p, name);
+        }
+        if(patient != null){
+            patientSelect.setValue(patient);
+        }
 
         VerticalLayout leftPanel = new VerticalLayout();
         final Table drugTable = new Table();
@@ -65,16 +86,20 @@ public class DrugCart extends HorizontalLayout {
             TextField drugAmount = new TextField(amountProperty);
             drugAmount.setImmediate(true);
             drugAmount.setWidth("50px");
+
+
             Button addBtn = new Button();
             addBtn.setIcon(FontAwesome.CART_PLUS);
 
             DrugItemWrapper diw = new DrugItemWrapper(d,drugAmount);
-            //ToDo: foreach DrugOrderItem set DrugOrder
             addBtn.setData(diw);
             addBtn.addClickListener(event -> {
                 DrugItemWrapper drugItemWrapper = (DrugItemWrapper)event.getButton().getData();
+
                 DrugOrderItem drugItem = drugItemWrapper.getItem();
-                addItem(drugItem);
+                if(drugItem!=null) {
+                    addItem(drugItem);
+                }
             });
 
             // Create the table rows
@@ -88,6 +113,24 @@ public class DrugCart extends HorizontalLayout {
         this.addComponent(leftPanel);
 
         rightPanel.addComponent(cartTable);
+        rightPanel.addComponent(patientSelect);
+        rightPanel.addComponent(remarks);
+
+        Button sendOrderBtn = new Button("send order");
+        sendOrderBtn.addClickListener(e ->{
+            try {
+                DrugOrder drugOrder = generateDrugOrder();
+                drugOrderModel.placeOrder(drugOrder);
+                Notification.show("Order sent successfully.");
+                emptyCart();
+            } catch (Exception exception){
+                Notification.show(exception.getMessage());
+            }
+
+        });
+
+        rightPanel.addComponent(sendOrderBtn);
+
         this.addComponent(rightPanel);
 
         if(order != null){
@@ -168,11 +211,11 @@ public class DrugCart extends HorizontalLayout {
     }
 
     public DrugOrder generateDrugOrder() {
-        if (getNumberOfItems() > 0) {
+        if (getNumberOfItems() > 0 && patientSelect.getValue()!=null) {
             DrugOrder drugOrder = new DrugOrder();
-            drugOrder.setPatient(patient);
+            drugOrder.setPatient((Patient) patientSelect.getValue());
             drugOrder.setDrugs(new HashSet<DrugOrderItem>(getItems()));
-            drugOrder.setRemarks(remarks);
+            drugOrder.setRemarks(remarks.getValue());
             return drugOrder;
         } else {
             return null;
@@ -183,7 +226,7 @@ public class DrugCart extends HorizontalLayout {
         for(DrugOrderItem  item : order.getDrugOrderItems()){
             addItem(item);
         }
-        remarks = order.getRemarks();
+        remarks.setValue(order.getRemarks());
     }
 
     private class DrugItemWrapper{
@@ -192,12 +235,22 @@ public class DrugCart extends HorizontalLayout {
         public DrugItemWrapper(Drug d, TextField t){
             drug = d;
             textField = t;
+            textField.addValidator(new IntegerRangeValidator(
+                            "The value must be integer between 0-120 (was {0})",
+                            0, 999));
         }
         public DrugOrderItem getItem(){
-            DrugOrderItem item = new DrugOrderItem();
-            item.setDrug(drug);
-            item.setQuantity(Integer.parseInt(textField.getValue()));
-            return item;
+            try {
+                textField.validate();
+                DrugOrderItem item = new DrugOrderItem();
+                item.setDrug(drug);
+                item.setQuantity(Integer.parseInt(textField.getValue()));
+                return item;
+            } catch (Validator.InvalidValueException e)  {
+                Notification.show(e.getMessage());
+                return null;
+            }
+
         }
     }
 
