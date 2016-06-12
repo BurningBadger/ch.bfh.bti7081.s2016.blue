@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
 import ch.bfh.bti7081.s2016.blue.hv.view.*;
+
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.annotations.Theme;
@@ -19,6 +20,7 @@ import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
@@ -39,6 +41,7 @@ public class HealthVisUI extends UI {
     private static final boolean isDebug = true;
     private HealthVisitorsModel healthVisitorsModel = new HealthVisitorsModel();
     private HealthVisitor currentUser;
+    private static CssLayout viewContainer;
     Navigator navigator;
 
     public HealthVisUI() {
@@ -63,6 +66,11 @@ public class HealthVisUI extends UI {
 	    return currentUser;
 
 	return null;
+    }
+    
+    public static void setMainView(Component c){
+	viewContainer.removeAllComponents();
+	viewContainer.addComponent(c);
     }
 
     @Override
@@ -97,25 +105,25 @@ public class HealthVisUI extends UI {
 	this.setContent(mainVl);
 
 	// implement Vaadin Navigator
-	CssLayout viewContainer = new CssLayout();
+	viewContainer = new CssLayout();
 	viewContainer.addStyleName("valo-content");
 	viewContainer.setSizeFull();
 
 	final Navigator navigator = new Navigator(this, viewContainer);
 
 	// Menu
-	    menu = new Menu(navigator);
-	    menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
-	    menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
-	    menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
-        menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
-		menu.addView(new DrugsOrderView(), "Drug Orders", DrugsOrderView.getName(), FontAwesome.MEDKIT);
-        menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
-        menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
-	    if (navigator.getState().isEmpty()) {
-	        navigator.navigateTo(LandingView.getName());
-	    }
-	    navigator.addViewChangeListener(viewChangeListener);
+	menu = new Menu(navigator);
+	menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
+	menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
+	menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
+	menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
+	menu.addView(new DrugsOrderView(), "Drug Orders", DrugsOrderView.getName(), FontAwesome.MEDKIT);
+	menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
+	menu.addView(new SettingsView(), "Settings", SettingsView.getName(), FontAwesome.ASTERISK);
+	if (navigator.getState().isEmpty()) {
+	    navigator.navigateTo(LandingView.getName());
+	}
+	navigator.addViewChangeListener(viewChangeListener);
 
 	//
 

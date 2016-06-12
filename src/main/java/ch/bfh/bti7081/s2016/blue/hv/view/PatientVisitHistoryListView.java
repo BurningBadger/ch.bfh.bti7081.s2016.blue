@@ -31,7 +31,6 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
     public PatientVisitHistoryListView(long patientID) {
 	this.patientID = patientID;
 	this.setSizeFull();
-	this.setMargin(true);
 
 	configureComponents();
 	buildLayout();
@@ -42,6 +41,7 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
     }
 
     private void buildLayout() {
+	VerticalLayout main = new VerticalLayout();
 
 	// Header
 	header = new HorizontalLayout();
@@ -57,20 +57,18 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	header.setComponentAlignment(callBut, Alignment.MIDDLE_CENTER);
 	header.addComponent(homeBut);
 	header.setComponentAlignment(homeBut, Alignment.MIDDLE_RIGHT);
-	header.setHeight(37, Unit.PIXELS);
-	header.setHeight("100%");
 	header.setWidth("100%");
+	header.setHeight(37, Unit.PIXELS);
+	header.setMargin(true);
 	
 	// Middle
 	middle = new HorizontalLayout();
 	table = new Table();
-	table.setSizeFull();
-	
 	table.addStyleName("components-inside");
 	
 	table.addContainerProperty("Date", Label.class, null);
 	table.addContainerProperty("Visitor", Label.class, null);
-	table.addContainerProperty("Content", Button.class, null);
+	table.addContainerProperty("Reports", Button.class, null);
 
 	try {
 	    
@@ -81,9 +79,8 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 
 		Label date = new Label(visitEvent.getCalendar().getFormattedMeetingDate());
 		Label visitor = new Label(visitEvent.getVisit().getVisitor().getUserName());
-		Label content = new Label(visitEvent.getVisitReports().toString());
 
-		Button detailsBtn = new Button("show reports");
+		Button detailsBtn = new Button("Reports");
 		detailsBtn.setData(visitEvent);
 		detailsBtn.addClickListener(event -> {
 		     VisitEvent v = (VisitEvent) event.getButton().getData();
@@ -105,13 +102,17 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	}
 	
 	table.setWidth("100%");
+	table.setHeight("100%");
+
 	middle.addComponent(table);
 	middle.setComponentAlignment(table, Alignment.MIDDLE_CENTER);
 	middle.setWidth("100%");
 	middle.setHeight("100%");
+	middle.setMargin(true);
 	
-	this.addComponent(header);
-	this.addComponent(middle);
+	main.addComponent(header);
+	main.addComponent(middle);
+	this.addComponent(main);
     }
 
     private void showDetailsWindow(VisitEvent visitEvent) {
@@ -138,7 +139,8 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	final Window window = new Window(windowTitle);
 	window.setWidth(800.0f, Unit.PIXELS);
 	window.center();
-	table.setSizeFull();
+	table.setWidth("100%");
+	table.setHeight("100%");
 	window.setContent(formLayout);
 	UI.getCurrent().addWindow(window);
     }
