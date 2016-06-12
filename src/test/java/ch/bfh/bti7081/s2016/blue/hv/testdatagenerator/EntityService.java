@@ -1,13 +1,11 @@
 package ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
 
-import java.sql.Time;
 import java.util.*;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Calendar;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Test;
 
 /**
@@ -125,6 +123,7 @@ public class EntityService {
 	patient.setFirstname(firstNames[r.nextInt(firstNames.length)]);
 	patient.setLastname(lastNames[r.nextInt(lastNames.length)]);
 	patient.setBirthday(new Date(1990, 5, 1));
+	patient.setActive(true);
 	patient.setContact(contact);
 	patient.setEmergencyContact(emergencyContact);
 
