@@ -1,10 +1,11 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import ch.bfh.bti7081.s2016.blue.HealthVisUI;
+import ch.bfh.bti7081.s2016.blue.hv.components.PhoneComponent;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.StreamResource;
 import com.vaadin.server.ThemeResource;
@@ -23,23 +24,32 @@ public class PatientView extends VerticalLayout implements View {
 	this.setSizeFull();
 	this.setMargin(true);
 
-	// show layout parts
-	showFirstRow();
+	// show the vertical layout parts
+	showFirstRow(patient);
 	showSplittedRow(patient);
 	showBottomButtons(patient);
     }
 
     // vertical layout: 1st row buttons
-    private void showFirstRow() {
+    private void showFirstRow(Patient patient) {
 
 	HorizontalLayout firstLay = new HorizontalLayout();
-	Button butMenu = new Button("Menu");
+
+	// button: home
+	Button butMenu = new Button("Home");
 	butMenu.addClickListener(event -> {
-	    getUI().getNavigator().navigateTo(PatientListView.getName());
+	    this.detach();
+	    getUI().getNavigator().navigateTo(LandingView.getName());
+	    this.removeAllComponents();
 	});
 	firstLay.addComponent(butMenu);
 	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
+
+	//button: call
 	Button butCall = new Button("Call");
+	butCall.addClickListener(event -> {
+	    showPatientsNumber(patient);
+	});
 	firstLay.addComponent(butCall);
 	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
 	firstLay.setMargin(true);
@@ -49,30 +59,40 @@ public class PatientView extends VerticalLayout implements View {
 	this.setExpandRatio(firstLay, 0.1f);	//take 10% of the frame
     }
 
-    // vertical layout: 2nd row horizontal splitted
+    /*
+     * vertical layout: 2nd row horizontal splitted
+     *
+     * can't use methods as components of the horizontal split! Because of this the code
+     * structure can't be divided.
+     */
     private void showSplittedRow(Patient patient) {
 
+	// split the horizontal layout
 	HorizontalSplitPanel hsplit = new HorizontalSplitPanel();
-	hsplit.addStyleName("invisiblesplitter");
+	hsplit.addStyleName("invisiblesplitter");	// use CSS
 	hsplit.setSplitPosition(40, Unit.PERCENTAGE);
 
 	/*
 	 * left split side: image
 	 */
 	VerticalLayout left = new VerticalLayout();
-//	left.setSizeFull();
 	left.setMargin(true);
 
-	// image handling
+	// image handling: Upload component
 	Upload upload = new Upload("Upload here", null);
 	upload.setButtonCaption("Upload");
 	final Image picture = new Image();
 
-	// handle picture: get the picture from DB
+	/*
+	 * handle picture: get the picture as byteArray from the DB
+	 *
+	 * without try/catch the image will not be shown properly
+	 */
 	byte[] bas = patient.getPicture();
 	if (bas != null) {
 	    try {
-		picture.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bas), ""));
+		picture.setSource(new StreamResource((StreamResource.StreamSource) () ->
+				new ByteArrayInputStream(bas), ""));
 		picture.setVisible(true);
 	    } catch (Exception e) {
 		picture.setVisible(false);
@@ -88,13 +108,15 @@ public class PatientView extends VerticalLayout implements View {
 	upload.addSucceededListener((Upload.SucceededListener) succeededEvent -> {
 	    final byte[] bytes = baos.toByteArray();
 	    picture.setVisible(true);
-	    picture.setSource(new StreamResource((StreamResource.StreamSource) () -> new ByteArrayInputStream(bytes), ""));
+	    picture.setSource(new StreamResource((StreamResource.StreamSource) () ->
+			    new ByteArrayInputStream(bytes), ""));
 	    patient.setPicture(bytes);
 	});
 
 	picture.setWidth("90%");	// resize the image
+	picture.setWidth("90%");	// resize the image
 	left.addComponent(picture);
-	left.setExpandRatio(picture, 0.8f);
+	left.setExpandRatio(picture, 0.8f);	// set the ratio to 80%
 	left.addComponent(upload);
 	left.setExpandRatio(upload, 0.2f);
 	hsplit.setFirstComponent(left);
@@ -106,6 +128,7 @@ public class PatientView extends VerticalLayout implements View {
 	right.setSizeFull();
 	right.setMargin(true);
 
+	// didn't want to declare these in the global scope
 	TextField firstName = new TextField();
 	firstName.setWidth(10, Unit.CM);
 	firstName.setConvertedValue(patient.getFirstname());
@@ -141,6 +164,10 @@ public class PatientView extends VerticalLayout implements View {
 	HorizontalLayout bottomButtons = new HorizontalLayout();
 	bottomButtons.setSpacing(true);
 
+	/*
+	 * because the patient's attributes are not declared in the global scope
+	 * is the lambda expression a bit longer
+	 */
 	// save button
 	Button savButn = new Button("save");
 	savButn.addClickListener(event -> {
@@ -155,16 +182,17 @@ public class PatientView extends VerticalLayout implements View {
 	    patMod.saveOrUpdate(patient);
 	    Notification notif = new Notification("..saved!", Notification.Type.WARNING_MESSAGE);
 	    notif.setDelayMsec(2000);
+	    getUI().setPollInterval(1000);
 	    notif.setPosition(Position.MIDDLE_CENTER);
 	    notif.show(Page.getCurrent());
 	});
 	bottomButtons.addComponent(savButn);
 
-	// return button
+	// cancel button
 	Button back = new Button("cancel");
 	back.addClickListener(event -> {
-	    this.replaceComponent(this, new PatientListView());
-//	    getUI().getNavigator().navigateTo(PatientListView.getName());
+	    this.detach();
+	    getUI().getNavigator().navigateTo(PatientListView.getName());
 	});
 	bottomButtons.addComponent(back);
 	bottomButtons.setWidth("40%");
@@ -174,7 +202,7 @@ public class PatientView extends VerticalLayout implements View {
 	hsplit.setWidth("100%");
 	hsplit.setHeight("100%");
 
-	this.addComponent(hsplit); // add both to the row of the vertical layout
+	this.addComponent(hsplit); // add both splits as the hor. row to the vertical layout
 	this.setExpandRatio(hsplit, 0.5f);
     }
 
@@ -189,52 +217,79 @@ public class PatientView extends VerticalLayout implements View {
 	/*
 	 * left side
 	 */
+	// image as button: show all patient's visits
 	Image butBesuche = new Image();
 	butBesuche.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butBesuche.setDescription("Patient Visits");
-	butBesuche.addClickListener(e -> {
-	    // TODO
+	butBesuche.addClickListener(event -> {
 	    showPatientVisits(patient);
 	});
 	grid.addComponent(butBesuche, 0, 0);
 	grid.setComponentAlignment(butBesuche, Alignment.TOP_LEFT);
 
+	// image as button: show notes
 	Image butAnmerkungen = new Image();
 	butAnmerkungen.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butAnmerkungen.setDescription("Notes");
-	butAnmerkungen.addClickListener(e -> {
+	butAnmerkungen.addClickListener(event -> {
 	    // TODO
 	});
 	grid.addComponent(butAnmerkungen, 0, 1);
 	grid.setComponentAlignment(butAnmerkungen, Alignment.BOTTOM_LEFT);
+
 	/*
 	 * right side
 	 */
+	// image as button: show patient's emergency contact
+	Image butEmergencyContact = new Image();
+	butEmergencyContact.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
+	butEmergencyContact.setDescription("Emergency contact");
+	butEmergencyContact.addClickListener(event -> {
+	    showEmergencyContact(patient);
+	});
+	grid.addComponent(butEmergencyContact, 1, 0);
+	grid.setComponentAlignment(butEmergencyContact, Alignment.TOP_RIGHT);
+
+	// image as button: show patient's drugs
 	Image butOrderDrugs = new Image();
 	butOrderDrugs.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butOrderDrugs.setDescription("Order drugs");
-	butOrderDrugs.addClickListener(e -> {});
-	grid.addComponent(butOrderDrugs, 1, 0);
-	grid.setComponentAlignment(butOrderDrugs, Alignment.TOP_RIGHT);
-
-	Image butEmergencyContact = new Image();
-	butEmergencyContact.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
-	butEmergencyContact.setDescription("Order drugs");
-	butEmergencyContact.addClickListener(e -> {});
-	grid.addComponent(butEmergencyContact, 1, 1);
-	grid.setComponentAlignment(butEmergencyContact, Alignment.BOTTOM_RIGHT);
+	butOrderDrugs.addClickListener(event -> {
+	    showPatientsDrugs();
+	});
+	grid.addComponent(butOrderDrugs, 1, 1);
+	grid.setComponentAlignment(butOrderDrugs, Alignment.BOTTOM_RIGHT);
 
 	this.addComponent(grid);
 	this.setExpandRatio(grid, 0.4f);
     }
 
-    // help class to connect with the Patient Visits
+    // help method: bind patient to person and show the number
+    private void showPatientsNumber(Patient patient) {
+	PhoneComponent component = new PhoneComponent(patient);
+	component.getClass();
+    }
+
+    // help method to connect with the Patient Visits
     private void showPatientVisits(Patient patient) {
-	PatientVisitHistoryListView patientVisitHistory = new PatientVisitHistoryListView(patient.getId());
-	final Window window = new Window();
-	window.setSizeFull();
-	window.setContent(patientVisitHistory);
-	UI.getCurrent().addWindow(window);
+
+	this.detach();
+	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId()));
+//	this.removeAllComponents();
+    }
+
+    // help method to show patient's emergency contact
+    private void showEmergencyContact(Patient patient) {
+
+	this.detach();
+	HealthVisUI.setMainView(new EmergencyContactView(patient.getId()));
+    }
+
+    // help method to show patient's drugs
+    private void showPatientsDrugs() {
+
+	this.detach();
+	HealthVisUI.setMainView(new DrugsOrderView());
     }
 
     // method for the HealthVisUI
