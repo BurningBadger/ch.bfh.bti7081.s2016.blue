@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2016.blue.hv.view;
 import java.util.List;
 
 import com.vaadin.data.fieldgroup.FieldGroup;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Sizeable.Unit;
@@ -14,10 +15,6 @@ import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 
-/**
- * Created by suttc1 on 22.05.2016.
- */
-
 public class EmergencyContactView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = -3931584070955988897L;
@@ -26,6 +23,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
     // Buttons headLine
     private static final String NAME = "EmergencyContactView";
     private long patientID;
+    private String lastPage;
     private Visit visit;
     private EmergencyContactModel emergencyContactModel = new EmergencyContactModel();
     
@@ -59,14 +57,14 @@ public class EmergencyContactView extends VerticalLayout implements View {
     private TextField cityDBe;
     private TextField phoneDBe;
 
-    public EmergencyContactView(long patientID) {
+    @SuppressWarnings("static-access")
+    public EmergencyContactView(long patientID, String lastPage) {
 	this.patientID = patientID;
+	this.lastPage = lastPage;
 	this.setSizeFull();
 	
 	visit = new VisitsModel().findById(patientID);
 	EmergencyContact emergencyContact = emergencyContactModel.findById(visit.getPatient().getEmergencyContact().getId());
-	
-//	contact = new EmergencyContact(); //contactModel.findById(emergencyContactID);
 
 	fieldGrpTF = new FieldGroup();
 
@@ -112,7 +110,7 @@ public class EmergencyContactView extends VerticalLayout implements View {
 	header.addComponent(backBut);
 	backBut.addClickListener(event -> {
 	    this.detach();
-	    getUI().getNavigator().navigateTo(VisitsView.getName());
+	    getUI().getNavigator().navigateTo(lastPage);    
 	    this.removeAllComponents();
 	});
 	header.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
