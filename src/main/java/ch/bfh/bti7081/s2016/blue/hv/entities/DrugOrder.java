@@ -4,13 +4,17 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by kerberos on 04/06/16.
+ * The DrugOrder class stores a list of DrugOrderItems and a remarks String. It is bound to a Patient.
+ *
+ * @author Michel Hosmann
  */
-
 @Entity(name = "DrugOrder")
 @Table(name = "DrugOrders")
 public class DrugOrder extends BaseEntity {
 
+    /**
+     * Class variables
+     */
     private static final long serialVersionUID = -1197336589699356951L;
 
     @ManyToOne
@@ -34,24 +38,15 @@ public class DrugOrder extends BaseEntity {
 
     public void setRemarks(String remarks) { this.remarks = remarks; }
 
+    /**
+     * Iterates through all DrugOrderItems and creates a sum of all item quantities.
+     * @return total amount of items in this DrugOrder
+     */
     public int getTotalItemsAmount(){
         int orderSize = 0;
         for (DrugOrderItem i : drugOrderItems){
             orderSize += i.getQuantity();
         }
         return orderSize;
-    }
-
-
-    // ToDo: generic method?
-    public boolean isInPatients(Set<Patient> patients){
-        boolean isIn = false;
-        for (Patient p : patients) {
-            if (p.getId().compareTo(this.getPatient().getId()) == 0){
-                isIn = true;
-                break;
-            }
-        }
-        return isIn;
     }
 }
