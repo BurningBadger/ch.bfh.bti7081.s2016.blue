@@ -45,7 +45,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         this.sentAt = new Label();
         IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("name", String.class, null);
-        this.patientSelect = new ComboBox("Select Patient", container);
+        this.patientSelect = new ComboBox("Filter table by patient", container);
 
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         DrugOrderModel drugOrderModel = new DrugOrderModel();
@@ -86,6 +86,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
          */
         orderDetailsTable.addStyleName("components-inside");
         orderDetailsTable.setPageLength(6);
+        orderDetailsTable.setWidth("100%");
         orderDetailsTable.addContainerProperty("Drug name", Label.class, null);
         orderDetailsTable.addContainerProperty("Amount", Label.class, null);
 
@@ -109,7 +110,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
 	 * Configure the button to create a new DrugOrder
          * Opens a window containing a DrugCart component
          */
-        Button addNewOrderBtn = new Button("new order");
+        Button addNewOrderBtn = new Button("New order");
         addNewOrderBtn.addClickListener(event -> {
             if(patientSelect.getValue()==null){
                 showOrderWindow(null, null);
@@ -135,31 +136,35 @@ public class DrugsOrderView extends HorizontalLayout implements View {
 	 * Configure remarks TextArea
          */
         remarksArea.setEnabled(false);
+        remarksArea.setWidth("100%");
 
 	/**
 	 * Configure static Labels
          */
+        final Label orderDetails = new Label("Order details");
         final Label remarksTitle = new Label("Remarks for this order:");
         final Label sentAtTitle = new Label("This order was sent on:");
-
-
 
         /**
          * Adding layout components, configuring and positioning View parts
          */
-        // Container for dropdown and button:
-        HorizontalLayout tableControlContainer = new HorizontalLayout();
-        tableControlContainer.addComponent(patientSelect);
-        tableControlContainer.addComponent(addNewOrderBtn);
-
-        // left panel containing the DrugOrder table
-        VerticalLayout leftPanel = new VerticalLayout();
-        leftPanel.addComponent(drugOrderTable);
-        leftPanel.addComponent(tableControlContainer);
+        // left part containing the DrugOrder table
+        GridLayout ordersGrid = new GridLayout(2,2);
+        ordersGrid.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
+        ordersGrid.setWidth("100%");
+        ordersGrid.setMargin(true);
+        ordersGrid.setSpacing(true);
+        ordersGrid.addComponent(patientSelect, 0, 0);
+        ordersGrid.addComponent(addNewOrderBtn, 1, 0);
+        ordersGrid.addComponent(drugOrderTable,0,1,1,1);
 
         // Container for DrugOrder details
         orderDetailsContainer.setVisible(false);
         orderDetailsContainer.setImmediate(true);
+        orderDetailsContainer.setWidth("500px");
+        orderDetailsContainer.setMargin(true);
+        orderDetailsContainer.setSpacing(true);
+        orderDetailsContainer.addComponent(orderDetails);
         orderDetailsContainer.addComponent(orderDetailsTable);
         orderDetailsContainer.addComponent(remarksTitle);
         orderDetailsContainer.addComponent(remarksArea);
@@ -168,7 +173,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         orderDetailsContainer.addComponent(copyOrderBtn);
 
         // add components to the main panel
-        this.addComponent(leftPanel);
+        this.addComponent(ordersGrid);
         this.addComponent(orderDetailsContainer);
 
 	/**
@@ -229,9 +234,9 @@ public class DrugsOrderView extends HorizontalLayout implements View {
     }
 
     /**
-     *
-     * @param order
-     * @return
+     * Checks if a DrugOrder belongs to a Patient of the current HealthVisitor
+     * @param order DrugOrder to be checked
+     * @return does this DrugOrder belong to one of my Patients?
      */
     private boolean isInPatients(DrugOrder order){
         boolean isIn = false;
