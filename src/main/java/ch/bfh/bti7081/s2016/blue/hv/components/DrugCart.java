@@ -91,6 +91,8 @@ public class DrugCart extends HorizontalLayout {
 	 * Configure and populate the table containing the drugs to choose from and add to the cart
          */
         drugTable.addStyleName("components-inside");
+        drugTable.setWidth("100%");
+        drugTable.setPageLength(12);
         drugTable.addContainerProperty("Drug Name", Label.class, null);
         drugTable.addContainerProperty("GTIN", Label.class, null);
         drugTable.addContainerProperty("Description", Label.class, null);
@@ -127,28 +129,41 @@ public class DrugCart extends HorizontalLayout {
 	 * Configuring the table containing the actual cart
          */
         cartTable.addStyleName("components-inside");
+        cartTable.setPageLength(6);
+        cartTable.setWidth("300px");
         cartTable.addContainerProperty("Drug name", Label.class, null);
         cartTable.addContainerProperty("Amount", TextField.class, null);
         cartTable.addContainerProperty("", Button.class, null);
 
 	/**
-	 * Adding layout components and positioning cart parts
+	 * Configuring remarks TextArea
          */
-        // left panel containing the drug table
-        VerticalLayout leftPanel = new VerticalLayout();
-        leftPanel.addComponent(drugTable);
+        remarks.setWidth("300px");
 
-        // right panel containing the cart components
-        VerticalLayout rightPanel = new VerticalLayout();
-        rightPanel.setImmediate(true);
-        rightPanel.addComponent(cartTable);
-        rightPanel.addComponent(patientSelect);
-        rightPanel.addComponent(remarks);
-        rightPanel.addComponent(sendOrderBtn);
+        /**
+         * Configure static Labels
+         */
+        final Label drugsLabel = new Label("Available drugs:");
+        final Label cartLabel = new Label("Order cart:");
 
-        // add both panels to the main panel
-        this.addComponent(leftPanel);
-        this.addComponent(rightPanel);
+        /**
+	 * Adding layout components and positioning cart parts
+	 */
+        GridLayout grid = new GridLayout(2,5);
+        grid.setMargin(true);
+        grid.setSpacing(true);
+        grid.setImmediate(true);
+        grid.setWidth("100%");
+        grid.addComponent(drugsLabel, 0, 0);
+        grid.addComponent(drugTable, 0, 1, 0, 4);
+        grid.addComponent(cartLabel, 1, 0);
+        grid.addComponent(cartTable, 1, 1);
+        grid.addComponent(patientSelect, 1, 2);
+        grid.addComponent(remarks, 1, 3);
+        grid.addComponent(sendOrderBtn, 1, 4);
+
+        // add grid to the main panel
+        this.addComponent(grid);
 
 	/**
 	 * If an order is used as constructing parameter, fill the items into the cart
@@ -173,7 +188,7 @@ public class DrugCart extends HorizontalLayout {
                 ((TextField)cartTable.getItem(drugOrderItem.getDrug().getGtin()).getItemProperty("Amount").getValue()).setValue(Integer.toString(i.getQuantity()));
             }
         }
-        if (newItem) { //ToDo: fix Entityservice so that patients have drugs
+        if (newItem) { //ToDo: implement
 //            if(!drugOrderItem.getDrug().isPrescribed(patient)){
 //                Notification notif = new Notification("This drug is not prescribes to this patient.", Notification.Type.WARNING_MESSAGE);
 //                notif.setDelayMsec(2000);
