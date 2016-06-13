@@ -4,12 +4,6 @@ import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 
-import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
-import ch.bfh.bti7081.s2016.blue.hv.view.*;
-
-import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
@@ -26,7 +20,16 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
-import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
+import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
+import ch.bfh.bti7081.s2016.blue.hv.view.DrugsOrderView;
+import ch.bfh.bti7081.s2016.blue.hv.view.DrugsView;
+import ch.bfh.bti7081.s2016.blue.hv.view.LandingView;
+import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
+import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
+import ch.bfh.bti7081.s2016.blue.hv.view.PatientListView;
+import ch.bfh.bti7081.s2016.blue.hv.view.SettingsView;
+import ch.bfh.bti7081.s2016.blue.hv.view.TodayMeetingsView;
+import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 
 /**
  * {@link HealthVisUI}. This represents the applications main entry point.

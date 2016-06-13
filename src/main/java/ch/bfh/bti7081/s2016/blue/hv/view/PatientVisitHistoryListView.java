@@ -1,14 +1,23 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
-import ch.bfh.bti7081.s2016.blue.hv.entities.*;
-import ch.bfh.bti7081.s2016.blue.hv.view.*;
-import ch.bfh.bti7081.s2016.blue.hv.model.*;
-
-import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable.Unit;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
+
+import ch.bfh.bti7081.s2016.blue.hv.entities.Report;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
+import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
+import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
+import ch.bfh.bti7081.s2016.blue.hv.util.DateUtils;
 
 public class PatientVisitHistoryListView extends VerticalLayout implements View {
 
@@ -26,7 +35,7 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	this.patientID = patientID;
 	this.lastPage = lastPage;
 	this.setSizeFull();
-	
+
 	configureComponents();
 	buildLayout();
     }
@@ -44,7 +53,7 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	backBut.addClickListener(event -> {
 	    this.detach();
 	    getUI().getNavigator().navigateTo(lastPage);
-//	    getUI().getNavigator().navigateTo(VisitsView.getName());
+	    // getUI().getNavigator().navigateTo(VisitsView.getName());
 	    this.removeAllComponents();
 	});
 	header.setComponentAlignment(backBut, Alignment.MIDDLE_LEFT);
@@ -86,12 +95,12 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 	try {
 
 	    visit = new VisitsModel().findById(patientID);
-	    table.setCaption("Visit History of " + visit.getPatient().getFirstname() + " "
-		    + visit.getPatient().getLastname());
+	    table.setCaption(
+		    "Visit History of " + visit.getPatient().getFirstname() + " " + visit.getPatient().getLastname());
 
 	    for (VisitEvent visitEvent : visit.getVisitEvents()) {
 
-		Label date = new Label(visitEvent.getCalendar().getFormattedMeetingDate());
+		Label date = new Label(DateUtils.formatDate(visitEvent.getDateFrom()));
 		Label visitor = new Label(visitEvent.getVisit().getVisitor().getUserName());
 		Button detailsBtn = new Button("View Report");
 		detailsBtn.setData(visitEvent);
@@ -130,32 +139,32 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 
 	Window window = new Window("Reports of " + visitEvent.getVisit().getPatient().getLastname()
 		+ visitEvent.getVisit().getPatient().getFirstname() + " from "
-		+ visitEvent.getCalendar().getFormattedMeetingDate()); 
-	
+		+ DateUtils.formatDate(visitEvent.getDateFrom()));
+
 	VerticalLayout tableLayout = new VerticalLayout();
-	
+
 	Table table = new Table();
 	table.addStyleName("components-inside");
 
 	// define the columns
 	table.addContainerProperty("Title", Label.class, null);
 	table.addContainerProperty("Details", Label.class, null);
-	
+
 	for (Report report : visitEvent.getVisitReports()) {
 	    table.addItem(new Object[] { new Label(report.getTitle()), new Label(report.getReportText()) },
 		    report.getId());
 	}
-	
+
 	table.setWidth("100%");
 	table.setHeight("100%");
 	table.setSizeFull();
 	table.setImmediate(true);
-	
+
 	tableLayout.addComponent(table);
 	tableLayout.setExpandRatio(table, 1f);
 	tableLayout.setSizeFull();
 	tableLayout.setImmediate(true);
-	
+
 	window.setContent(tableLayout);
 	window.setWidth(800.0f, Unit.PIXELS);
 	window.setHeight(800.0f, Unit.PIXELS);

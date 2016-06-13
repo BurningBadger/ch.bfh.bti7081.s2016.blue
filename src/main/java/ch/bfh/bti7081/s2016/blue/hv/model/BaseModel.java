@@ -12,18 +12,15 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.RollbackException;
 
-import ch.bfh.bti7081.s2016.blue.hv.entities.Drug;
-import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.BaseEntity;
 import ch.bfh.bti7081.s2016.blue.hv.util.Constants;
-import org.hibernate.metamodel.source.annotations.entity.EntityClass;
 
 /**
  * {@link BaseModel} offering some CRUD operations.
- * 
+ *
  * @param <T>
  *            The entity type.
  * @param <ID>
@@ -33,7 +30,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 
     private static final long serialVersionUID = -7938358022103672493L;
 
-    private final static Logger LOGGER = Logger.getLogger(BaseModel.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(BaseModel.class.getName());
 
     private JPAContainer<T> jpaContainer;
 
@@ -48,20 +45,20 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
     }
 
     /**
-     * Save {@link T}
-     * 
+     * Save or update {@link T}.
+     *
      * @param element
      * @return true, if saving was successful.
      */
     public boolean saveOrUpdate(T element) {
 	try {
-		Date timeStamp = new Date();
+	    Date timeStamp = new Date();
 	    entityManager.getTransaction().begin();
 
 	    // new, if no id exists
 	    // TODO: remove check 999
-//	    if (element.getId() == null || element.getId() == 999) {
-	    if (element.getId() == null ) {
+	    // if (element.getId() == null || element.getId() == 999) {
+	    if (element.getId() == null) {
 		element.setCreatedAt(timeStamp);
 		element.setUpdatedAt(timeStamp);
 		entityManager.persist(element);
@@ -80,8 +77,8 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
     }
 
     /**
-     * Save a list of {@link T}
-     * 
+     * Save a list of {@link T}.
+     *
      * @param data
      * @return true, if saving was successful.
      */
@@ -104,7 +101,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 
     /**
      * Finds {@link T} for the given ID.
-     * 
+     *
      * @param id
      * @return the found {@link T}
      * @throws EntityNotFoundException
@@ -189,20 +186,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	return entityManager.getTransaction();
     }
 
-    public T findHealthVisitor(HealthVisitor element) throws EntityNotFoundException{
-	entityManager.getTransaction().begin();
-
-	Entity annotation = entityClass.getAnnotation(Entity.class);
-	String tableName = annotation.name();
-
-	List<T> users = entityManager.createQuery(
-	    "SELECT hv FROM " + tableName + " hv WHERE hv.userName LIKE :userName AND hv.password LIKE :userPass")
-	    .setParameter("userName", element.getUserName())
-	    .setParameter("userPass", element.getPassword())
-	    .setMaxResults(1).getResultList();
-
-	entityManager.getTransaction().commit();
-
-	return users.size() > 0 ? users.get(0) : null;
+    public EntityManager getEntityManager() {
+	return entityManager;
     }
 }

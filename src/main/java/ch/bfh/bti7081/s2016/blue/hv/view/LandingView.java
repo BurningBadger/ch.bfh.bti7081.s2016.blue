@@ -1,29 +1,22 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
-import ch.bfh.bti7081.s2016.blue.HealthVisUI;
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
-import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
-import com.vaadin.data.Container;
-import com.vaadin.data.util.filter.Compare;
+import java.util.Set;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Embedded;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.Table;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
-import ch.bfh.bti7081.s2016.blue.hv.entities.Calendar;
+import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
-import com.vaadin.ui.Embedded;
-import com.vaadin.ui.Table;
-
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
 
 public class LandingView extends Panel implements View {
 

@@ -11,20 +11,33 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+/**
+ * {@link BaseEntity} providing an auto-incrementing ID, created_at and
+ * updated_at fields for entities.
+ */
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -3624890888887228585L;
 
+    /**
+     * The ID of this entity.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    /**
+     * The created_at field for this entity.
+     */
     @Temporal(value = TemporalType.DATE)
     @Column(name = "created_at")
     private Date createdAt;
 
+    /**
+     * The updated_at field for this entity.
+     */
     @Temporal(value = TemporalType.DATE)
     @Column(name = "updated_at")
     private Date updatedAt;

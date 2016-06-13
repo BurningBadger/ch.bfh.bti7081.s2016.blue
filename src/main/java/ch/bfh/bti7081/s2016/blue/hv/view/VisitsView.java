@@ -1,38 +1,58 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
+import java.util.Set;
+
+import com.vaadin.data.validator.DateRangeValidator;
+import com.vaadin.data.validator.NullValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.shared.ui.MarginInfo;
+import com.vaadin.shared.ui.combobox.FilteringMode;
+import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 import ch.bfh.bti7081.s2016.blue.HealthVisUI;
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
+import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
+import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
+import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
+import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
-import elemental.html.ShadowElement;
+import ch.bfh.bti7081.s2016.blue.hv.util.DateUtils;
 
 public class VisitsView extends HorizontalLayout implements View {
 
     private static final long serialVersionUID = -4194821923203100613L;
 
     private static final String NAME = "Visits";
-    
-    private static VerticalLayout visitsView;
+
+    private VerticalLayout visitsView;
+
+    private VisitsModel visitsModel;
+
+    private PatientModel patientModel;
+
+    private HealthVisitorsModel healthVisitorsModel;
 
     public VisitsView() {
 	this.setSizeFull();
 
 	visitsView = new VerticalLayout();
+	visitsModel = new VisitsModel();
+	patientModel = new PatientModel();
+	healthVisitorsModel = new HealthVisitorsModel();
 
 	HorizontalLayout tableView = new HorizontalLayout();
 	Table table = new Table();
@@ -45,9 +65,9 @@ public class VisitsView extends HorizontalLayout implements View {
 	table.addContainerProperty("Street", Label.class, null);
 	table.addContainerProperty("Zip", Label.class, null);
 	table.addContainerProperty("City", Label.class, null);
-	table.addContainerProperty("", Button.class, null);
+	table.addContainerProperty("Info", Button.class, null);
+	table.addContainerProperty("History", Button.class, null);
 
-	VisitsModel visitsModel = new VisitsModel();
 	for (Visit visit : visitsModel.findAll()) {
 
 	    Label patientFirstname = new Label(visit.getPatient().getFirstname());
@@ -57,19 +77,33 @@ public class VisitsView extends HorizontalLayout implements View {
 	    Label zip = new Label(visit.getPatient().getContact().getZip());
 	    Label city = new Label(visit.getPatient().getContact().getCity());
 
-	    Button detailsBtn = new Button("show details");
+	    // history button
+	    Button historyBtn = new Button();
+	    historyBtn.setIcon(FontAwesome.HISTORY);
+	    historyBtn.setDescription("Show history");
+	    historyBtn.setData(visit);
+	    historyBtn.addClickListener(event -> {
+		Visit v = (Visit) event.getButton().getData();
+		HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
+		// HealthVisUI.setMainView(new EmergencyContactView(v.getId(),
+		// getName()));
+	    });
+	    // historyBtn.addStyleName("link");
+
+	    // record detail button
+	    Button detailsBtn = new Button();
+	    detailsBtn.setIcon(FontAwesome.INFO_CIRCLE);
+	    detailsBtn.setDescription("Show details");
 	    detailsBtn.setData(visit);
 	    detailsBtn.addClickListener(event -> {
-		    Visit v = (Visit) event.getButton().getData();
-		    HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
-//		    HealthVisUI.setMainView(new EmergencyContactView(v.getId(), getName()));
-		});
-	    detailsBtn.addStyleName("link");
+		Visit v = (Visit) event.getButton().getData();
+		showOrAddDetailsWindow(v);
+	    });
+	    // detailsBtn.addStyleName("link");
 
 	    // Create the table row.
-	    table.addItem(
-		    new Object[] { patientFirstname, patientLastname, phoneNumber, street, zip, city, detailsBtn },
-		    visit.getId());
+	    table.addItem(new Object[] { patientFirstname, patientLastname, phoneNumber, street, zip, city, detailsBtn,
+		    historyBtn }, visit.getId());
 	}
 
 	table.setWidth("100%");
@@ -84,9 +118,11 @@ public class VisitsView extends HorizontalLayout implements View {
 	HorizontalLayout footer = new HorizontalLayout();
 
 	// button to add visit
-	Button addNewVisitBtn = new Button("add new visit");
+	Button addNewVisitBtn = new Button();
+	addNewVisitBtn.setDescription("add new visit");
+	addNewVisitBtn.setIcon(FontAwesome.PLUS_SQUARE_O);
 	addNewVisitBtn.addClickListener(event -> {
-	    showDetailsWindow(null);
+	    showOrAddDetailsWindow(null);
 	});
 
 	footer.addComponent(addNewVisitBtn);
@@ -109,24 +145,118 @@ public class VisitsView extends HorizontalLayout implements View {
 	return NAME;
     }
 
-    private void showDetailsWindow(Visit visit) {
+    /**
+     * Show the window with the visits details (if visit != null), otherwise
+     * show the form to add a new visit.
+     */
+    private void showOrAddDetailsWindow(Visit visit) {
 
-	final FormLayout formLayout = new FormLayout();
-	String windowTitle = null;
+	final Window window = new Window();
+	window.setWidth(800.0f, Unit.PIXELS);
+	window.center();
+	window.setModal(true);
 
 	// add newy
 	if (visit == null) {
-	    windowTitle = "Add new visit";
+	    window.setCaption("Add new visit");
+
+	    VerticalLayout layout = new VerticalLayout();
+	    FormLayout form = new FormLayout();
+
+	    // Patient selection
+	    ComboBox patientSelect = new ComboBox("Patient");
+	    patientSelect.setFilteringMode(FilteringMode.CONTAINS);
+	    patientSelect.setInvalidAllowed(false);
+	    patientSelect.setNullSelectionAllowed(true);
+	    for (Patient patient : patientModel.findAll()) {
+		String name = patient.getFirstname() + " " + patient.getLastname();
+		patientSelect.addItem(patient);
+		patientSelect.setItemCaption(patient, name);
+	    }
+
+	    patientSelect.setIcon(FontAwesome.USER);
+	    patientSelect.setRequired(true);
+	    patientSelect.addValidator(new NullValidator("Must be given", false));
+	    form.addComponent(patientSelect);
+
+	    // date time from
+	    DateField dateFrom = new DateField("From");
+	    dateFrom.setIcon(FontAwesome.CALENDAR);
+	    dateFrom.setValue(DateUtils.now());
+	    dateFrom.setResolution(Resolution.MINUTE);
+	    dateFrom.addValidator(
+		    new DateRangeValidator("Incorrect date!", dateFrom.getValue(), DateUtils.nowPlusFiveYears(), null));
+	    form.addComponent(dateFrom);
+
+	    // date time to
+	    DateField dateTo = new DateField("To");
+	    dateTo.setIcon(FontAwesome.CALENDAR);
+	    dateTo.setValue(DateUtils.nowPlusOneHour());
+	    dateTo.setResolution(Resolution.MINUTE);
+	    dateTo.addValidator(
+		    new DateRangeValidator("Incorrect date!", dateTo.getValue(), DateUtils.nowPlusFiveYears(), null));
+	    form.addComponent(dateTo);
+
+	    // HealthVisitor selection
+	    ComboBox helthVisitorSelect = new ComboBox("Health-Visitor");
+	    helthVisitorSelect.setFilteringMode(FilteringMode.CONTAINS);
+	    helthVisitorSelect.setInvalidAllowed(false);
+	    helthVisitorSelect.setNullSelectionAllowed(true);
+	    for (HealthVisitor healthVisitor : healthVisitorsModel.findAll()) {
+		String name = healthVisitor.getFirstname() + " " + healthVisitor.getLastname();
+		helthVisitorSelect.addItem(healthVisitor);
+		helthVisitorSelect.setItemCaption(healthVisitor, name);
+	    }
+
+	    helthVisitorSelect.setIcon(FontAwesome.GROUP);
+	    helthVisitorSelect.setRequired(true);
+	    helthVisitorSelect.addValidator(new NullValidator("Must be given", false));
+	    form.addComponent(helthVisitorSelect);
+
+	    Button saveBtn = new Button("Save");
+	    saveBtn.setIcon(FontAwesome.SAVE);
+	    saveBtn.addClickListener(listener -> {
+		boolean successful = visitsModel.saveNewVisit((Patient) patientSelect.getValue(), dateFrom.getValue(),
+			dateTo.getValue(), (HealthVisitor) helthVisitorSelect.getValue());
+		if (successful) {
+		    window.close();
+		}
+	    });
+
+	    layout.addComponent(form);
+	    layout.addComponent(saveBtn);
+	    layout.addStyleName("components-inside");
+
+	    window.setStyleName("components-inside");
+	    window.setContent(layout);
 	}
 	// show details
 	else {
-	    windowTitle = visit.getPatient().getFirstname() + " " + visit.getPatient().getLastname();
+	    window.setCaption(visit.getPatient().getFirstname() + " " + visit.getPatient().getLastname());
+	    Set<VisitEvent> events = visit.getVisitEvents();
+
+	    Table table = new Table();
+	    table.addStyleName("components-inside");
+
+	    // define the columns
+	    table.addContainerProperty("Patient firstname", String.class, null);
+	    table.addContainerProperty("Patient lastname", String.class, null);
+	    table.addContainerProperty("Date", String.class, null);
+	    table.addContainerProperty("From", String.class, null);
+	    table.addContainerProperty("To", String.class, null);
+
+	    events.forEach(event -> {
+		String date = DateUtils.formatDate(event.getDateFrom());
+		String from = DateUtils.formatTime(event.getDateFrom());
+		String to = DateUtils.formatTime(event.getDateTo());
+
+		// Create the table row.
+		table.addItem(new Object[] { visit.getPatient().getFirstname(), visit.getPatient().getLastname(), date,
+			from, to }, visit.getId());
+	    });
+	    window.setContent(table);
 	}
 
-	final Window window = new Window(windowTitle);
-	window.setWidth(800.0f, Unit.PIXELS);
-	window.center();
-	window.setContent(formLayout);
 	UI.getCurrent().addWindow(window);
     }
 

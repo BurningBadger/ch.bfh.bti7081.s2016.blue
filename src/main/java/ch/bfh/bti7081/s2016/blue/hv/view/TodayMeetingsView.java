@@ -14,6 +14,7 @@ import com.vaadin.ui.Window;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitEventModel;
+import ch.bfh.bti7081.s2016.blue.hv.util.DateUtils;
 import ch.bfh.bti7081.s2016.blue.hv.view.state.StateContext;
 import ch.bfh.bti7081.s2016.blue.hv.view.state.StateSwitch;
 
@@ -30,90 +31,86 @@ public class TodayMeetingsView extends HorizontalLayout implements View {
     private static final String NAME = "TodayMeetings";
     private static final HealthVisitor currentVisitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
 
-
     @Override
     public void enter(ViewChangeEvent event) {
-	    // TODO Auto-generated method stub
+	// TODO Auto-generated method stub
 
     }
 
-    public TodayMeetingsView(){
-		setSizeFull();
-		prepareUI();
+    public TodayMeetingsView() {
+	setSizeFull();
+	prepareUI();
     }
-	
-    public void prepareUI()  {
-    	final Table table = new Table();
-    	table.setSizeFull();
-    	table.addStyleName("components-inside");
 
-    	// define the columns
-    	table.addContainerProperty("Patient Name", Label.class, null);
-    	table.addContainerProperty("Address", Label.class, null);
-    	table.addContainerProperty("Time", Label.class, null);
-    	table.addContainerProperty("", Button.class, null);
+    public void prepareUI() {
+	final Table table = new Table();
+	table.setSizeFull();
+	table.addStyleName("components-inside");
 
-    	//VisitEventModel visitEventModel = new VisitEventModel();
+	// define the columns
+	table.addContainerProperty("Patient Name", Label.class, null);
+	table.addContainerProperty("Address", Label.class, null);
+	table.addContainerProperty("Time", Label.class, null);
+	table.addContainerProperty("", Button.class, null);
+
+	// VisitEventModel visitEventModel = new VisitEventModel();
 	Set<Visit> visits = currentVisitor.getVisits();
 
-	for(Visit visit : visits){
+	for (Visit visit : visits) {
 	    Set<VisitEvent> visitEvents = visit.getVisitEvents();
 	    for (VisitEvent vEvent : visitEvents) {
 		if (vEvent.getVisit() == null) {
 		    continue;
 		}
-		//if(vEvent.getVisit().getVisitor().getUserName() != "user1@test.com") {
-		//continue;
-		//}
+		// if(vEvent.getVisit().getVisitor().getUserName() !=
+		// "user1@test.com") {
+		// continue;
+		// }
 
-		Label patientName = new Label(vEvent.getVisit().getPatient().getFirstname() + " " +
-				vEvent.getVisit().getPatient().getLastname());
-		Label patientStreet = new Label(vEvent.getVisit().getPatient().getContact().getStreet() + " " +
-				vEvent.getVisit().getPatient().getContact().getZip() + " / " +
-				vEvent.getVisit().getPatient().getContact().getCity());
+		Label patientName = new Label(vEvent.getVisit().getPatient().getFirstname() + " "
+			+ vEvent.getVisit().getPatient().getLastname());
+		Label patientStreet = new Label(vEvent.getVisit().getPatient().getContact().getStreet() + " "
+			+ vEvent.getVisit().getPatient().getContact().getZip() + " / "
+			+ vEvent.getVisit().getPatient().getContact().getCity());
 
-		@SuppressWarnings("deprecation")
 		Label appointmentTime = new Label();
 		appointmentTime.setValue(
-				vEvent.getCalendar().getFormattedMeetingDate() + " : " +
-						vEvent.getCalendar().getFormattedTimeFrom() + " - " +
-						vEvent.getCalendar().getFormattedTimeTo()
-		);
+			DateUtils.formatDate(vEvent.getDateFrom()) + " : " + DateUtils.formatTime(vEvent.getDateFrom())
+				+ " - " + DateUtils.formatTime(vEvent.getDateTo()));
 
 		Button detailsBtn = new Button("Select Meeting");
 		detailsBtn.setData(vEvent);
 		detailsBtn.addClickListener(event -> {
 		    VisitEvent ve = (VisitEvent) event.getButton().getData();
-		    //Meeting Selected
+		    // Meeting Selected
 		    StateContext sContext = new StateContext();
-		    //Modal Window
+		    // Modal Window
 		    Window subwindow = new Window();
 
-		/*while((sContext.getStateSwitch() != StateSwitch.E_CANCEL ||
-				sContext.getStateSwitch() != StateSwitch.E_FINISH) &&
-				!subwindow.isVisible()) {*/
+		    /*
+		     * while((sContext.getStateSwitch() != StateSwitch.E_CANCEL
+		     * || sContext.getStateSwitch() != StateSwitch.E_FINISH) &&
+		     * !subwindow.isVisible()) {
+		     */
 
 		    sContext.next(subwindow, ve);
 
-		    //}
+		    // }
 
 		    UI.getCurrent().addWindow(subwindow);
 		});
 		detailsBtn.addStyleName("link");
 
 		// Create the table row.
-		table.addItem(
-				new Object[] { patientName, patientStreet, appointmentTime, detailsBtn },
-				vEvent.getId());
+		table.addItem(new Object[] { patientName, patientStreet, appointmentTime, detailsBtn }, vEvent.getId());
 	    }
 	}
 
-
-    	this.addComponent(table);
+	this.addComponent(table);
     }
-    
+
     public static String getName() {
-		return NAME;
-	}
-	
+	return NAME;
+    }
+
 }
