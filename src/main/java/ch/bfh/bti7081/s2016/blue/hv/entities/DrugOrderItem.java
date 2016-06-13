@@ -5,12 +5,20 @@ import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
 /**
- * Created by kerberos on 06/06/16.
+ * The DrugOrderItem is a wrapper class for Drug objects to be added to a DrugOrder.
+ * It inherits the basic fields and methods from the BaseEntity class.
+ * DrugOrderItems are persisted with their corresponding DrugOrder (cascade all).
+ *
+ * @author Michel Hosmann
  */
 @Entity
 public class DrugOrderItem extends BaseEntity{
 
+    /**
+     * Class variables
+     */
     private static final long serialVersionUID = 4880752889983169522L;
+
     @Valid
     @OneToOne(optional = false)
     private Drug drug;
@@ -24,7 +32,7 @@ public class DrugOrderItem extends BaseEntity{
     private int quantity;
 
     @Column
-    private boolean isPrescribed;
+    private boolean isPrescribed; //not implemented
 
     public Drug getDrug() { return drug; }
 
@@ -38,8 +46,10 @@ public class DrugOrderItem extends BaseEntity{
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
-    public boolean isPrescribed() { return this.drug.isPrescribed(this.drugOrder.getPatient()); }
-
+    /**
+     * Get the name of the Drug wrapped in this object.
+     * @return the Drug name
+     */
     public String getName(){ return this.getDrug().getName(); }
 
 }

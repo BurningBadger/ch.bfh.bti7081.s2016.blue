@@ -4,10 +4,20 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+/**
+ * The Drug class is a representation of a medication. It contains the Drug name, its GTIN (Global Trade Item Number)
+ * and a description.
+ * Each Drug can be assigned to several Patients (prescription).
+ *
+ * @author Michel Hosmann
+ */
 @Entity(name = "Drug")
 @Table(name = "drugs")
 public class Drug extends BaseEntity {
 
+    /**
+     * Class variables
+     */
     private static final long serialVersionUID = -838966460652903682L;
 
     @Column(name = "name", length = 255, nullable = false)
@@ -17,7 +27,7 @@ public class Drug extends BaseEntity {
     @Column(unique = true)
 
     @Size(min=1, max = 14)
-    private int gtin; // GTIN: Global Trade Item Number
+    private int gtin; //
 
     @Column(nullable = false, length = 800)
     @Size(min = 0, max = 800)
@@ -45,15 +55,4 @@ public class Drug extends BaseEntity {
     public int getGtin() { return gtin; }
 
     public void setGtin(int gtin) { this.gtin = gtin; }
-
-    public boolean isPrescribed(Patient patient){
-        boolean prescribed = false;
-        for(Patient p : patients){
-            if (patient.getId()==p.getId()){
-                prescribed = true;
-                break;
-            }
-        }
-        return prescribed;
-    }
 }
