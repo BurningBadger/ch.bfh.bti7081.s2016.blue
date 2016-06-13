@@ -34,20 +34,17 @@ import java.util.Set;
 public class PatientListView extends VerticalLayout implements View {
 
     private static final String NAME = "Patients"; // variable for HealthVisUI
-    private HealthVisitorsModel visitorsModel = new HealthVisitorsModel();
-    private VisitsModel visitsModel = new VisitsModel();
     private HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
     private Set<Visit> visits = visitor.getVisits();
-    private Patient patient = new Patient();
 
-    /*
+    /**
      * these variables have to be declared in the global scope to be reached from
      * the outside the table method
      */
-    Button butCall = new Button("Call");
-    Button editPatientXtra = new Button("Edit");
+    Button callBtn = new Button("Call");
+    Button editPatientXtraBtn = new Button("Edit");
+    Button updateBtn = new Button("Update");
     Button deletePatientBtn = new Button("Remove");
-    Button butTermine = new Button("Termins");
 
     public PatientListView() {
 
@@ -58,50 +55,34 @@ public class PatientListView extends VerticalLayout implements View {
 	showFirstRow();
 	showTable();
 	showTableButtons();
-	showBottomButtons(patient);
     }
 
-    // vertical layout: 1st row buttons
+    /**
+     * vertical layout: 1st row buttons
+     */
     private void showFirstRow() {
 
 	// button: home
 	HorizontalLayout firstLay = new HorizontalLayout();
-	Button butMenu = new Button("Home");
-	butMenu.addClickListener(event -> {
+	Button homeBtn = new Button("Home");
+	homeBtn.addClickListener(event -> {
 	    getUI().getNavigator().navigateTo(LandingView.getName());
 	});
-	firstLay.addComponent(butMenu);
-	firstLay.setComponentAlignment(butMenu, Alignment.MIDDLE_LEFT);
+	firstLay.addComponent(homeBtn);
+	firstLay.setComponentAlignment(homeBtn, Alignment.MIDDLE_LEFT);
 
 	//button: call
-	firstLay.addComponent(butCall);
-	firstLay.setComponentAlignment(butCall, Alignment.MIDDLE_RIGHT);
+	firstLay.addComponent(callBtn);
+	firstLay.setComponentAlignment(callBtn, Alignment.MIDDLE_RIGHT);
 	firstLay.setWidth("100%");
 	firstLay.setHeight("100%");
 	this.addComponent(firstLay);
 	this.setExpandRatio(firstLay, 0.1f);                //10% of the mainframe
     }
 
-    // vertical layout: 2nd row buttons
-//    private void showSecondRow() {
-//
-//	HorizontalLayout horizontalTage = new HorizontalLayout();
-//	Button butGestern = new Button("Gestern");
-//	horizontalTage.addComponent(butGestern);
-//	horizontalTage.setComponentAlignment(butGestern, Alignment.MIDDLE_LEFT);
-//	Button butHeute = new Button("Heute");
-//	horizontalTage.addComponent(butHeute);
-//	horizontalTage.setComponentAlignment(butHeute, Alignment.MIDDLE_CENTER);
-//	Button butMorgen = new Button("Morgen");
-//	horizontalTage.addComponent(butMorgen);
-//	horizontalTage.setComponentAlignment(butMorgen, Alignment.MIDDLE_RIGHT);
-//	horizontalTage.setWidth("100%");
-//	horizontalTage.setHeight("100%");
-//	this.addComponent(horizontalTage);
-//	this.setExpandRatio(horizontalTage, 0.1f);
-//    }
-
-    // vertical layout: table row with patients
+    /**
+     * vertical layout: table row with patients
+     */
     private void showTable() {
 
 	final Table table = new Table();
@@ -123,12 +104,20 @@ public class PatientListView extends VerticalLayout implements View {
 
 	// show visitor's patients
 	for (Visit visit : visits) {
-	    patient = visit.getPatient();
+
+	    Patient patient = visit.getPatient();
 	    Label firstName = new Label(patient.getFirstname());
 	    Label lastName = new Label(patient.getLastname());
 	    Label birthday = new Label(String.valueOf(patient.getBirthday()));
 	    CheckBox isActive = new CheckBox();
 	    isActive.setValue(patient.isActive());
+
+	    // change the value of the Checkbox
+	    isActive.addValueChangeListener(event -> {
+		Patient p = patientModel.findById(patient.getId());
+		p.setActive(isActive.getValue());	// reference on Checkbox
+		patientModel.saveOrUpdate(p);		// update patient
+	    });
 
 	    // show details of the selected patient
 	    Button detailsBtn = new Button("show details");
@@ -140,24 +129,23 @@ public class PatientListView extends VerticalLayout implements View {
 	    detailsBtn.addStyleName("link");
 
 	    // Create a person as a new object and insert into the table row
-	    if (patient.isActive() != false) {
-		table.addItem(new Object[] { firstName, lastName, birthday, isActive, detailsBtn }, patient.getId());
+    	    if (patient.isActive()) {
+		    table.addItem(new Object[] { firstName, lastName, birthday, isActive, detailsBtn }, patient.getId());
 	    }
 	}
 	this.addComponent(table);
-	this.setExpandRatio(table, 0.75f);        // vertical layout ratio
+	this.setExpandRatio(table, 0.8f);        // vertical layout ratio
 
-	/*
+	/**
 	 * bind the selected person to the call functionality
 	 *
 	 * cast the object to handle as patient entity!
 	 */
-	//
-	butCall.addClickListener(event -> {
+	callBtn.addClickListener(event -> {
 	    Object selected = table.getValue();                //necessary to pick the exact one
 	    showPatientNumber(patientModel.findById((Long) selected));
 	});
-	editPatientXtra.addClickListener(event -> {
+	editPatientXtraBtn.addClickListener(event -> {
 	    Object selected = table.getValue();
 	    showDetailsWindow(patientModel.findById((Long) selected));
 	});
@@ -173,14 +161,11 @@ public class PatientListView extends VerticalLayout implements View {
 		table.removeItem(selected);
 	    }
 	});
-	butTermine.addClickListener(event -> {
-	    Object selected = table.getValue();
-	    showPatientVisits(patientModel.findById((Long) selected));
-	});
-
     }
 
-    // vertical layout: table handling buttons
+    /**
+     * vertical layout: table handling buttons
+     */
     private void showTableButtons() {
 
 	// buttons to add/ed/del patient
@@ -192,11 +177,11 @@ public class PatientListView extends VerticalLayout implements View {
 	    entryDetailsWindow(); //help method
 	});
 	adDel.addComponent(addNewPatientBtn);
-	adDel.setComponentAlignment(addNewPatientBtn, Alignment.TOP_LEFT);
+	adDel.setComponentAlignment(addNewPatientBtn, Alignment.MIDDLE_LEFT);
 
 	// button: edit patient
-	adDel.addComponent(editPatientXtra);
-	adDel.setComponentAlignment(editPatientXtra, Alignment.TOP_CENTER);
+	adDel.addComponent(editPatientXtraBtn);
+	adDel.setComponentAlignment(editPatientXtraBtn, Alignment.MIDDLE_CENTER);
 
 	/*
 	 * button: delete person
@@ -205,53 +190,37 @@ public class PatientListView extends VerticalLayout implements View {
 	 * from the visitors view.
 	 */
 	adDel.addComponent(deletePatientBtn);
-	adDel.setComponentAlignment(deletePatientBtn, Alignment.TOP_RIGHT);
+	adDel.setComponentAlignment(deletePatientBtn, Alignment.MIDDLE_RIGHT);
 	adDel.setWidth("100%");
 	adDel.setHeight("100%");
 	this.addComponent(adDel);
-	this.setExpandRatio(adDel, 0.05f);
+	this.setExpandRatio(adDel, 0.1f);
     }
 
-    // vertical layout: last row buttons
-    private void showBottomButtons(Patient patient) {
-
-	HorizontalLayout horizontalPages = new HorizontalLayout();
-
-	// button: termine
-	horizontalPages.addComponent(butTermine);
-	horizontalPages.setComponentAlignment(butTermine, Alignment.MIDDLE_LEFT);
-
-	// button: update
-	Button update = new Button("update");
-	update.addClickListener(event -> {
-	    updateList(patient);
-	});
-	horizontalPages.addComponent(update);
-	horizontalPages.setComponentAlignment(update, Alignment.MIDDLE_CENTER);
-
-	// button: calendar
-	Button butCalendar = new Button("Calendar");
-	horizontalPages.addComponent(butCalendar);
-	horizontalPages.setComponentAlignment(butCalendar, Alignment.MIDDLE_RIGHT);
-	horizontalPages.setWidth("100%");
-	horizontalPages.setHeight("100%");
-	this.addComponent(horizontalPages);
-	this.setExpandRatio(horizontalPages, 0.1f);
-    }
-
-    // help method to bind patient to person in general and show the phone number
+    /**
+     * help method to bind patient to person in general and show the phone number
+     *
+     * @param patient
+     */
     private void showPatientNumber(Patient patient) {
 
 	PhoneComponent component = new PhoneComponent(patient);
 	component.getClass();
     }
 
-    // help method to connect to the PatientView class
+    /**
+     * help method to connect to the PatientView class
+     *
+     * @param patient
+     */
     private void showDetailsWindow(Patient patient) {
+
 	HealthVisUI.setMainView(new PatientView(patient));
     }
 
-    // help method to entry a new patient data
+    /**
+     * help method to entry a new patient data
+     */
     private void entryDetailsWindow() {
 
 	final FormLayout formLayout = new FormLayout();
@@ -276,7 +245,7 @@ public class PatientListView extends VerticalLayout implements View {
 	// button: save
 	Button saveButn = new Button("save");
 	saveButn.addClickListener(event -> {
-	    patient = new Patient();
+	    Patient patient = new Patient();
 	    PatientModel patientModel = new PatientModel();
 	    patient.setFirstname(firstName.getValue());
 	    patient.setLastname(lastName.getValue());
@@ -295,7 +264,8 @@ public class PatientListView extends VerticalLayout implements View {
 	    patient.setContact(contact);
 	    contactModel.saveOrUpdate(contact);	// save in DB and give ID
 	    patientModel.saveOrUpdate(patient); // get's ID from contact
-	    updateList(patient);
+
+	    updateVisitor(patient);
 
 	    Notification notif = new Notification("..saved!", Notification.Type.WARNING_MESSAGE);
 	    notif.setDelayMsec(2000);
@@ -315,8 +285,15 @@ public class PatientListView extends VerticalLayout implements View {
 	UI.getCurrent().addWindow(window);
     }
 
-    // help method save und update visitor
-    private void updateList(Patient patient) {
+    /**
+     * help method save und update visitor
+     *
+     * @param patient
+     */
+    private void updateVisitor(Patient patient) {
+
+	HealthVisitorsModel visitorsModel = new HealthVisitorsModel();
+	VisitsModel visitsModel = new VisitsModel();
 
 	// bind the patient to the visitor
 	Visit newVisit = new Visit();
@@ -326,17 +303,14 @@ public class PatientListView extends VerticalLayout implements View {
 
 	// both visitor models need to be updated
 	visitsModel.saveOrUpdate(newVisit);
-	this.visitorsModel.saveOrUpdate(this.visitor);
+	visitorsModel.saveOrUpdate(visitor);
     }
 
-    // help method to connect with the Patient Visits
-    private void showPatientVisits(Patient patient) {
-
-	this.detach();
-	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),this.getName()));
-    }
-
-    // method for the HealthVisUI
+    /**
+     * method for the HealthVisUI
+     *
+     * @return
+     */
     public static String getName() {
 	return NAME;
     }
