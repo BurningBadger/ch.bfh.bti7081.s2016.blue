@@ -2,7 +2,11 @@ package ch.bfh.bti7081.s2016.blue.hv.entities;
 
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity(name = "Visit")
 @Table(name = "visits")

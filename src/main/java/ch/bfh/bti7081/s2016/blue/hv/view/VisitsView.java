@@ -57,6 +57,9 @@ public class VisitsView extends HorizontalLayout implements View {
 	HorizontalLayout tableView = new HorizontalLayout();
 	Table table = new Table();
 	table.addStyleName("components-inside");
+	
+	this.addStyleName("v-scrollable");
+        this.setHeight("100%");
 
 	// define the columns
 	table.addContainerProperty("Patient firstname", Label.class, null);
@@ -152,7 +155,7 @@ public class VisitsView extends HorizontalLayout implements View {
     private void showOrAddDetailsWindow(Visit visit) {
 
 	final Window window = new Window();
-	window.setWidth(800.0f, Unit.PIXELS);
+	window.setWidth(500.0f, Unit.PIXELS);
 	window.center();
 	window.setModal(true);
 
@@ -177,6 +180,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	    patientSelect.setIcon(FontAwesome.USER);
 	    patientSelect.setRequired(true);
 	    patientSelect.addValidator(new NullValidator("Must be given", false));
+	    patientSelect.setWidth("100%");
 	    form.addComponent(patientSelect);
 
 	    // date time from
@@ -186,6 +190,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	    dateFrom.setResolution(Resolution.MINUTE);
 	    dateFrom.addValidator(
 		    new DateRangeValidator("Incorrect date!", dateFrom.getValue(), DateUtils.nowPlusFiveYears(), null));
+	    dateFrom.setWidth("100%");
 	    form.addComponent(dateFrom);
 
 	    // date time to
@@ -195,6 +200,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	    dateTo.setResolution(Resolution.MINUTE);
 	    dateTo.addValidator(
 		    new DateRangeValidator("Incorrect date!", dateTo.getValue(), DateUtils.nowPlusFiveYears(), null));
+	    dateTo.setWidth("100%");
 	    form.addComponent(dateTo);
 
 	    // HealthVisitor selection
@@ -211,6 +217,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	    helthVisitorSelect.setIcon(FontAwesome.GROUP);
 	    helthVisitorSelect.setRequired(true);
 	    helthVisitorSelect.addValidator(new NullValidator("Must be given", false));
+	    helthVisitorSelect.setWidth("100%");
 	    form.addComponent(helthVisitorSelect);
 
 	    Button saveBtn = new Button("Save");
@@ -226,6 +233,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	    layout.addComponent(form);
 	    layout.addComponent(saveBtn);
 	    layout.addStyleName("components-inside");
+	    layout.setMargin(true);
 
 	    window.setStyleName("components-inside");
 	    window.setContent(layout);

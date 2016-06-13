@@ -21,6 +21,9 @@ public class HealthVisitor extends Person {
 
     @OneToMany(mappedBy = "visitor")
     private Set<Visit> visits;
+    
+    @OneToMany(mappedBy = "healthVisitor")
+    private Set<Setting> settings;
 
     public Set<Visit> getVisits() {
 	return visits;
@@ -52,5 +55,13 @@ public class HealthVisitor extends Person {
 	    patients.add(visit.getPatient());
 	}
 	return patients;
+    }
+
+    public Set<Setting> getSettings() {
+	return settings;
+    }
+
+    public void setSettings(Set<Setting> settings) {
+	this.settings = settings;
     }
 }

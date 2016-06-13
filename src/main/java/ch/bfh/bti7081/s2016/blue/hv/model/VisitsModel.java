@@ -35,17 +35,17 @@ public class VisitsModel extends BaseModel<Visit, Long> {
 
 	Visit visit = new Visit();
 	visit.setPatient(selectedPatient);
+	visit.setVisitor(healthVisitor);
+	// save the visit
+	this.saveOrUpdate(visit);
 
 	// save the VisitEvent
 	VisitEvent visitEvent = new VisitEvent();
 	visitEvent.setDateFrom(dateFrom);
 	visitEvent.setDateTo(dateTo);
+	visitEvent.setVisit(visit);
 	visitEventModel.saveOrUpdate(visitEvent);
 
-	visit.getVisitEvents().add(visitEvent);
-
-	// save the visit
-	this.saveOrUpdate(visit);
 	return true;
     }
 
