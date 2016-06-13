@@ -145,7 +145,6 @@ public class HealthVisUI extends UI {
 	@Override
 	public void afterViewChange(ViewChangeEvent event) {
 	    menu.setActiveView(event.getViewName());
-	    menu.addView(event.getNewView(), event.getViewName(), event.getClass().getName(), FontAwesome.NAVICON);
 	}
 
     };
