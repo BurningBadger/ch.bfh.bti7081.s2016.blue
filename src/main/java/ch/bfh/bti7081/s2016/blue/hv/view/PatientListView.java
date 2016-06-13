@@ -333,7 +333,7 @@ public class PatientListView extends VerticalLayout implements View {
     private void showPatientVisits(Patient patient) {
 
 	this.detach();
-	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(), this.getName()));
+	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),this.getName()));
     }
 
     // method for the HealthVisUI

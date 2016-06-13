@@ -284,14 +284,14 @@ public class PatientView extends VerticalLayout implements View {
     private void showPatientVisits(Patient patient) {
 
 	this.detach();
-	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(), "Patients"));
+	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),"Patients"));
     }
 
     // help method to show patient's emergency contact
     private void showEmergencyContact(Patient patient) {
 
 	this.detach();
-	HealthVisUI.setMainView(new EmergencyContactView(patient.getId(), "Patients"));
+	HealthVisUI.setMainView(new EmergencyContactView(patient.getId(),"Patients"));
     }
 
     // help method to show patient's drugs
