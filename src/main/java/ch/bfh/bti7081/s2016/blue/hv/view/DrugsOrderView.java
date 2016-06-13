@@ -12,6 +12,7 @@ import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * View for DrugOrder
@@ -214,8 +215,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
     private void fillDrugOrderTable(DrugOrderModel model, Patient patient){
         drugOrderTable.removeAllItems();
         for (DrugOrder order : model.findAll()){
-            HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
-            if (order.isInPatients(visitor.getPatients())){
+            if (isInPatients(order)){
                 if(patient==null || order.getPatient().getId()==patient.getId()) {
                     Label patientFirstname = new Label(order.getPatient().getFirstname());
                     Label patientLastname = new Label(order.getPatient().getLastname());
@@ -228,4 +228,20 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         }
     }
 
+    /**
+     *
+     * @param order
+     * @return
+     */
+    private boolean isInPatients(DrugOrder order){
+        boolean isIn = false;
+        HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
+        for (Patient p : visitor.getPatients()) {
+            if (p.getId().compareTo(order.getPatient().getId()) == 0){
+                isIn = true;
+                break;
+            }
+        }
+        return isIn;
+    }
 }

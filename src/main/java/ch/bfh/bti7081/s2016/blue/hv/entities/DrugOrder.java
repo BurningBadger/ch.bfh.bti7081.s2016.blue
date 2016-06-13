@@ -39,7 +39,7 @@ public class DrugOrder extends BaseEntity {
     public void setRemarks(String remarks) { this.remarks = remarks; }
 
     /**
-     * Iterates through all DrugOrderItems in this DrugOrder and creates a sum of all item quantities.
+     * Iterates through all DrugOrderItems and creates a sum of all item quantities.
      * @return total amount of items in this DrugOrder
      */
     public int getTotalItemsAmount(){
