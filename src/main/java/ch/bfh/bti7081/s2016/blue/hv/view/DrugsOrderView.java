@@ -12,7 +12,6 @@ import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 
 import java.util.Date;
-import java.util.Set;
 
 /**
  * View for DrugOrder
@@ -206,10 +205,11 @@ public class DrugsOrderView extends HorizontalLayout implements View {
      */
     private void showOrderWindow(Patient patient, DrugOrder drugOrder){
         final Window window = new Window();
-        window.setSizeFull();
+        window.setWidth("90%");
+        window.setHeight("90%");
+        window.center();
         window.setContent(new DrugCart(patient, drugOrder));
         UI.getCurrent().addWindow(window);
-
     }
 
     /**

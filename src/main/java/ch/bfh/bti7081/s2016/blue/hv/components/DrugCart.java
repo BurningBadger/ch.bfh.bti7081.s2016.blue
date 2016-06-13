@@ -76,15 +76,23 @@ public class DrugCart extends HorizontalLayout {
          */
         Button sendOrderBtn = new Button("send order");
         sendOrderBtn.addClickListener(e ->{
-            try {
-                DrugOrder drugOrder = generateDrugOrder();
-                drugOrderModel.placeOrder(drugOrder);
-                Notification.show("Order sent successfully.");
-                emptyCart();
-            } catch (Exception exception){
-                Notification.show("Order could not be sent: " + exception.getMessage());
+            if(items.size()==0){
+                Notification.show("No items in cart");
+                return;
+            } else if(patientSelect.getValue()==null) {
+                Notification.show("Please select a patient");
+                return;
+            } else {
+                try {
+                    DrugOrder drugOrder = generateDrugOrder();
+                    drugOrderModel.placeOrder(drugOrder);
+                    Notification.show("Order sent successfully.");
+                    emptyCart();
+                }
+                catch (Exception exception) {
+                    Notification.show("Order could not be sent: " + exception.getMessage());
+                }
             }
-
         });
 
 	/**

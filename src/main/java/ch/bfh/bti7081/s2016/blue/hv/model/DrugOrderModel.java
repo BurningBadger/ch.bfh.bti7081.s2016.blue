@@ -17,14 +17,12 @@ public class DrugOrderModel extends BaseModel<DrugOrder, Long> {
     private static final long serialVersionUID = -1857636223717022166L;
 
     private final static Logger LOGGER = Logger.getLogger(DrugOrderModel.class.getName());
-    private HealthVisitor visitor;
 
     /**
      * Creates an instance of the DrugOrderModel
      */
     public DrugOrderModel() {
         super(DrugOrder.class);
-        this.visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
     }
 
     /**
@@ -35,6 +33,7 @@ public class DrugOrderModel extends BaseModel<DrugOrder, Long> {
      */
     public boolean placeOrder(DrugOrder drugOrder) throws Exception{
         boolean orderSuccessful = false;
+        HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         try {
 
             if (drugOrder != null && drugOrder.getTotalItemsAmount() > 0){
@@ -62,6 +61,7 @@ public class DrugOrderModel extends BaseModel<DrugOrder, Long> {
      * @return the full text body for the email
      */
     private String generateMailText(DrugOrder order){
+        HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         StringBuilder mailText = new StringBuilder();
 
         mailText.append("Dear medication provider \n \n");
