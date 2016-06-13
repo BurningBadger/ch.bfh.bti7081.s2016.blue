@@ -40,7 +40,11 @@ public class PatientView extends VerticalLayout implements View {
 	showBottomButtons(patient);
     }
 
-    // vertical layout: 1st row buttons
+    /**
+     * vertical layout: 1st row buttons
+     *
+     * @param patient
+     */
     private void showFirstRow(Patient patient) {
 
 	HorizontalLayout firstLay = new HorizontalLayout();
@@ -69,11 +73,13 @@ public class PatientView extends VerticalLayout implements View {
 	this.setExpandRatio(firstLay, 0.1f);	//take 10% of the frame
     }
 
-    /*
+    /**
      * vertical layout: 2nd row horizontal splitted
      *
      * can't use methods as components of the horizontal split! Because of this the code
      * structure can't be divided.
+     *
+     * @param patient
      */
     private void showSplittedRow(Patient patient) {
 
@@ -215,7 +221,11 @@ public class PatientView extends VerticalLayout implements View {
 	this.setExpandRatio(hsplit, 0.5f);
     }
 
-    // vertical layout: bottom buttons
+    /**
+     * vertical layout: bottom buttons
+     *
+     * @param patient
+     */
     private void showBottomButtons(Patient patient) {
 
 	GridLayout grid = new GridLayout(2, 2);
@@ -273,35 +283,53 @@ public class PatientView extends VerticalLayout implements View {
 	this.setExpandRatio(grid, 0.4f);
     }
 
-    // help method: bind patient to person in general and show the phone number
+    /**
+     * help method: bind patient to person in general and show the phone number
+     *
+     * @param patient
+     */
     private void showPatientsNumber(Patient patient) {
 
 	PhoneComponent component = new PhoneComponent(patient);
 	component.getClass();
     }
 
-    // help method to connect with the Patient Visits
+    /**
+     * help method to connect with the Patient Visits
+     *
+     * @param patient
+     */
     private void showPatientVisits(Patient patient) {
 
 	this.detach();
 	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),"Patients"));
     }
 
-    // help method to show patient's emergency contact
+    /**
+     * help method to show patient's emergency contact
+     *
+     * @param patient
+     */
     private void showEmergencyContact(Patient patient) {
 
 	this.detach();
 	HealthVisUI.setMainView(new EmergencyContactView(patient.getId(),"Patients"));
     }
 
-    // help method to show patient's drugs
+    /**
+     * help method to show patient's drugs
+     */
     private void showPatientsDrugs() {
 
 	this.detach();
 	HealthVisUI.setMainView(new DrugsOrderView());
     }
 
-    // method for the HealthVisUI
+    /**
+     * method for the HealthVisUI
+     *
+     * @return
+     */
     public static String getName() {
 	return NAME;
     }
