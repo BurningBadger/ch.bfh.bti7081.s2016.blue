@@ -4,15 +4,11 @@ import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugOrderModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
 import com.vaadin.data.Validator;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
-import com.vaadin.shared.Position;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
 
@@ -21,33 +17,48 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Created by kerberos on 10/06/16.
+ * Component implementing a cart for Drug entities to generate a DrugOrder entity.
+ * The component extends the vaadin HorizontalLayout component, so it can be used
+ * as part in any other vaadin container.
+ *
+ * @author Michel Hosmann
  */
 public class DrugCart extends HorizontalLayout {
 
     private static final long serialVersionUID = 6414800929293891007L;
+    private Table drugTable;
     private ComboBox patientSelect;
     private List<DrugOrderItem> items;
-    private TextArea remarks;//TextArea remarksArea = new TextArea();
-    private Table cartTable = new Table();
+    private TextArea remarks;
+    private Table cartTable;
     private int cartSize;
     private static final int BASE_AMOUNT = 1;
 
-
+    /**
+     * Generates a DrugCart instance.
+     * @param patient optional parameter to set the patient to receive the order
+     * @param order optional parameter to add items and remarks from an existing order to the cart
+     */
     public DrugCart(Patient patient, DrugOrder order){ //use null as second arg to generate an empty cart
-        //this.patient = patient;
+	/**
+	 * Initialization of class variables, models and the current user
+         */
+        this.drugTable = new Table();
+        this.cartTable = new Table();
         IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("name", String.class, null);
-
         this.patientSelect = new ComboBox("Select Patient", container);
         this.remarks = new TextArea();
-        items = new ArrayList<DrugOrderItem>();
-        cartSize = 0;
+        this.items = new ArrayList<DrugOrderItem>();
+        this.cartSize = 0;
 
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         DrugOrderModel drugOrderModel = new DrugOrderModel();
         DrugsModel drugsModel = new DrugsModel();
 
+	/**
+	 * Configure and populate the ComboBox for selecting the patient
+         */
         patientSelect.setFilteringMode(FilteringMode.CONTAINS);
         patientSelect.setInvalidAllowed(false);
         patientSelect.setNullSelectionAllowed(false);
@@ -60,62 +71,9 @@ public class DrugCart extends HorizontalLayout {
             patientSelect.setValue(patient);
         }
 
-        VerticalLayout leftPanel = new VerticalLayout();
-        final Table drugTable = new Table();
-        drugTable.addStyleName("components-inside");
-
-        drugTable.addContainerProperty("Drug Name", Label.class, null);
-        drugTable.addContainerProperty("GTIN", Label.class, null);
-        drugTable.addContainerProperty("Description", Label.class, null);
-        drugTable.addContainerProperty("Amount", TextField.class, null);
-        drugTable.addContainerProperty("", Button.class, null);
-
-        VerticalLayout rightPanel = new VerticalLayout();
-        cartTable.addStyleName("components-inside");
-        rightPanel.setImmediate(true);
-
-        cartTable.addContainerProperty("Drug name", Label.class, null);
-        cartTable.addContainerProperty("Amount", TextField.class, null);
-        cartTable.addContainerProperty("", Button.class, null);
-
-        for(Drug d : drugsModel.findAll()){
-            Label drugName = new Label(d.getName());
-            Label gtin = new Label(Integer.toString(d.getGtin()));
-            Label drugDescription = new Label(d.getDescription());
-            ObjectProperty<Integer> amountProperty = new ObjectProperty<Integer>(BASE_AMOUNT);
-            TextField drugAmount = new TextField(amountProperty);
-            drugAmount.setImmediate(true);
-            drugAmount.setWidth("50px");
-
-
-            Button addBtn = new Button();
-            addBtn.setIcon(FontAwesome.CART_PLUS);
-
-            DrugItemWrapper diw = new DrugItemWrapper(d,drugAmount);
-            addBtn.setData(diw);
-            addBtn.addClickListener(event -> {
-                DrugItemWrapper drugItemWrapper = (DrugItemWrapper)event.getButton().getData();
-
-                DrugOrderItem drugItem = drugItemWrapper.getItem();
-                if(drugItem!=null) {
-                    addItem(drugItem);
-                }
-            });
-
-            // Create the table rows
-            drugTable.addItem(
-                    new Object[] { drugName, gtin, drugDescription, drugAmount, addBtn }, d.getId());
-        }
-
-
-        leftPanel.addComponent(drugTable);
-
-        this.addComponent(leftPanel);
-
-        rightPanel.addComponent(cartTable);
-        rightPanel.addComponent(patientSelect);
-        rightPanel.addComponent(remarks);
-
+	/**
+	 * Configure the button which sends the contents of the cart and the remarks
+         */
         Button sendOrderBtn = new Button("send order");
         sendOrderBtn.addClickListener(e ->{
             try {
@@ -124,20 +82,87 @@ public class DrugCart extends HorizontalLayout {
                 Notification.show("Order sent successfully.");
                 emptyCart();
             } catch (Exception exception){
-                Notification.show(exception.getMessage());
+                Notification.show("Order could not be sent: " + exception.getMessage());
             }
 
         });
 
+	/**
+	 * Configure and populate the table containing the drugs to choose from and add to the cart
+         */
+        drugTable.addStyleName("components-inside");
+        drugTable.addContainerProperty("Drug Name", Label.class, null);
+        drugTable.addContainerProperty("GTIN", Label.class, null);
+        drugTable.addContainerProperty("Description", Label.class, null);
+        drugTable.addContainerProperty("Amount", TextField.class, null);
+        drugTable.addContainerProperty("", Button.class, null);
+        for(Drug d : drugsModel.findAll()){
+            // Labels
+            Label drugName = new Label(d.getName());
+            Label gtin = new Label(Integer.toString(d.getGtin()));
+            Label drugDescription = new Label(d.getDescription());
+            // TextField with property
+            ObjectProperty<Integer> amountProperty = new ObjectProperty<Integer>(BASE_AMOUNT);
+            TextField drugAmount = new TextField(amountProperty);
+            drugAmount.setImmediate(true);
+            drugAmount.setWidth("50px");
+            // Button to add the item in the row to the cart (with a wrapped item bound to it)
+            Button addBtn = new Button();
+            addBtn.setIcon(FontAwesome.CART_PLUS);
+            DrugItemWrapper diw = new DrugItemWrapper(d,drugAmount);
+            addBtn.setData(diw);
+            addBtn.addClickListener(event -> {
+                DrugItemWrapper drugItemWrapper = (DrugItemWrapper)event.getButton().getData();
+                DrugOrderItem drugItem = drugItemWrapper.getItem();
+                if(drugItem!=null) {
+                    addItem(drugItem);
+                }
+            });
+            // Create the table rows
+            drugTable.addItem(
+                    new Object[] { drugName, gtin, drugDescription, drugAmount, addBtn }, d.getId());
+        }
+
+	/**
+	 * Configuring the table containing the actual cart
+         */
+        cartTable.addStyleName("components-inside");
+        cartTable.addContainerProperty("Drug name", Label.class, null);
+        cartTable.addContainerProperty("Amount", TextField.class, null);
+        cartTable.addContainerProperty("", Button.class, null);
+
+	/**
+	 * Adding layout components and positioning cart parts
+         */
+        // left panel containing the drug table
+        VerticalLayout leftPanel = new VerticalLayout();
+        leftPanel.addComponent(drugTable);
+
+        // right panel containing the cart components
+        VerticalLayout rightPanel = new VerticalLayout();
+        rightPanel.setImmediate(true);
+        rightPanel.addComponent(cartTable);
+        rightPanel.addComponent(patientSelect);
+        rightPanel.addComponent(remarks);
         rightPanel.addComponent(sendOrderBtn);
 
+        // add both panels to the main panel
+        this.addComponent(leftPanel);
         this.addComponent(rightPanel);
 
+	/**
+	 * If an order is used as constructing parameter, fill the items into the cart
+         */
         if(order != null){
             populate(order);
         }
     }
 
+    /**
+     * Adds an item to the cart. If the item is already present in the cart, its quantity will be
+     * increased by the corresponding amount
+     * @param drugOrderItem the item to be added to the cart
+     */
     public synchronized void addItem(DrugOrderItem drugOrderItem){
         boolean newItem = true;
 
@@ -191,11 +216,18 @@ public class DrugCart extends HorizontalLayout {
         }
     }
 
-
+    /**
+     * Get a set of items that are currently in the cart.
+     * @return items in the cart
+     */
     public synchronized List<DrugOrderItem> getItems(){
         return items;
     }
 
+    /**
+     * Calculate the total amount of items in the cart (not just the number of different types)
+     * @return number of items in cart
+     */
     public synchronized int getNumberOfItems(){
         cartSize = 0;
         for (DrugOrderItem i : items){
@@ -204,12 +236,20 @@ public class DrugCart extends HorizontalLayout {
         return cartSize;
     }
 
+    /**
+     * Clear all items that are currently in the cart
+     */
     public synchronized void emptyCart(){
         items.clear();
         cartSize = 0;
         cartTable.removeAllItems();
     }
 
+    /**
+     * Generate a DrugOrder entity object from the items in the cart
+     * @return DrugOrder object generated from cart content. Returns null if the DrugOrder cannot
+     * be generated with the current cart content (no items or no patient selected)
+     */
     public DrugOrder generateDrugOrder() {
         if (getNumberOfItems() > 0 && patientSelect.getValue()!=null) {
             DrugOrder drugOrder = new DrugOrder();
@@ -222,16 +262,28 @@ public class DrugCart extends HorizontalLayout {
         }
     }
 
+    /**
+     * Adds all items (in their respective quantity) from a DrugOrder object to the cart
+     * @param order DrugOrder to be added to the cart
+     */
     private void populate(DrugOrder order){
         for(DrugOrderItem  item : order.getDrugOrderItems()){
             addItem(item);
         }
-        remarks.setValue(order.getRemarks());
     }
 
+    /**
+     * Nested wrapper class for the Drug table
+     */
     private class DrugItemWrapper{
         private Drug drug;
         private TextField textField;
+
+	/**
+         * Generate a DrugItem wrapper object
+         * @param d Drug for this wrapper
+         * @param t TextField containing the amount for this wrapper
+         */
         public DrugItemWrapper(Drug d, TextField t){
             drug = d;
             textField = t;
@@ -239,6 +291,11 @@ public class DrugCart extends HorizontalLayout {
                             "The value must be integer between 0-120 (was {0})",
                             0, 999));
         }
+
+	/**
+         * Get the DrugOrderItem from this wrapper
+         * @return the DrugOrderItem contained in this wrapper
+         */
         public DrugOrderItem getItem(){
             try {
                 textField.validate();
@@ -254,6 +311,11 @@ public class DrugCart extends HorizontalLayout {
         }
     }
 
+    /**
+     * Helper to test if a String can be converted to an Integer
+     * @param value String to be tested
+     * @return can the String be parsed?
+     */
     private boolean tryParseInt(String value) {
         try {
             Integer.parseInt(value);

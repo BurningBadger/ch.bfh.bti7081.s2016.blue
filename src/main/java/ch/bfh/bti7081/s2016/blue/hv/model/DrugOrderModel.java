@@ -8,7 +8,9 @@ import com.vaadin.ui.UI;
 import java.util.logging.Logger;
 
 /**
- * Created by kerberos on 04/06/16.
+ * Model for DrugOrders
+ *
+ * @author Michel Hosmann
  */
 public class DrugOrderModel extends BaseModel<DrugOrder, Long> {
     private static final long serialVersionUID = -1857636223717022166L;
@@ -16,11 +18,20 @@ public class DrugOrderModel extends BaseModel<DrugOrder, Long> {
     private final static Logger LOGGER = Logger.getLogger(DrugOrderModel.class.getName());
     private HealthVisitor visitor;
 
+    /**
+     * Creates an instance of the DrugOrderModel
+     */
     public DrugOrderModel() {
         super(DrugOrder.class);
         this.visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
     }
 
+    /**
+     * Sends an Email containing the @param drugOrder and persists the order
+     * @param drugOrder the DrugOrder to be sent and persisted
+     * @return is true if the mail was sent and the DrugOrder was persisted
+     * @throws Exception if something went wrong
+     */
     public boolean placeOrder(DrugOrder drugOrder) throws Exception{
         boolean orderSuccessful = false;
         try {
