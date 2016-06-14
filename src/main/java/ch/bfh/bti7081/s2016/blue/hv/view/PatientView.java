@@ -29,7 +29,7 @@ public class PatientView extends VerticalLayout implements View {
 	private static final long serialVersionUID = -438987560910588513L;
 	public static final String NAME = "Patient"; // variable for HealthVisUI
 
-    public PatientView(Patient patient) {
+	    public PatientView(Patient patient) {
 
 	this.setSizeFull();
 	this.setMargin(true);
@@ -250,9 +250,7 @@ public class PatientView extends VerticalLayout implements View {
 	Image butAnmerkungen = new Image();
 	butAnmerkungen.setSource(new ThemeResource("icons/double-cutted-circle-120x120.png"));
 	butAnmerkungen.setDescription("Notes");
-	butAnmerkungen.addClickListener(event -> {
-	    // TODO
-	});
+	butAnmerkungen.addClickListener(event -> {});
 	grid.addComponent(butAnmerkungen, 0, 1);
 	grid.setComponentAlignment(butAnmerkungen, Alignment.BOTTOM_LEFT);
 
@@ -301,8 +299,8 @@ public class PatientView extends VerticalLayout implements View {
      */
     private void showPatientVisits(Patient patient) {
     	//this.detach();
-		this.removeAllComponents();
-		this.addComponent(new PatientVisitHistoryListView(patient.getId(),"Patients"));
+	this.removeAllComponents();
+	this.addComponent(new PatientVisitHistoryListView(patient.getId(),"Patients"));
     	//getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + patient.getId() + "/" + "Patients");
     }
 
@@ -315,7 +313,7 @@ public class PatientView extends VerticalLayout implements View {
     	//this.detach();
     	this.removeAllComponents();
     	this.addComponent(new EmergencyContactView(patient.getId(),"Patients"));
-		//getUI().getNavigator().navigateTo("EmergencyContactView/" + patient.getId() + "/" + "Patients");
+	//getUI().getNavigator().navigateTo("EmergencyContactView/" + patient.getId() + "/" + "Patients");
     }
 
     /**
@@ -323,7 +321,8 @@ public class PatientView extends VerticalLayout implements View {
      */
     private void showPatientsDrugs() {
 
-	this.detach();
+	this.removeAllComponents();
+//	this.addComponent(new DrugsOrderView(), Integer.parseInt("Orders"));
 	HealthVisUI.setMainView(new DrugsOrderView());
     }
 

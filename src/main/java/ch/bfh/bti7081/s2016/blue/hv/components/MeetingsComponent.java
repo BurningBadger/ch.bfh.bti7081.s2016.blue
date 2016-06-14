@@ -86,7 +86,7 @@ public class MeetingsComponent extends VerticalLayout{
     public void createRoute(String url){
 	routeContainer = new Embedded("",new ExternalResource(routeUrl+url));
 	routeContainer.setType(Embedded.TYPE_BROWSER);
-	routeContainer.setWidth("100%");
+	routeContainer.setWidth("700px");
 	routeContainer.setHeight("500px");
 	this.addComponent(routeContainer);
     }
