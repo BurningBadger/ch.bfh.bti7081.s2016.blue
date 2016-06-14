@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.components.DrugCart;
 import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugOrderModel;
+import ch.bfh.bti7081.s2016.blue.hv.util.Helper;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.navigator.View;
@@ -95,7 +96,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         patientSelect.setFilteringMode(FilteringMode.CONTAINS);
         patientSelect.setInvalidAllowed(false);
         patientSelect.setNullSelectionAllowed(true);
-        for(Patient patient : visitor.getPatients()){
+        for(Patient patient : Helper.getPatients(visitor)){
             String name = patient.getFirstname() + " " + patient.getLastname();
             patientSelect.addItem(patient);
             patientSelect.setItemCaption(patient, name);
@@ -241,7 +242,7 @@ public class DrugsOrderView extends HorizontalLayout implements View {
     private boolean isInPatients(DrugOrder order){
         boolean isIn = false;
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
-        for (Patient p : visitor.getPatients()) {
+        for (Patient p : Helper.getPatients(visitor)) {
             if (p.getId().compareTo(order.getPatient().getId()) == 0){
                 isIn = true;
                 break;

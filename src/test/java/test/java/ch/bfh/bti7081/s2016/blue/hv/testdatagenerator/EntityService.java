@@ -1,5 +1,10 @@
-package ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
+package test.java.ch.bfh.bti7081.s2016.blue.hv.testdatagenerator;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -9,6 +14,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import org.junit.Test;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.Contact;
@@ -26,10 +32,9 @@ import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
  */
 public class EntityService {
 
-    final static String[] userNames = { "user1@test.com", "user2@test.com", "user3@test.com", "user4@test.com",
-	    "user5@test.com" };
+    final static String[] userNames = {"user1@test.com", "user2@test.com", "user3@test.com", "user4@test.com", "user5@test.com"};
 
-    final static String[] passwords = { "user1test", "user2test", "user3test", "user4test", "user5test" };
+    final static String[] passwords = {"user1test", "user2test", "user3test", "user4test", "user5test"};
 
     final static String[] firstNames = { "Peter", "Alice", "Joshua", "Mike", "Olivia", "Nina", "Alex", "Rita", "Dan",
 	    "Umberto", "Henrik", "Rene", "Lisa", "Marge", "Marshall" };
@@ -37,12 +42,14 @@ public class EntityService {
     final static String[] lastNames = { "Smith", "Gordon", "Simpson", "Brown", "Clavel", "Simons", "Verne", "Scott",
 	    "Allison", "Gates", "Rowling", "Barks", "Ross", "Schneider", "Tate" };
 
-    final static String cities[] = { "Bern" };
+    final static String cities[] = { "Bern"};
 
-    final static String streets[] = { "Erlenweg 23", "Neuengasse 43", "Viktoriastrasse 21", "Sempachstrasse 22",
-	    "Laupenstrasse 19", "Südbahnhofstrasse 14", "Riedbachstrasse 100", "Wankdorfallee 4" };
+    final static String streets[] = { "Erlenweg", "Neuengasse", "Viktoriastrasse", "Sempachstrasse",
+	    "Laupenstrasse", "Südbahnhofstrasse", "Riedbachstrasse", "Wankdorfallee", "Seftigenstrasse",
+	    "Belpstrasse", "Weissensteinstrasse", "Moserstrasse", "Kramgasse", "Bärenplatz"};
 
-    final static String zips[] = { "3008", "3011", "3030", "3014", "3008", "3007", "3027", "3030" };
+    final static String zips[] = {"3008", "3011", "3030", "3014", "3008", "3007", "3027", "3030", "3007","3007","3007",
+	    "3014", "3011", "3011"};
 
     final static String drugNames[] = { "Analgin", "Ibuprofen", "Ketamin", "Pervitin", "Cocaine", "Heroine", "Viagra",
 	    "Prozac", "Tamiflu", "Opium", "LSD", "Valium", "Cannabis", "Aspirin", "Crestor", "Synthroid",
@@ -90,21 +97,22 @@ public class EntityService {
 	return di;
     }
 
-    private Contact createContact() {
+    private Contact createContact(){
 	Contact contact = new Contact();
 
 	contact.setCity(cities[r.nextInt(cities.length)]);
 	contact.setPhoneNumber(10000 + r.nextInt(20000) + 1000 + r.nextInt(1000) + "");
 
 	int randStreetIndex = r.nextInt(streets.length);
+	int houseNumber = r.nextInt(60)+1;
 
-	contact.setStreet(streets[randStreetIndex]);
+	contact.setStreet(streets[randStreetIndex] + " " + houseNumber);
 	contact.setZip(zips[randStreetIndex]);
 
 	return contact;
     };
 
-    private EmergencyContact createEmergencyContact() {
+    private EmergencyContact createEmergencyContact(){
 	EmergencyContact contact = new EmergencyContact();
 
 	contact.setFirstname(firstNames[r.nextInt(firstNames.length)]);
@@ -118,7 +126,7 @@ public class EntityService {
 	return contact;
     };
 
-    private HealthVisitor createVisitor(int i, Contact contact) {
+    private HealthVisitor createVisitor(int i, Contact contact){
 	HealthVisitor visitor = new HealthVisitor();
 
 	visitor.setFirstname(firstNames[r.nextInt(firstNames.length)]);
@@ -157,6 +165,7 @@ public class EntityService {
 	VisitEvent visitEvent = new VisitEvent();
 	addDates(visitEvent);
 	visitEvent.setVisit(visit);
+
 	return visitEvent;
     };
 
@@ -203,7 +212,7 @@ public class EntityService {
 	    HealthVisitor visitor = createVisitor(hv, vContact);
 	    Set<Visit> visits = new HashSet<Visit>();
 
-	    int amount = r.nextInt(5) + 1;
+	    int amount = r.nextInt(7) + 1;
 	    for (int i = 0; i < amount; i++) {
 		Contact pContact = createContact();
 		EmergencyContact emContact = createEmergencyContact();
@@ -212,7 +221,7 @@ public class EntityService {
 
 		Set<VisitEvent> visitEvents = new HashSet<VisitEvent>();
 
-		int visitsAmount = r.nextInt(5) + 1;
+		int visitsAmount = r.nextInt(3) + 1;
 		for (int j = 0; j < visitsAmount; j++) {
 		    VisitEvent visitEvent = createVisitEvent(visit);
 		    visitEvents.add(visitEvent);

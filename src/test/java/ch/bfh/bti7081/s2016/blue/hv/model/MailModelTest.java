@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -43,6 +44,7 @@ public class MailModelTest {
 	Thread.sleep(5000); // wait until started up
     }
 
+    @Ignore
     @Test
     public void testSendEmail() throws IOException {
 

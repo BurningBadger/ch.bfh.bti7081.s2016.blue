@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.entities.*;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugOrderModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.DrugsModel;
+import ch.bfh.bti7081.s2016.blue.hv.util.Helper;
 import com.vaadin.data.Validator;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.data.util.ObjectProperty;
@@ -62,7 +63,7 @@ public class DrugCart extends HorizontalLayout {
         patientSelect.setFilteringMode(FilteringMode.CONTAINS);
         patientSelect.setInvalidAllowed(false);
         patientSelect.setNullSelectionAllowed(false);
-        for(Patient p : visitor.getPatients()){
+        for(Patient p : Helper.getPatients(visitor)){
             String name = p.getFirstname() + " " + p.getLastname();
             patientSelect.addItem(p);
             patientSelect.setItemCaption(p, name);

@@ -28,7 +28,6 @@ import ch.bfh.bti7081.s2016.blue.hv.view.LoginView;
 import ch.bfh.bti7081.s2016.blue.hv.view.Menu;
 import ch.bfh.bti7081.s2016.blue.hv.view.PatientListView;
 import ch.bfh.bti7081.s2016.blue.hv.view.SettingsView;
-import ch.bfh.bti7081.s2016.blue.hv.view.TodayMeetingsView;
 import ch.bfh.bti7081.s2016.blue.hv.view.VisitsView;
 
 /**
@@ -118,7 +117,7 @@ public class HealthVisUI extends UI {
 	menu = new Menu(navigator);
 	menu.addView(new LandingView(), "Home", LandingView.getName(), FontAwesome.DASHBOARD);
 	menu.addView(new PatientListView(), "Patients", PatientListView.getName(), FontAwesome.CIRCLE);
-	menu.addView(new TodayMeetingsView(), "TodayMeetings", TodayMeetingsView.getName(), FontAwesome.CALENDAR);
+
 	menu.addView(new VisitsView(), "Visits", VisitsView.getName(), FontAwesome.TRIPADVISOR);
 	menu.addView(new DrugsOrderView(), "Drug Orders", DrugsOrderView.getName(), FontAwesome.MEDKIT);
 	menu.addView(new DrugsView(), "Drugs", DrugsView.getName(), FontAwesome.MEDKIT);
@@ -128,8 +127,6 @@ public class HealthVisUI extends UI {
 	    navigator.navigateTo(LandingView.getName());
 	}
 	navigator.addViewChangeListener(viewChangeListener);
-
-	//
 
 	// Adding to the main Pane
 	mainVl.addComponent(menu);
