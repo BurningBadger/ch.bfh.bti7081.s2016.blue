@@ -300,9 +300,10 @@ public class PatientView extends VerticalLayout implements View {
      * @param patient
      */
     private void showPatientVisits(Patient patient) {
-    	this.detach();
-		//HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),"Patients"));
-    	getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + patient.getId() + "/" + "Patients");
+    	//this.detach();
+		this.removeAllComponents();
+		this.addComponent(new PatientVisitHistoryListView(patient.getId(),"Patients"));
+    	//getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + patient.getId() + "/" + "Patients");
     }
 
     /**
@@ -311,10 +312,10 @@ public class PatientView extends VerticalLayout implements View {
      * @param patient
      */
     private void showEmergencyContact(Patient patient) {
-
-	this.detach();
-		//HealthVisUI.setMainView(new EmergencyContactView(patient.getId(),"Patients"));
-		getUI().getNavigator().navigateTo("EmergencyContactView/" + patient.getId() + "/" + "Patients");
+    	//this.detach();
+    	this.removeAllComponents();
+    	this.addComponent(new EmergencyContactView(patient.getId(),"Patients"));
+		//getUI().getNavigator().navigateTo("EmergencyContactView/" + patient.getId() + "/" + "Patients");
     }
 
     /**

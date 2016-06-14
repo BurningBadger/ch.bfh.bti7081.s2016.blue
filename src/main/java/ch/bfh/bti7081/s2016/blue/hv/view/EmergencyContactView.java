@@ -52,7 +52,9 @@ public class EmergencyContactView extends VerticalLayout implements View {
     private TextField cityDBe;
     private TextField phoneDBe;
     
-    public EmergencyContactView() {
+    public EmergencyContactView(Long patientID, String lastPage) {
+    	this.patientID = patientID;
+		this.lastPage = lastPage;
 		
 		this.setSizeFull();
 		
@@ -258,9 +260,9 @@ public class EmergencyContactView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-    	String[] params = event.getParameters().split("/");
+    	/*String[] params = event.getParameters().split("/");
     	this.patientID = Long.parseLong(params[0]);
-		this.lastPage = params[1];
+		this.lastPage = params[1];*/
     }
 
 }
