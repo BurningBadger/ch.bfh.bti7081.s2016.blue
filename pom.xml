@@ -266,8 +266,8 @@
 				<version>3.5.1</version>
 				<configuration>
 					<locales>de,en</locales>
-					<!-- <port>9999</port> -->
-					<!-- <tempWebappDirectory>${basedir}/target/site/</tempWebappDirectory> -->
+					<port>9999</port>
+					<tempWebappDirectory>${basedir}/target/site/</tempWebappDirectory>
 				</configuration>
 			</plugin>
 
@@ -290,34 +290,31 @@
 					<maxmemory>512</maxmemory>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.17</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-				</configuration>
-				<!-- <executions> -->
-				<!-- <execution> -->
-				<!-- <id>validate</id> -->
-				<!-- <phase>validate</phase> -->
-				<!-- <configuration> -->
-				<!-- <configLocation>checkstyle.xml</configLocation> -->
-				<!-- <encoding>UTF-8</encoding> -->
-				<!-- <consoleOutput>true</consoleOutput> -->
-				<!-- <failsOnError>true</failsOnError> -->
-				<!-- <linkXRef>false</linkXRef> -->
-				<!-- </configuration> -->
-				<!-- <goals> -->
-				<!-- <goal>check</goal> -->
-				<!-- </goals> -->
-				<!-- </execution> -->
-				<!-- </executions> -->
-			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-checkstyle-plugin</artifactId> -->
+			<!-- <version>2.17</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>validate</id> -->
+			<!-- <phase>validate</phase> -->
+			<!-- <configuration> -->
+			<!-- <configLocation>checkstyle.xml</configLocation> -->
+			<!-- <encoding>UTF-8</encoding> -->
+			<!-- <consoleOutput>true</consoleOutput> -->
+			<!-- <failsOnError>true</failsOnError> -->
+			<!-- <linkXRef>false</linkXRef> -->
+			<!-- </configuration> -->
+			<!-- <goals> -->
+			<!-- <goal>check</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.4-SNAPSHOT</version>
+				<version>3.0.3</version>
 			</plugin>
 		</plugins>
 	</reporting>

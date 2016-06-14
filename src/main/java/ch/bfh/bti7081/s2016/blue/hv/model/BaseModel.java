@@ -48,6 +48,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
      * Save or update {@link T}.
      *
      * @param element
+     *            {@link T} to save or update.
      * @return true, if saving was successful.
      */
     public boolean saveOrUpdate(T element) {
@@ -56,8 +57,6 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	    entityManager.getTransaction().begin();
 
 	    // new, if no id exists
-	    // TODO: remove check 999
-	    // if (element.getId() == null || element.getId() == 999) {
 	    if (element.getId() == null) {
 		element.setCreatedAt(timeStamp);
 		element.setUpdatedAt(timeStamp);
@@ -80,6 +79,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
      * Save a list of {@link T}.
      *
      * @param data
+     *            a list of {@link T} to save.
      * @return true, if saving was successful.
      */
     public boolean save(List<T> data) {
@@ -103,6 +103,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
      * Finds {@link T} for the given ID.
      *
      * @param id
+     *            the id
      * @return the found {@link T}
      * @throws EntityNotFoundException
      *             if no {@link T} was found for the provided ID.
@@ -124,11 +125,10 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
     /**
      * Find all {@link T}
      * 
-     * @return
-     * @throws EntityNotFoundException
+     * @return a list with the found entities.
      */
     @SuppressWarnings("unchecked")
-    public List<T> findAll() throws EntityNotFoundException {
+    public List<T> findAll() {
 	entityManager.getTransaction().begin();
 
 	// get the table name from the defined annotation.
@@ -140,11 +140,11 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	return list;
     }
 
-
     /**
      * Delete {@link T}.
      * 
      * @param element
+     *            the element of {@link T} to delete.
      * @return true, if successful
      */
     public boolean delete(T element) {
@@ -164,6 +164,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
      * Delete {@link T} with the given ID.
      * 
      * @param id
+     *            the id of the element to delete.
      * @return true, if successful.
      */
     public boolean deleteById(ID id) {
@@ -180,6 +181,11 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	return true;
     }
 
+    /**
+     * Get the transaction.
+     * 
+     * @return the current transaction.
+     */
     public EntityTransaction getTransaction() {
 	if (entityManager == null) {
 	    return null;
@@ -187,6 +193,11 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	return entityManager.getTransaction();
     }
 
+    /**
+     * Get the {@link EntityManager}.
+     * 
+     * @return the {@link EntityManager}
+     */
     public EntityManager getEntityManager() {
 	return entityManager;
     }
