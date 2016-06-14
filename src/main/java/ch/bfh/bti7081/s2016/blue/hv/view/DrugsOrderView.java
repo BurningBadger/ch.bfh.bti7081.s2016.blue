@@ -249,6 +249,9 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         boolean isIn = false;
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
         for (Patient p : Helper.getPatients(visitor)) {
+            if(p == null || order.getPatient()== null || order.getPatient().getId()==null){
+                continue;
+            }
             if (p.getId().compareTo(order.getPatient().getId()) == 0){
                 isIn = true;
                 break;
