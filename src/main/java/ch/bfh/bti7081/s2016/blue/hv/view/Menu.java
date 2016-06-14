@@ -5,23 +5,14 @@ import java.util.Map;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
-import com.vaadin.server.ThemeResource;
-import com.vaadin.server.VaadinSession;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.MenuBar;
-import com.vaadin.ui.MenuBar.Command;
-import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.themes.ValoTheme;
 
+@Deprecated
 public class Menu extends CssLayout {
     private static final long serialVersionUID = 9148437608385665635L;
 
@@ -35,70 +26,40 @@ public class Menu extends CssLayout {
     private CssLayout menuItemsLayout;
     private CssLayout menuPart;
 
+    /**
+     * Creates menu layout and populates it with menu items
+     * 
+     * @param navigator
+     */
     public Menu(Navigator navigator) {
-	this.navigator = navigator;
-	setPrimaryStyleName(ValoTheme.MENU_ROOT);
-	menuPart = new CssLayout();
-	menuPart.addStyleName(ValoTheme.MENU_PART);
-	menuPart.addStyleName(ValoTheme.MENU_PART_LARGE_ICONS);
-
-	// header of the menu
-	final HorizontalLayout top = new HorizontalLayout();
-	top.setDefaultComponentAlignment(Alignment.MIDDLE_LEFT);
-	top.addStyleName(ValoTheme.MENU_TITLE);
-	top.setSpacing(true);
-	//Label title = new Label("Health Visitor");
-	//title.addStyleName(ValoTheme.LABEL_H2);
-	//title.setSizeUndefined();
-	Image image = new Image(null, new ThemeResource("images/logo_75_60.png"));
-	image.setStyleName("logo");
-	top.addComponent(image);
-	//top.addComponent(title);
-	menuPart.addComponent(top);
-
-	// logout menu item
-	MenuBar logoutMenu = new MenuBar();
-	logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, new Command() {
-	    private static final long serialVersionUID = -4029332663002821796L;
-
-	    @Override
-	    public void menuSelected(MenuItem selectedItem) {
-		getSession().setAttribute("user", null);
-		VaadinSession.getCurrent().getSession().invalidate();
-		Page.getCurrent().reload();
-	    }
-	});
-
-	logoutMenu.addStyleName("user-menu");
-	menuPart.addComponent(logoutMenu);
-
-	// button for toggling the visibility of the menu when on a small screen
-	final Button showMenu = new Button("Menu", new Button.ClickListener() {
-	    private static final long serialVersionUID = 2078454610142404940L;
-
-	    @Override
-	    public void buttonClick(ClickEvent event) {
-		if (menuPart.getStyleName().contains(VALO_MENU_VISIBLE)) {
-		    menuPart.removeStyleName(VALO_MENU_VISIBLE);
-		}
-		else {
-		    menuPart.addStyleName(VALO_MENU_VISIBLE);
-		}
-	    }
-	});
-
-	showMenu.addStyleName(ValoTheme.BUTTON_PRIMARY);
-	showMenu.addStyleName(ValoTheme.BUTTON_SMALL);
-	showMenu.addStyleName(VALO_MENU_TOGGLE);
-	showMenu.setIcon(FontAwesome.NAVICON);
-	menuPart.addComponent(showMenu);
-
-	// container for the navigation buttons, which are added by addView()
-	menuItemsLayout = new CssLayout();
-	menuItemsLayout.setPrimaryStyleName(VALO_MENUITEMS);
-	menuPart.addComponent(menuItemsLayout);
-
-	addComponent(menuPart);
+		this.navigator = navigator;
+		setPrimaryStyleName(ValoTheme.MENU_ROOT);
+		menuPart = new CssLayout();
+		menuPart.addStyleName(ValoTheme.MENU_PART);
+		//menuPart.addStyleName(ValoTheme.MENU_PART);
+	
+		// logout menu item
+		/*MenuBar logoutMenu = new MenuBar();
+		logoutMenu.addItem("Logout", FontAwesome.SIGN_OUT, new Command() {
+		    private static final long serialVersionUID = -4029332663002821796L;
+	
+		    @Override
+		    public void menuSelected(MenuItem selectedItem) {
+		    	getSession().setAttribute("user", null);
+		    	VaadinSession.getCurrent().getSession().invalidate();
+		    	Page.getCurrent().reload();
+		    }
+		});
+	
+		logoutMenu.addStyleName("user-menu");
+		menuPart.addComponent(logoutMenu);*/
+	
+		// container for the navigation buttons, which are added by addView()
+		menuItemsLayout = new CssLayout();
+		menuItemsLayout.setPrimaryStyleName(VALO_MENUITEMS);
+		menuPart.addComponent(menuItemsLayout);
+	
+		addComponent(menuPart);
     }
 
     /**
@@ -137,8 +98,8 @@ public class Menu extends CssLayout {
      *            view icon in the menu
      */
     public void addView(Class<? extends View> viewClass, final String name, String caption, Resource icon) {
-	navigator.addView(name, viewClass);
-	createViewButton(name, caption, icon);
+    	navigator.addView(name, viewClass);
+    	createViewButton(name, caption, icon);
     }
 
     private void createViewButton(final String name, String caption, Resource icon) {
@@ -170,14 +131,14 @@ public class Menu extends CssLayout {
      *            the name of the view to show as active
      */
     public void setActiveView(String viewName) {
-	for (Button button : viewButtons.values()) {
-	    button.removeStyleName("selected");
-	}
-	Button selected = viewButtons.get(viewName);
-	if (selected != null) {
-	    selected.addStyleName("selected");
-	}
-	menuPart.removeStyleName(VALO_MENU_VISIBLE);
+		for (Button button : viewButtons.values()) {
+		    button.removeStyleName("selected");
+		}
+		Button selected = viewButtons.get(viewName);
+		if (selected != null) {
+		    selected.addStyleName("selected");
+		}
+		menuPart.removeStyleName(VALO_MENU_VISIBLE);
     }
 
 }

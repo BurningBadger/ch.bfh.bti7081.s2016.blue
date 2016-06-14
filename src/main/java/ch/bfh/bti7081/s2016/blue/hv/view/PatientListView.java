@@ -32,8 +32,10 @@ import java.util.Set;
  */
 
 public class PatientListView extends VerticalLayout implements View {
-
-    private static final String NAME = "Patients"; // variable for HealthVisUI
+	
+	private static final long serialVersionUID = 8701473681064614045L;
+	
+	private static final String NAME = "Patients"; // variable for HealthVisUI
     private HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
     private Set<Visit> visits = visitor.getVisits();
 

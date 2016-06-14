@@ -26,8 +26,8 @@ import java.io.*;
  */
 
 public class PatientView extends VerticalLayout implements View {
-
-    public static final String NAME = "Patient"; // variable for HealthVisUI
+	private static final long serialVersionUID = -438987560910588513L;
+	public static final String NAME = "Patient"; // variable for HealthVisUI
 
     public PatientView(Patient patient) {
 
@@ -300,9 +300,9 @@ public class PatientView extends VerticalLayout implements View {
      * @param patient
      */
     private void showPatientVisits(Patient patient) {
-
-	this.detach();
-	HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),"Patients"));
+    	this.detach();
+		//HealthVisUI.setMainView(new PatientVisitHistoryListView(patient.getId(),"Patients"));
+    	getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + patient.getId() + "/" + "Patients");
     }
 
     /**
@@ -313,7 +313,8 @@ public class PatientView extends VerticalLayout implements View {
     private void showEmergencyContact(Patient patient) {
 
 	this.detach();
-	HealthVisUI.setMainView(new EmergencyContactView(patient.getId(),"Patients"));
+		//HealthVisUI.setMainView(new EmergencyContactView(patient.getId(),"Patients"));
+		getUI().getNavigator().navigateTo("EmergencyContactView/" + patient.getId() + "/" + "Patients");
     }
 
     /**

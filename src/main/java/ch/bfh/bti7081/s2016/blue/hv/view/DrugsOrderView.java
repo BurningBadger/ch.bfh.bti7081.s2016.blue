@@ -37,6 +37,10 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         /**
          * Initialization of class variables, models and the current user
          */
+    	setMargin(true);
+    	setWidth("100%");
+    	setSizeUndefined();
+    	
         this.orderDetailsContainer = new VerticalLayout();
         this.drugOrderTable = new Table();
         this.orderDetailsTable = new Table();
@@ -59,7 +63,9 @@ public class DrugsOrderView extends HorizontalLayout implements View {
         drugOrderTable.addContainerProperty("Patient lastname", Label.class, null);
         drugOrderTable.addContainerProperty("Amount of items", Label.class, null);
         drugOrderTable.addValueChangeListener(new Property.ValueChangeListener() {
-            public void valueChange(Property.ValueChangeEvent event){
+			private static final long serialVersionUID = 2692102816185259630L;
+
+			public void valueChange(Property.ValueChangeEvent event){
                 if(drugOrderTable.getValue()!=null){
                     if (!orderDetailsContainer.isVisible()) {
                         orderDetailsContainer.setVisible(true);

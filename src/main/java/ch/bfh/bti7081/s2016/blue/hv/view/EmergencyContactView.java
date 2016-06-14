@@ -1,18 +1,13 @@
 package ch.bfh.bti7081.s2016.blue.hv.view;
 
-import java.util.List;
-
 import com.vaadin.data.fieldgroup.FieldGroup;
-import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable.Unit;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.EmergencyContact;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.model.EmergencyContactModel;
-import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 
 public class EmergencyContactView extends VerticalLayout implements View {
@@ -56,45 +51,43 @@ public class EmergencyContactView extends VerticalLayout implements View {
     private TextField zipDBe;
     private TextField cityDBe;
     private TextField phoneDBe;
-
-    @SuppressWarnings("static-access")
-    public EmergencyContactView(long patientID, String lastPage) {
-	this.patientID = patientID;
-	this.lastPage = lastPage;
-	this.setSizeFull();
+    
+    public EmergencyContactView() {
+		
+		this.setSizeFull();
+		
+		visit = new VisitsModel().findById(patientID);
+		EmergencyContact emergencyContact = emergencyContactModel.findById(visit.getPatient().getEmergencyContact().getId());
 	
-	visit = new VisitsModel().findById(patientID);
-	EmergencyContact emergencyContact = emergencyContactModel.findById(visit.getPatient().getEmergencyContact().getId());
-
-	fieldGrpTF = new FieldGroup();
-
-	lastNameDBe = new TextField();
-	fieldGrpTF.bind(lastNameDBe, "lastNameDB");
-	lastNameDBe.setValue(emergencyContact.getLastname());
-
-	firstNameDBe = new TextField();
-	fieldGrpTF.bind(firstNameDBe, "firstNameDB");
-	firstNameDBe.setValue(emergencyContact.getFirstname());
-
-	addressDBe = new TextField();
-	fieldGrpTF.bind(addressDBe, "addressDB");
-	addressDBe.setValue(emergencyContact.getStreet());
-
-	zipDBe = new TextField();
-	fieldGrpTF.bind(zipDBe, "zipDB");
-	zipDBe.setValue(emergencyContact.getZip());
-
-	cityDBe = new TextField();
-	fieldGrpTF.bind(cityDBe, "cityDB");
-	cityDBe.setValue(emergencyContact.getCity());
-
-	phoneDBe = new TextField();
-	fieldGrpTF.bind(phoneDBe, "phoneDB");
-	phoneDBe.setValue(emergencyContact.getPhoneNumber());
-
-	fieldGrpTF.setReadOnly(true);
-	configureComponents();
-	buildLayout();
+		fieldGrpTF = new FieldGroup();
+	
+		lastNameDBe = new TextField();
+		fieldGrpTF.bind(lastNameDBe, "lastNameDB");
+		lastNameDBe.setValue(emergencyContact.getLastname());
+	
+		firstNameDBe = new TextField();
+		fieldGrpTF.bind(firstNameDBe, "firstNameDB");
+		firstNameDBe.setValue(emergencyContact.getFirstname());
+	
+		addressDBe = new TextField();
+		fieldGrpTF.bind(addressDBe, "addressDB");
+		addressDBe.setValue(emergencyContact.getStreet());
+	
+		zipDBe = new TextField();
+		fieldGrpTF.bind(zipDBe, "zipDB");
+		zipDBe.setValue(emergencyContact.getZip());
+	
+		cityDBe = new TextField();
+		fieldGrpTF.bind(cityDBe, "cityDB");
+		cityDBe.setValue(emergencyContact.getCity());
+	
+		phoneDBe = new TextField();
+		fieldGrpTF.bind(phoneDBe, "phoneDB");
+		phoneDBe.setValue(emergencyContact.getPhoneNumber());
+	
+		fieldGrpTF.setReadOnly(true);
+		configureComponents();
+		buildLayout();
 
     }
 
@@ -264,8 +257,10 @@ public class EmergencyContactView extends VerticalLayout implements View {
     }
 
     @Override
-    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
+    public void enter(ViewChangeEvent event) {
+    	String[] params = event.getParameters().split("/");
+    	this.patientID = Long.parseLong(params[0]);
+		this.lastPage = params[1];
     }
 
 }

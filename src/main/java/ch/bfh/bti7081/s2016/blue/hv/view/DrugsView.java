@@ -35,6 +35,7 @@ public class DrugsView extends VerticalLayout implements View {
                     d.getId());
         }
 
+        table.setSizeFull();
         this.addComponent(table);
 
         // button to add visit

@@ -7,7 +7,6 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -16,21 +15,24 @@ import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
-import ch.bfh.bti7081.s2016.blue.hv.model.HealthVisitorsModel;
 
-public class LandingView extends Panel implements View {
+public class LandingView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 8807692569903926065L;
     private static final String NAME = "Home";
 
-    private HealthVisitorsModel healthVisitorsModel = new HealthVisitorsModel();
+    //private HealthVisitorsModel healthVisitorsModel = new HealthVisitorsModel();
 
     public LandingView() {
-	setSizeFull();
-	buildUI();
+    	setMargin(true);
+    	//setSizeFull();
+    	setWidth("100%");
+    	setSizeUndefined();
+    	buildUI();
     }
 
-    private void buildUI() {
+    @SuppressWarnings("deprecation")
+	private void buildUI() {
 
 
         HealthVisitor visitor = ((HealthVisUI) UI.getCurrent()).getCurrentUser();
@@ -83,7 +85,8 @@ public class LandingView extends Panel implements View {
         layout.setMargin(true);
         layout.setSpacing(true);
 
-        setContent(layout);
+        //setContent(layout);
+        addComponent(layout);
     }
 //	EntityService es = new EntityService();
 //	es.create();
@@ -151,8 +154,6 @@ public class LandingView extends Panel implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-	// TODO Auto-generated method stub
-
     }
 
     public static String getName() {

@@ -13,14 +13,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
-import ch.bfh.bti7081.s2016.blue.hv.model.VisitEventModel;
 import ch.bfh.bti7081.s2016.blue.hv.util.DateUtils;
 import ch.bfh.bti7081.s2016.blue.hv.view.state.StateContext;
-import ch.bfh.bti7081.s2016.blue.hv.view.state.StateSwitch;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Set;
 
 public class TodayMeetingsView extends HorizontalLayout implements View {
@@ -38,8 +33,9 @@ public class TodayMeetingsView extends HorizontalLayout implements View {
     }
 
     public TodayMeetingsView() {
-	setSizeFull();
-	prepareUI();
+    	setMargin(true);
+    	setSizeFull();
+    	prepareUI();
     }
 
     public void prepareUI() {

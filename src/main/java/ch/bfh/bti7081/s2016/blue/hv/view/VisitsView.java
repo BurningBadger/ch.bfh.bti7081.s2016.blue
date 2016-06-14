@@ -7,7 +7,6 @@ import com.vaadin.data.validator.NullValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.server.FontAwesome;
-import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.Alignment;
@@ -22,7 +21,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-import ch.bfh.bti7081.s2016.blue.HealthVisUI;
 import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
@@ -86,8 +84,9 @@ public class VisitsView extends HorizontalLayout implements View {
 	    historyBtn.setDescription("Show history");
 	    historyBtn.setData(visit);
 	    historyBtn.addClickListener(event -> {
-		Visit v = (Visit) event.getButton().getData();
-		HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
+	    	Visit v = (Visit) event.getButton().getData();
+	    	getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + v.getId() + "/" + getName());
+		// HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
 		// HealthVisUI.setMainView(new EmergencyContactView(v.getId(),
 		// getName()));
 	    });
@@ -241,6 +240,11 @@ public class VisitsView extends HorizontalLayout implements View {
 	// show details
 	else {
 	    window.setCaption(visit.getPatient().getFirstname() + " " + visit.getPatient().getLastname());
+	    window.setSizeUndefined();
+	    HorizontalLayout hl = new HorizontalLayout();
+	    hl.setSizeUndefined();
+	    hl.setMargin(true);
+	    
 	    Set<VisitEvent> events = visit.getVisitEvents();
 
 	    Table table = new Table();
@@ -262,7 +266,9 @@ public class VisitsView extends HorizontalLayout implements View {
 		table.addItem(new Object[] { visit.getPatient().getFirstname(), visit.getPatient().getLastname(), date,
 			from, to }, visit.getId());
 	    });
-	    window.setContent(table);
+	    
+	    hl.addComponent(table);
+	    window.setContent(hl);
 	}
 
 	UI.getCurrent().addWindow(window);
