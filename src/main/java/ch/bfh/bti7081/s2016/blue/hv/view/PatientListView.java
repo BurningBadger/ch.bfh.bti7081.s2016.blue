@@ -217,7 +217,9 @@ public class PatientListView extends VerticalLayout implements View {
      */
     private void showDetailsWindow(Patient patient) {
 
-	HealthVisUI.setMainView(new PatientView(patient));
+    	//HealthVisUI.setMainView(new PatientView(patient));
+    	this.removeAllComponents();
+    	this.addComponent(new PatientView(patient));
     }
 
     /**

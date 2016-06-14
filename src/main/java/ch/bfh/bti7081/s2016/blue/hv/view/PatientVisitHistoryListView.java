@@ -30,21 +30,21 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
     private Table table;
     private Visit visit;
 
-    /*public PatientVisitHistoryListView(long patientID, String lastPage) {
+    public PatientVisitHistoryListView(long patientID, String lastPage) {
 		this.patientID = patientID;
 		this.lastPage = lastPage;
 		this.setSizeFull();
 		
 		configureComponents();
 		buildLayout();
-    }*/
+    }
     
-    public PatientVisitHistoryListView() {
+    /*public PatientVisitHistoryListView() {
     	this.setSizeFull();
 		
 		configureComponents();
 		buildLayout();
-    }
+    }*/
 
     private void configureComponents() {
 
@@ -186,9 +186,9 @@ public class PatientVisitHistoryListView extends VerticalLayout implements View 
 
     @Override
     public void enter(ViewChangeEvent event) {
-    	String[] params = event.getParameters().split("/");
+    	/*String[] params = event.getParameters().split("/");
     	this.patientID = Long.parseLong(params[0]);
-		this.lastPage = params[1];
+		this.lastPage = params[1];*/
     }
 
 }

@@ -85,10 +85,12 @@ public class VisitsView extends HorizontalLayout implements View {
 	    historyBtn.setData(visit);
 	    historyBtn.addClickListener(event -> {
 	    	Visit v = (Visit) event.getButton().getData();
-	    	getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + v.getId() + "/" + getName());
-		// HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
-		// HealthVisUI.setMainView(new EmergencyContactView(v.getId(),
-		// getName()));
+	    	//getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + v.getId() + "/" + getName());
+	    	// HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
+	    	// HealthVisUI.setMainView(new EmergencyContactView(v.getId(),
+	    	// getName()));
+	    	this.removeAllComponents();
+	    	this.addComponent(new PatientVisitHistoryListView(v.getId(), getName()));
 	    });
 	    // historyBtn.addStyleName("link");
 
