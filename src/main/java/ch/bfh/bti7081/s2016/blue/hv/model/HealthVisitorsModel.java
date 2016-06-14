@@ -3,8 +3,12 @@ package ch.bfh.bti7081.s2016.blue.hv.model;
 import java.util.List;
 import java.util.logging.Logger;
 
+import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
+
 import javax.persistence.Entity;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.logging.Logger;
 
 import com.vaadin.server.VaadinSession;
 
@@ -26,7 +30,7 @@ public class HealthVisitorsModel extends BaseModel<HealthVisitor, Long> {
     }
 
     /**
-     * 
+     *
      * @param element
      * @return
      * @throws EntityNotFoundException
@@ -51,7 +55,7 @@ public class HealthVisitorsModel extends BaseModel<HealthVisitor, Long> {
 
     /**
      * Find the currently logged in {@link HealthVisitor}.
-     * 
+     *
      * @return the {@link HealthVisitor} or null if none exists in the
      *         {@link VaadinSession}.
      */

@@ -140,6 +140,7 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
 	return list;
     }
 
+
     /**
      * Delete {@link T}.
      * 
@@ -189,4 +190,5 @@ public abstract class BaseModel<T extends BaseEntity, ID> implements Serializabl
     public EntityManager getEntityManager() {
 	return entityManager;
     }
+
 }

@@ -21,7 +21,7 @@ public class HealthVisitor extends Person {
 
     @OneToMany(mappedBy = "visitor")
     private Set<Visit> visits;
-    
+
     @OneToMany(mappedBy = "healthVisitor")
     private Set<Setting> settings;
 

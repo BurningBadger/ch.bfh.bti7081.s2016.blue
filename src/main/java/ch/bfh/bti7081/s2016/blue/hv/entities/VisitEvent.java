@@ -20,11 +20,11 @@ public class VisitEvent extends BaseEntity {
     @ManyToOne
     private Visit visit;
 
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "date_from")
     private Date dateFrom;
 
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     @Column(name = "date_to")
     private Date dateTo;
 

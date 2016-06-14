@@ -1,12 +1,15 @@
 package ch.bfh.bti7081.s2016.blue.hv.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import ch.bfh.bti7081.s2016.blue.hv.entities.HealthVisitor;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Patient;
 import ch.bfh.bti7081.s2016.blue.hv.entities.Visit;
 import ch.bfh.bti7081.s2016.blue.hv.entities.VisitEvent;
+
+import javax.persistence.Entity;
 
 public class VisitsModel extends BaseModel<Visit, Long> {
 
@@ -48,5 +51,4 @@ public class VisitsModel extends BaseModel<Visit, Long> {
 
 	return true;
     }
-
 }
