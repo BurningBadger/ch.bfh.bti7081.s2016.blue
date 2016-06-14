@@ -30,6 +30,11 @@ import ch.bfh.bti7081.s2016.blue.hv.model.PatientModel;
 import ch.bfh.bti7081.s2016.blue.hv.model.VisitsModel;
 import ch.bfh.bti7081.s2016.blue.hv.util.DateUtils;
 
+/**
+ * The view for the visits.
+ * 
+ * @author nicolasschmid
+ */
 public class VisitsView extends HorizontalLayout implements View {
 
     private static final long serialVersionUID = -4194821923203100613L;
@@ -45,7 +50,7 @@ public class VisitsView extends HorizontalLayout implements View {
     private HealthVisitorsModel healthVisitorsModel;
 
     public VisitsView() {
-	this.setSizeFull();
+	this.setSizeUndefined();
 
 	visitsView = new VerticalLayout();
 	visitsModel = new VisitsModel();
@@ -55,9 +60,8 @@ public class VisitsView extends HorizontalLayout implements View {
 	HorizontalLayout tableView = new HorizontalLayout();
 	Table table = new Table();
 	table.addStyleName("components-inside");
-	
+
 	this.addStyleName("v-scrollable");
-        this.setHeight("100%");
 
 	// define the columns
 	table.addContainerProperty("Patient firstname", Label.class, null);
@@ -84,15 +88,10 @@ public class VisitsView extends HorizontalLayout implements View {
 	    historyBtn.setDescription("Show history");
 	    historyBtn.setData(visit);
 	    historyBtn.addClickListener(event -> {
-	    	Visit v = (Visit) event.getButton().getData();
-	    	//getUI().getNavigator().navigateTo("PatientVisitHistoryList/" + v.getId() + "/" + getName());
-	    	// HealthVisUI.setMainView(new PatientVisitHistoryListView(v.getId(), getName()));
-	    	// HealthVisUI.setMainView(new EmergencyContactView(v.getId(),
-	    	// getName()));
-	    	this.removeAllComponents();
-	    	this.addComponent(new PatientVisitHistoryListView(v.getId(), getName()));
+		Visit v = (Visit) event.getButton().getData();
+		this.removeAllComponents();
+		this.addComponent(new PatientVisitHistoryListView(v.getId(), getName()));
 	    });
-	    // historyBtn.addStyleName("link");
 
 	    // record detail button
 	    Button detailsBtn = new Button();
@@ -103,7 +102,6 @@ public class VisitsView extends HorizontalLayout implements View {
 		Visit v = (Visit) event.getButton().getData();
 		showOrAddDetailsWindow(v);
 	    });
-	    // detailsBtn.addStyleName("link");
 
 	    // Create the table row.
 	    table.addItem(new Object[] { patientFirstname, patientLastname, phoneNumber, street, zip, city, detailsBtn,
@@ -246,7 +244,7 @@ public class VisitsView extends HorizontalLayout implements View {
 	    HorizontalLayout hl = new HorizontalLayout();
 	    hl.setSizeUndefined();
 	    hl.setMargin(true);
-	    
+
 	    Set<VisitEvent> events = visit.getVisitEvents();
 
 	    Table table = new Table();
@@ -268,7 +266,7 @@ public class VisitsView extends HorizontalLayout implements View {
 		table.addItem(new Object[] { visit.getPatient().getFirstname(), visit.getPatient().getLastname(), date,
 			from, to }, visit.getId());
 	    });
-	    
+
 	    hl.addComponent(table);
 	    window.setContent(hl);
 	}
